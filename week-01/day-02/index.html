@@ -3,7 +3,50 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>HTML Layout</title>
   </head>
-  <body></body>
+
+  <body>
+    <header>
+      <h1>My Website</h1>
+    </header>
+
+    <nav>
+      <a href="#">Home</a>
+      <a href="#about">About</a>
+      <a href="#articles">Articles</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <main>
+      <section id="about">
+        <h2>About Me</h2>
+        <p>I am a Front-End Developer.</p>
+        <p>My salary is 100&yen;</p>
+        <p style="font-size: 3rem">I will display (&#8599;)</p>
+      </section>
+
+      <section id="articles">
+        <article>
+          <h2>HTML</h2>
+          <p>HTML is used to structure web pages.</p>
+        </article>
+
+        <article>
+          <h2>CSS</h2>
+          <p>CSS is used to style web pages.</p>
+        </article>
+      </section>
+
+      <aside>
+        <h3>Related Topics</h3>
+        <p>JavaScript</p>
+        <p>React</p>
+      </aside>
+    </main>
+
+    <footer id="contact">
+      <p>© 2026 My Website</p>
+    </footer>
+  </body>
 </html>
