@@ -6,8 +6,79 @@
     <title>Forms</title>
   </head>
   <body>
-    <h1 style="font-size: 2rem; color: black; text-align: center">Forms</h1>
-    <hr />
-    
+    <h1>Create Account</h1>
+    <form method="post" autocomplete="on" enctype="multipart/form-data">
+      <label for="Fname">Full Name</label>
+      <input
+        placeholder="enter your full name"
+        required
+        type="text"
+        name="Fname"
+        id="Fname"
+        minlength="3"
+        maxlength="20"
+      /><br /><br />
+
+      <label for="email">Email</label>
+      <input
+        placeholder="Enter Your Email"
+        required
+        type="email"
+        name="email"
+        id="email"
+      /><br /><br />
+
+      <label for="password">Password</label>
+      <input
+        placeholder="enter your password"
+        required
+        type="password"
+        name="password"
+        id="password"
+        minlength="8"
+      /><br /><br />
+
+      <label for="age">Age</label>
+      <input type="number" name="age" id="age" min="18" max="60" /><br /><br />
+
+      <hr />
+
+      <input type="radio" name="gender" id="male" value="male" />
+      <label for="male">Male</label>
+
+      <input type="radio" name="gender" id="female" value="Female" />
+      <label for="female">female</label>
+      <br /><br />
+      <!-- ******************************************** -->
+      <input name="skills" value="html" type="checkbox" id="html" />
+      <label for="html">Html</label>
+
+      <input name="skills" value="Js" type="checkbox" id="Js" />
+      <label for="Js">Js</label>
+
+      <input name="skills" value="Css" type="checkbox" id="Css" />
+      <label for="Css">Css</label>
+      <!-- ******************************************** -->
+      <br /><br />
+
+      <label for="country">Choose Country</label>
+      <select name="country" id="country">
+        <option value="egy">egypt</option>
+        <option value="england">england</option>
+        <option value="ger">germany</option>
+      </select>
+      <!-- ******************************************** -->
+      <br /><br />
+      <label for="bio">Enter Bio</label>
+      <textarea name="bio" id="bio" cols="30" rows="10"></textarea>
+      <!-- ******************************************** -->
+      <br /><br />
+      <label for="img">Profile Picture</label>
+      <input type="file" name="img" id="img" />
+      <br /><br />
+      <!-- ******************************************** -->
+      <input type="submit" value="submit" />
+      <input type="reset" value="reset" />
+    </form>
   </body>
 </html>
