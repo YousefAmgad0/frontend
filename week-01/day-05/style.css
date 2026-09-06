@@ -1,0 +1,41 @@
+/* .hero {
+  background-image: url();
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  } */
+
+* {
+  box-sizing: border-box;
+}
+.container {
+  width: 90%;
+  margin: 0 auto;
+  max-width: 75rem;
+}
+header {
+  color: red;
+  background-color: white;
+  padding: 2rem;
+  margin: 1.5rem;
+  border: 2px solid black;
+  border-radius: 1rem;
+}
+.card {
+  width: 100%;
+  max-width: 21.875rem;
+  padding: 2rem;
+  margin: 1.5rem;
+  border: 5px solid black;
+  border-radius: 1rem;
+  background-color: cadetblue;
+}
+button:hover {
+  background-color: #555;
+  color: white;
+  border: 2px solid cadetblue;
+}
+button:focus {
+  outline: 3px solid blue;
+}
