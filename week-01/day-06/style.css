@@ -1,0 +1,91 @@
+* {
+  box-sizing: border-box;
+}
+.clear-both {
+  clear: both;
+}
+img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.parent {
+  display: flow-root;
+  width: 90%;
+  margin: 0 auto;
+}
+.card {
+  width: calc((100% - 6rem) / 3);
+  float: left;
+  border: 0.5rem solid black;
+  background-color: #cc5588;
+  padding: 1rem;
+  text-align: center;
+  position: relative;
+  margin: 1rem;
+}
+.sale {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background-color: #cc8855;
+  padding: 1rem;
+  border-radius: 1rem;
+}
+.image {
+  position: relative;
+}
+/*  */
+.layer {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+.layer:hover {
+  opacity: 1;
+  background-color: #cc6600;
+}
+ul li {
+  list-style-type: none;
+}
+a {
+  text-decoration: none;
+}
+.floating-btn {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+}
+nav {
+  position: sticky;
+  top: 0;
+}
+
+input:checked + label {
+  color: green;
+  font-weight: bold;
+}
+
+input:checked + label::after {
+  content: " ✓";
+}
+
+.dropdown {
+  position: relative;
+}
+.content {
+  display: none;
+  background-color: #cc5588;
+  padding: 1rem;
+  margin: 0.3125rem;
+  max-width: 12rem;
+}
+.dropdown:hover .content {
+  display: block;
+}
+.content .active {
+  background-color: green;
+  color: white;
+  width: 50px;
+}
