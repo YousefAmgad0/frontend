@@ -1,0 +1,32 @@
+* {
+  box-sizing: border-box;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.card,
+.card2,
+.card3 {
+  padding: 1.5rem;
+  background-color: #6655ff;
+}
+.container2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+}
+.container3 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+@media (min-width: 768px) {
+  .container {
+    flex-direction: row;
+  }
+  .container3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
