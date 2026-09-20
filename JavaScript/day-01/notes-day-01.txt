@@ -1,0 +1,166 @@
+notes
+*********
+typeof null  >>>>>>>>> Object
+Number(""); // 0
+Number(null); // 0
+Number(undefined); // NaN
+Number("hello"); // NaN
+******************************************
+&& و || بيرجعوا values مش لازم Boolean.
+! وبيعامل القيمة كـ Boolean ثم يعكسها.
+Nullish ?? بتهتم فقط بـ: null , undefined
+
+*****************************************
+const age = Number(input.value); 
+والـ input فاضي، ممكن تاخد:
+0
+مش NaN.
+عشان كده في الـ real project لازم تعمل validation قبل أو مع التحويل.
+تستخدمها إمتى؟ (*)
+لما تاخد رقم من الـ user أو API لكنه جايك كـ String.
+******************************************
+parseInt()
+تستخدمها إمتى؟ (*)
+لما تكون عايز الجزء الصحيح Integer من قيمة ممكن يكون بعدها كلام أو decimal.
+typeof NaN;
+>>> number
+******************************************
+⭐ لو عايز تتأكد إن القيمة فعلًا NaN:
+const age = Number("hello");
+console.log(Number.isNaN(age)); // true
+******************************************
+ده من أهم استخدامات الموضوع: FORMS
+const ageInput = "22";
+const age = Number(ageInput);
+if (Number.isNaN(age)) {
+  console.log("Invalid age");
+} else {
+  console.log(age);
+}
+******************************************
+Number("10px"); // NaN
+parseInt("10px"); // 10
+******************************************
+Boolean("0"); // true
+Boolean(0);   // false
+Boolean([]); // true
+Boolean({}); // true
+******************************************
+Number("hello"); // NaN
+typeof NaN;      // "number"
+ولو عايز تختبر NaN:
+Number.isNaN(value)
+******************************************
+n *= expression;
+n *= 3 + 5; >>>> 16
+*******************************************
+Conditional operator ‘?’
+let accessAllowed;
+let age = prompt('How old are you?', '');
+
+if (age > 18) {
+  accessAllowed = true;
+} else {
+  accessAllowed = false;
+}
+ 			هي هي
+let result = condition ? value1 : value2;
+*****************************************
+(??) بيديك قيمة بديلة فقط لو القيمة الأصلية null أو undefined.
+(??) cares about null and undefined
+(||) cares about Falsy
+مثال من API:
+const user = {
+  name: "Yousef",
+  age: null
+};
+
+const age = user.age ?? 18;
+console.log(age); // 18
+
+Usage
+
+1. API Data >>> const name = user.name ?? "Unknown";
+2. Default values  >>> const limit = options.limit ?? 10;
+*******************************************
+**************	Function **************
+Parameter → variable موجود في تعريف الـFunction
+Argument → actual value بنبعتها وقت الاستدعاء
+
+يعني return ممكن يرجع:
+String
+Number
+Boolean
+Array
+Object
+Function
+أي JavaScript value
+********************************************
+Arrow Function 
+لو عايز ترجع Object مباشرة، استخدم parentheses:
+const getUser = () => ({
+  name: "Yousef"
+});
+********************************************
+فكره ال callback
+انا معايا فانكشن بتعمل حاجه معينه وهديك فانكشن تاني عايزك تنفذها بعج مالفانكشن الاوله تخلص شغلها
+
+function doSomething(callback) {
+    // اعمل أي شغل
+    console.log("Doing something...");
+
+    // لما تخلص
+    callback();
+}
+
+function showMessage() {
+    console.log("Done!");
+}
+doSomething(showMessage);
+
+function sendNotification() {
+    console.log("Notification sent!");
+}
+
+doSomething(sendNotification);
+
+مثال أقرب لشغلك كـ Front-End
+لما تدوس على Button:
+button.addEventListener("click", () => {
+    console.log("Button clicked");
+});
+"يا JavaScript، لما الـ user يعمل click، نفّذ الـ function دي."
+*************************************************************
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
