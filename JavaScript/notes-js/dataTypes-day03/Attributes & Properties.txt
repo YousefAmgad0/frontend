@@ -1,0 +1,83 @@
+Attributes & Properties
+----------------------
+Attribute: معلومة أو إعداد مكتوب في HTML Tag.
+
+Property: خاصية على كائن الـ DOM بتمكّن JavaScript من قراءة حالة العنصر أو تعديلها.
+
+<input id="username" value="Yousef">
+JavaScript اللي بيتعامل مع العنصر
+const input = document.querySelector("#username");
+console.log(input.id);    // "username"
+console.log(input.value); // "Yousef"
+
+لاحظ إن عندنا طريقتين للوصول للمعلومات المرتبطة بالعنصر:
+Attribute: معلومة مكتوبة في الـ HTML، زي id="username" وvalue="Yousef".
+Property: خاصية موجودة على الـ DOM object، بنوصل لها من JavaScript، زي input.id وinput.value
+
+----------------------------4. HTML Attributes----------------------
+خلينا نشوف ليه الفرق بين الاتنين مهم.
+
+<body id="page" something="hello">
+console.log(document.body.id);
+// "page"
+
+console.log(document.body.something);
+// undefined
+
+ليه؟
+
+id هو Attribute قياسي للـ HTML element، وله Property مقابلة.
+something هنا Attribute مخصص 
+ومفيش Property قياسية مقابلة ليه بالاسم ده.
+
+--------------------------------الأربع Methods اللي هنستخدمها : ---------------------------------
+hasAttribute(name) >>	هل الـ Attribute موجودة؟
+getAttribute(name) >>	هات قيمتها
+setAttribute(name, value) >> 	أضفها أو غيّر قيمتها
+removeAttribute(name) >>	احذفها.
+
+
+
+const inp = document.querySelector("input");
+inp.setAttribute('color', "red");
+
+--------------------------------6. الفرق العملي بين getAttribute() وProperty ------------------------------
+
+خلينا نستخدم input عشان المثال يبقى واضح:
+
+<input id="username" value="Yousef">
+const input = document.querySelector("#username");
+
+console.log(input.getAttribute("value")); // "Yousef"
+console.log(input.value);                 // "Yousef"
+
+في البداية الاتنين متساويين. لكن دلوقتي جرّب تغيّر القيمة الحالية:
+
+input.value = "Ahmed";
+
+وبعدين:
+
+console.log(input.value);                 // "Ahmed"
+console.log(input.getAttribute("value")); // "Yousef"
+
+
+ليه اختلفوا؟
+input.value بيمثل القيمة الحالية للـ input.
+getAttribute("value") بيقرأ القيمة المكتوبة في الـ HTML , اللي بتحدد القيمة الأصلية
+
+
+------------------------------4. data-* وdataset — الطريقة المفضلة للبيانات المخصصة-----------------------------
+بدل ما نخترع Attribute زي something="hello"
+فيه طريقة قياسية مخصصة للمطورين: data-*.
+
+
+تقدر تقرأها وتغيّرها باستخدام dataset:
+
+order.dataset.orderState = 'Done'
+console.log(order.dataset.orderState);
+
+
+*******
+HTML Attribute			JavaScript dataset
+data-order-state		dataset.orderState
+data-user-name			dataset.userName

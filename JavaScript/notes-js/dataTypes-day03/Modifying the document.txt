@@ -1,0 +1,66 @@
+Modifying the document
+-------------------------------------
+2. document.createElement()
+الميثود دي بتنشيء عنصر HTML جديد
+لكنها مش بتضيفه للصفحة تلقائيًا.
+
+const card = document.createElement("div");
+تخيّل إنك صنعت صندوق ولسه محطتوش في المكان المطلوب.
+نقدر نضيف له Class ومحتوى:
+card.className = "product-card";
+card.textContent = "Headphones";
+
+
+لسه العنصر مش ظاهر لأننا ما حطيناهوش في الـ DOM.
+3. append() — إضافة العنصر للصفحة
+document.body.append(card);
+دلوقتي العنصر بقى جزءًا من الصفحة وهيظهر فيه النص Headphones.
+
+الخطوات الثلاثة:
+1. Create
+document.createElement("div")
+إنشاء عنصر جديد.
+
+2. Configure
+card.className = "product-card"
+تجهيز العنصر بالـ Class والمحتوى والخصائص.
+
+3. Insert
+document.body.append(card)
+إضافة العنصر للـ DOM ليظهر في الصفحة.
+
+---------------
+remove() → يشيل العنصر.
+
+replaceWith() → يشيل العنصر ويحط مكانه المحتوى أو العنصر الجديد.
+
+const home = document.querySelector("#home");
+const newItem = document.createElement("li");
+newItem.textContent = "Dashboard";
+home.replaceWith(newItem);
+دلوقتي Dashboard هتحل محل Home في نفس المكان.
+
+const home = document.querySelector("#home");
+home.remove();   >>>>>>>	عنصر Home هيتشال من الصفحة
+مهم تعرف إن المتغير home لسه بيشاور على كائن العنصر 
+حتى بعد ما اتشال من الـ DOM
+يعني الحذف من الصفحة مش معناه إن المتغير اختفى.
+
+
+---------------------------------cloneNode()--------------------------------------------
+دي بتعمل نسخة من عنصر موجود بدل ما تنقله من مكانه.
+
+<ul id="menu">
+  <li id="home">Home</li>
+</ul>
+const home = document.querySelector("#home");
+const copy = home.cloneNode(true);
+document.querySelector("#menu").append(copy);
+الناتج هيكون عنصرين Home.
+
+الـ true معناها انسخ العنصر ومحتوياته وأبنائه
+أما cloneNode(false) فبتنسخ العنصر نفسه من غير الأبناء.
+
+خلي بالك: cloneNode() مش بتنسخ الـ Event Listeners اللي اتضافت باستخدام addEventListener()
+وممكن تعمل IDs مكررة
+لو نسخت عنصر عنده id من غير ما تغيّرها.

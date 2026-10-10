@@ -1,0 +1,71 @@
+اخر تعديل باذن الله
+
+🗓️ خطة JavaScript الجديدة — من Day 14 لحد React
+🔥 المرحلة الأولى — Objects & Data Handling
+Day	Topics
+Day 14	Map and Set
+Day 15	WeakMap and WeakSet + Object.keys, values, entries
+Day 16	Destructuring assignment
+Day 17	Date and time
+Day 18	JSON methods, toJSON
+
+كده نكون قفلنا الـ section اللي إنت بعته بالكامل.
+
+🔥 المرحلة الثانية — باقي JavaScript الأساسي
+Day	Topics
+Day 19	DOM basics
+Day 20	DOM navigation + searching elements + modifying elements
+Day 21	Events
+Day 22	Event delegation + bubbling + capturing
+Day 23	Forms + Form controls + Input handling
+Day 24	Promises
+Day 25	Async/Await + Error handling
+Day 26	Fetch + JSON + APIs
+Day 27	Modules
+Day 28	Scope + Closures
+🟡 المرحلة الثالثة — مهم قبل React / Interviews
+Day	Topics
+Day 29	Prototypes + Prototype chain
+Day 30	Classes + new + this
+Day 31	Final JavaScript Review
+Day 32	Practical JavaScript Project 🚀
+🎯 وبعد Day 32
+
+لو المشروع أثبت إنك قادر تعمل:
+
+API
+ ↓
+fetch
+ ↓
+Promise
+ ↓
+async / await
+ ↓
+JSON
+ ↓
+map / filter / reduce
+ ↓
+DOM
+ ↓
+Events
+ ↓
+UI
+
+ندخل React.
+
+والـ topics المتقدمة جدًا زي:
+
+Generators
+Proxies
+Reflect
+Decorators
+Property descriptors
+Metaprogramming
+
+⚪ مش هنعطل React عشانها؛ نأجلها لما بعد React.
+
+📌 أهم تعديل
+
+الخطة بقت Day 14 → Day 32 بدل ما نحشر JavaScript في 8–10 أيام.
+
+وده أحسن ليك لأنك عايز تقفل كل Topic صح: شرح → أمثلة → تمارين JavaScript.info → Work Usage → Tricks → Mistakes → Best Practice → Interview → Summary.

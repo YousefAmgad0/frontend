@@ -1,0 +1,226 @@
+Destructuring
+***********
+Destructuring = إنك تطلع القيم اللي محتاجها من Array أو Object وتحطها مباشرة في Variables.
+
+بدل ما تعمل:
+
+const user = {
+  name: "Yousef",
+  age: 23
+};
+
+const name = user.name;
+const age = user.age;
+
+تقدر تعمل:
+const user = {
+  name: "Yousef",
+  age: 23
+};
+
+const { name, age } = user;
+
+----------------------------------2. Array Destructuring 🔥----------------------------------------------
+عندنا:
+
+const arr = ["John", "Smith"];
+
+const [firstName, surname] = arr;
+
+console.log(firstName); // John
+console.log(surname);   // Smith
+
+firstName = arr[0];
+surname = arr[1];
+
+وده تقريبًا الشكل المختصر لنفس الفكرة.
+
+----------------------------------------5. Ignore Elements 🔥-----------------------------------
+
+لو مش محتاج عنصر معين، تقدر تتجاهله باستخدام comma:
+
+const [firstName, , title] = [
+  "Julius",
+  "Caesar",
+  "Consul"
+];
+
+console.log(firstName); // Julius
+console.log(title);     // Consul
+
+يعني:
+
+Index 0 → firstName
+Index 1 → تجاهله
+Index 2 → title
+
+وده مفيد لما يكون عندك Array فيها بيانات كتير وأنت محتاج جزء منها فقط.
+
+--------------------8. Object.entries() + Destructuring 🔥🔥----------------------------------------
+
+وده مهم جدًا لأننا أخدنا Object.entries() امبارح.
+
+عندنا:
+
+const user = {
+  name: "John",
+  age: 30
+};
+
+ممكن نعمل:
+
+for (const [key, value] of Object.entries(user)) {
+  console.log(key, value);
+}
+
+Object.entries(user) بتطلع:
+
+[
+  ["name", "John"],
+  ["age", 30]
+]
+
+فكل iteration عندنا:
+
+["name", "John"]
+
+والـ destructuring:
+
+[key, value]
+
+فتصبح:
+
+key   = "name"
+value = "John"
+ثم:
+key   = "age"
+value = 30
+وده Pattern مهم جدًا في الشغل.
+
+------------------------------------10. Swap Variables 🔥---------------------------------------------
+
+من أشهر Tricks في JavaScript:
+
+let guest = "Jane";
+let admin = "Pete";
+
+[guest, admin] = [admin, guest];
+
+console.log(guest); // Pete
+console.log(admin); // Jane
+
+بدل الطريقة القديمة:
+
+const temp = guest;
+guest = admin;
+admin = temp;
+
+الـ destructuring بيعملها مباشرة.
+
+احفظ الـ Pattern:
+[a, b] = [b, a];
+
+--------------------------------------------11. Rest ... 🔥--------------------------------------------
+
+لو عندك:
+
+const names = [
+  "Julius",
+  "Caesar",
+  "Consul",
+  "Roman Republic"
+];
+
+وعايز أول اتنين والباقي كله في Array:
+
+const [name1, name2, ...rest] = names;
+
+console.log(name1); // Julius
+console.log(name2); // Caesar
+console.log(rest);
+
+النتيجة:
+
+["Consul", "Roman Republic"]
+القاعدة 🔥
+const [first, second, ...rest] = array;
+first → أول عنصر
+second → ثاني عنصر
+rest → باقي العناصر كـ Array
+
+والـ rest لازم يكون آخر حاجة.
+
+
+-----------------------------------13. Object Destructuring 🔥🔥🔥---------------------------------
+وده أهم جزء عمليًا.
+const options = {
+  title: "Menu",
+  width: 100,
+  height: 200
+};
+
+const { title, width, height } = options;
+
+console.log(title);  // Menu
+console.log(width);  // 100
+console.log(height); // 200
+
+-------------------------------14. Rename Variables أثناء Destructuring 🔥----------------------------------
+
+دي مهمة جدًا.
+
+عندك:
+
+const user = {
+  name: "Yousef",
+  age: 23
+};
+
+وعايز property اسمها name تتحط في Variable اسمها userName.
+
+تعمل:
+
+const { name: userName, age } = user;
+
+console.log(userName); // Yousef
+console.log(age);      // 23
+
+-----------------------------------18. Nested Destructuring 🟡-----------------------------------
+const options = {
+  size: {
+    width: 100,
+    height: 200
+  },
+  items: ["Cake", "Donut"]
+};
+
+ممكن:
+
+const {
+  size: {
+    width,
+    height
+  },
+  items: [item1, item2]
+} = options;
+
+console.log(width);  // 100
+console.log(height); // 200
+console.log(item1);  // Cake
+console.log(item2);  // Donut
+
+-----------------------------------19. Smart Function Parameters 🔥🔥🔥---------------------------------
+
+function showUser({ name = "Guest" } = {}) {
+  console.log(name);
+}
+
+الـ = {} هنا يحميك لو استدعيت:
+
+showUser();
+********************************************************************************************************
+
+
+
+
+

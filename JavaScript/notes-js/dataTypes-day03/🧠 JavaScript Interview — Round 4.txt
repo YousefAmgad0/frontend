@@ -1,0 +1,839 @@
+🧠 JavaScript Interview — Round 4
+
+JSON → localStorage → toJSON → Replacer/Reviver → Practical Front-End Questions → Final Traps
+
+🔥 Part 1 — JSON
+Q64 — What is JSON?
+🎯 Interview Answer
+
+JSON stands for JavaScript Object Notation. It is a text-based data format commonly used for exchanging data between a client and a server.
+
+بالمصري
+
+الـ JSON مش JavaScript Object نفسه.
+
+هو String format بيستخدم غالبًا في التواصل بين:
+
+Frontend ↔ API ↔ Backend
+
+مثال:
+
+{
+  "name": "Yousef",
+  "age": 23
+}
+🔥 Q65 — What's the difference between a JavaScript Object and JSON?
+JavaScript Object:
+const user = {
+  name: "Yousef",
+  age: 23
+};
+JSON:
+const json = `{
+  "name": "Yousef",
+  "age": 23
+}`;
+
+الـ JSON عبارة عن String.
+
+typeof user;
+// "object"
+
+typeof json;
+// "string"
+🎯 Interview Answer
+
+A JavaScript object is an actual JavaScript value, while JSON is a string format used to represent data.
+
+🔥 Q66 — What does JSON.stringify() do?
+🎯 Interview Answer
+
+JSON.stringify() converts a JavaScript value into a JSON string.
+
+const user = {
+  name: "Yousef",
+  age: 23
+};
+
+const json = JSON.stringify(user);
+
+النتيجة:
+
+'{"name":"Yousef","age":23}'
+🧠 احفظ:
+JS Value
+   ↓
+JSON.stringify()
+   ↓
+JSON String
+🔥 Q67 — What does JSON.parse() do?
+
+العكس:
+
+const json = '{"name":"Yousef","age":23}';
+
+const user = JSON.parse(json);
+🎯 Interview Answer
+
+JSON.parse() converts a valid JSON string into a JavaScript value.
+
+JSON String
+    ↓
+JSON.parse()
+    ↓
+JS Value
+🔥 Q68 — What's the difference between stringify and parse?
+Method	From	To
+JSON.stringify()	JS Value	JSON String
+JSON.parse()	JSON String	JS Value
+🧠 قاعدة Interview
+stringify → Stringify it
+parse     → Parse the String
+🔥 Q69 — What happens if JSON is invalid?
+JSON.parse("{name: 'Yousef'}");
+
+❌ Error.
+
+لأن JSON لازم يستخدم:
+
+Double Quotes
+
+مش:
+
+Single Quotes
+🎯 Interview Answer
+
+JSON.parse() throws a SyntaxError if the JSON string is invalid.
+
+🔥 Q70 — Can JSON store functions?
+
+❌ No.
+
+مثال:
+
+const user = {
+  name: "Yousef",
+  sayHello() {
+    console.log("Hello");
+  }
+};
+
+لو:
+
+JSON.stringify(user);
+
+الـ function مش هتتمثل كـ JSON value.
+
+JSON supports:
+String
+Number
+Boolean
+Null
+Object
+Array
+❌ Doesn't support as JSON values:
+Function
+undefined
+Symbol
+🔥 Q71 — What happens to undefined during JSON.stringify?
+
+مثال:
+
+const user = {
+  name: "Yousef",
+  age: undefined
+};
+
+JSON.stringify(user);
+
+الناتج:
+
+{"name":"Yousef"}
+
+الـ undefined property بتتشال.
+
+⚠️ وفي Arrays السلوك مختلف:
+
+JSON.stringify([1, undefined, 3]);
+
+الناتج:
+
+[1,null,3]
+
+دي Trap مشهورة.
+
+🔥 Q72 — Can JSON represent a Date object?
+
+مش كـ Date object.
+
+مثال:
+
+const user = {
+  createdAt: new Date()
+};
+
+const json = JSON.stringify(user);
+
+الـ Date هتتحول إلى ISO string.
+
+مثلاً:
+
+{
+  "createdAt": "2026-09-29T12:00:00.000Z"
+}
+ليه؟
+
+لأن Date عنده built-in:
+
+toJSON()
+🟡 Q73 — What is toJSON()?
+🎯 Interview Answer
+
+toJSON() allows an object to define the value that should be serialized by JSON.stringify().
+
+مثال:
+
+const user = {
+  name: "Yousef",
+
+  toJSON() {
+    return this.name;
+  }
+};
+
+JSON.stringify(user);
+
+الناتج:
+
+"Yousef"
+🧠 الفكرة
+
+JSON.stringify() بيشوف إن object عنده:
+
+toJSON()
+
+فيستخدم القيمة اللي بترجعها.
+
+🟡 Q74 — What is the replacer parameter in JSON.stringify()?
+
+عندك:
+
+JSON.stringify(value, replacer);
+
+الـ replacer يسمح لك تتحكم في إيه اللي هيتعمله serialize.
+
+مثال Function:
+const user = {
+  name: "Yousef",
+  age: 23,
+  password: "123456"
+};
+
+const json = JSON.stringify(user, (key, value) => {
+  if (key === "password") {
+    return undefined;
+  }
+
+  return value;
+});
+
+الـ password هيتشال.
+
+🎯 Interview Answer
+
+The replacer allows us to filter or transform values during JSON serialization.
+
+🟡 Q75 — Can replacer be an Array?
+
+Yes.
+
+const user = {
+  name: "Yousef",
+  age: 23,
+  email: "test@example.com"
+};
+
+JSON.stringify(user, ["name", "age"]);
+
+هيحتفظ بالـ properties المحددة.
+
+🧠
+Replacer Function
+→ filter/transform
+
+Replacer Array
+→ whitelist properties
+🟡 Q76 — What is the reviver in JSON.parse()?
+
+عكس الـ replacer تقريبًا.
+
+JSON.parse(json, reviver);
+
+مثال:
+
+const json = '{"name":"Yousef","age":23}';
+
+const user = JSON.parse(json, (key, value) => {
+  if (key === "age") {
+    return value + 1;
+  }
+
+  return value;
+});
+
+الناتج:
+
+{
+  name: "Yousef",
+  age: 24
+}
+🎯 Interview Answer
+
+The reviver function allows us to transform or filter values while parsing JSON.
+
+🔥 Q77 — Replacer vs Reviver?
+	Replacer	Reviver
+Method	JSON.stringify	JSON.parse
+Direction	JS → JSON	JSON → JS
+Purpose	Filter/transform	Transform/filter
+🧠
+stringify → replacer
+parse     → reviver
+🔥 Part 2 — localStorage
+Q78 — What is localStorage?
+🎯 Interview Answer
+
+localStorage is a browser storage mechanism that allows us to store data as key-value pairs, and the data persists after the browser is closed.
+
+مثال:
+
+localStorage.setItem("name", "Yousef");
+
+وبعدين:
+
+const name = localStorage.getItem("name");
+🔥 Q79 — Does localStorage store JavaScript objects directly?
+
+❌ No.
+
+localStorage stores values as strings.
+
+لذلك:
+
+const user = {
+  name: "Yousef",
+  age: 23
+};
+
+localStorage.setItem("user", JSON.stringify(user));
+
+ولما نرجعه:
+
+const savedUser = localStorage.getItem("user");
+
+const user = savedUser
+  ? JSON.parse(savedUser)
+  : null;
+🔥 احفظها
+Object
+ ↓
+JSON.stringify()
+ ↓
+localStorage
+
+localStorage
+ ↓
+JSON.parse()
+ ↓
+Object
+🔥 Q80 — getItem() returns what if the key doesn't exist?
+localStorage.getItem("user");
+
+لو مفيش key:
+
+null
+
+مش:
+
+undefined
+
+🔥 دي Trap كويسة.
+
+🔥 Q81 — What's the difference between localStorage and sessionStorage?
+	localStorage	sessionStorage
+Persistence	يستمر	ينتهي مع session/tab
+Closing browser	البيانات تفضل	البيانات لا تستمر بنفس الشكل
+API	setItem/getItem	setItem/getItem
+🎯 Interview Answer
+
+localStorage persists data across browser sessions, while sessionStorage is intended for data associated with the current browser session.
+
+🔥 Q82 — What are common uses of localStorage?
+
+أمثلة:
+
+Theme preference
+Language preference
+Simple UI settings
+Non-sensitive client-side state
+Draft data
+
+مثلاً:
+
+localStorage.setItem("theme", "dark");
+⚠️ Q83 — Should we store passwords or sensitive tokens in localStorage?
+
+دي نقطة مهمة جدًا.
+
+في Interview:
+
+I avoid storing highly sensitive information in localStorage because JavaScript running on the page can access it, which can increase the impact of XSS vulnerabilities.
+
+يعني ما تقولش:
+
+localStorage is secure.
+
+❌ غلط.
+
+⭐ الأفضل
+
+في authentication، غالبًا بنستخدم آليات أكثر أمانًا حسب architecture، مثل HttpOnly Secure cookies للـ sensitive session credentials.
+
+🔥 Part 3 — Practical Front-End Questions
+Q84 — How would you transform API data before rendering it?
+
+مثلاً API رجع:
+
+const products = [
+  {
+    id: 1,
+    title: " Phone ",
+    price: "10000",
+    stock: "5"
+  }
+];
+
+نقدر:
+
+const cleanedProducts = products.map(product => ({
+  ...product,
+  title: product.title.trim(),
+  price: Number(product.price),
+  stock: Number(product.stock)
+}));
+🎯 Interview Answer
+
+I usually normalize API data before using it in the UI, such as converting types, trimming strings, and creating a predictable data structure.
+
+🔥 ده Real Front-End work جدًا.
+
+🔥 Q85 — How would you get expensive products and return only their titles?
+const expensiveProducts = products
+  .filter(product => product.price > 15000)
+  .map(product => product.title);
+Interview Explanation:
+filter
+→ select
+
+map
+→ transform
+⭐ Best Practice
+
+لو عايز فلترة ثم تحويل:
+
+filter → map
+
+مش العكس غالبًا.
+
+🔥 Q86 — How would you calculate a total from an array?
+const total = products.reduce((sum, product) => {
+  return sum + product.price;
+}, 0);
+🎯 Interview Answer
+
+I would use reduce() because I need to aggregate multiple array values into a single result.
+
+🔥 Q87 — How would you remove duplicate values?
+const uniqueCategories = [...new Set(categories)];
+Interview Answer:
+
+I can use a Set because it stores unique values, then spread it back into an array.
+
+🔥 Q88 — How would you group products by category?
+const groupedProducts = products.reduce((result, product) => {
+  if (!result[product.category]) {
+    result[product.category] = [];
+  }
+
+  result[product.category].push(product);
+
+  return result;
+}, {});
+
+الناتج:
+
+{
+  Electronics: [...],
+  Furniture: [...]
+}
+
+🔥 دي من الأسئلة اللي ممكن فعلًا تتسأل في practical interview.
+
+🔥 Q89 — How would you find the newest product?
+const newestProduct = products.reduce((newest, product) => {
+  return new Date(product.createdAt) >
+    new Date(newest.createdAt)
+    ? product
+    : newest;
+});
+ليه reduce؟
+
+لأننا بندور على one final result.
+
+🔥 Q90 — How would you safely parse API JSON?
+
+في Fetch:
+
+const response = await fetch("/api/products");
+
+const data = await response.json();
+
+لكن في production-style code مهم تتأكد من HTTP status:
+
+if (!response.ok) {
+  throw new Error("Failed to fetch products");
+}
+
+const data = await response.json();
+🔥 Q91 — What's the difference between response.json() and JSON.parse()?
+
+دي مهمة جدًا.
+
+JSON.parse()
+
+بياخد:
+
+JSON String
+
+ويرجعه:
+
+JavaScript Value
+response.json()
+
+بيتعامل مع:
+
+Fetch Response Body
+
+ويقرأ الـ body ويحوّله للـ JavaScript value.
+
+🎯 Interview Answer
+
+JSON.parse() parses a JSON string, while response.json() reads and parses the response body returned by Fetch.
+
+🔥 ما تقولش إن response.json() بياخد JSON string مباشرة.
+
+🔥 Q92 — What is the correct way to handle API errors?
+
+مثال قوي جدًا:
+
+async function getProducts() {
+  try {
+    const response = await fetch("/api/products");
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch products");
+    }
+
+    const products = await response.json();
+
+    return products;
+  } catch (error) {
+    console.error(error);
+  }
+}
+Interview Answer
+
+I use try...catch for runtime or network errors, and I also check response.ok because Fetch does not automatically reject the promise for HTTP errors like 404 or 500.
+
+🔥 دي من أهم النقاط اللي لازم تفضل فاكرها قبل React.
+
+🔥 Part 4 — Final Traps
+Q93 — Does map() mutate the original array?
+
+في الطبيعي:
+
+const result = arr.map(...)
+
+map() بيعمل Array جديدة.
+
+لكن ⚠️ لو بتعدل nested objects بنفسك داخل callback، ممكن تغير object الأصلي.
+
+مثال:
+
+arr.map(item => {
+  item.price = 100;
+  return item;
+});
+
+هنا أنت فعليًا mutated objects.
+
+⭐ Preferred:
+const result = arr.map(item => ({
+  ...item,
+  price: 100
+}));
+Q94 — Does filter() mutate the original array?
+
+filter() نفسه لا يغير الـ Array الأصلية.
+
+لكن نفس قاعدة الـ nested objects تنطبق.
+
+Q95 — Does sort() mutate the original array?
+
+🔥 Yes.
+
+arr.sort();
+
+بيغير arr.
+
+⭐ لو عايز نسخة:
+const sorted = [...arr].sort((a, b) => a.price - b.price);
+Q96 — What's the difference between shallow copy and deep copy?
+Shallow:
+const copy = { ...user };
+
+الـ top-level properties اتنسخت، لكن nested objects ممكن تشترك في نفس reference.
+
+Deep Copy
+
+ينشئ نسخة مستقلة للـ nested structure أيضًا.
+
+من الطرق الحديثة:
+
+const copy = structuredClone(user);
+🎯 Interview Answer
+
+A shallow copy duplicates the top-level structure but keeps references to nested objects, while a deep copy recursively creates independent nested values.
+
+⚠️ مش لازم تستخدم JSON.parse(JSON.stringify()) كحل عام للـ deep clone؛ له limitations.
+
+🔥 Q97 — What is the difference between null and undefined in API data?
+undefined
+
+غالبًا معناها:
+
+value isn't provided / doesn't exist as a property.
+
+null
+
+غالبًا معناها:
+
+the value is intentionally empty or absent.
+
+مثال API:
+
+{
+  "name": "Yousef",
+  "profileImage": null
+}
+
+يعني الـ API عنده profileImage لكن مفيش صورة حاليًا.
+
+🔥 Q98 — What's the difference between || and ???
+const username = value || "Guest";
+
+|| يعتبر values دي falsy:
+
+false
+0
+""
+null
+undefined
+NaN
+
+أما:
+
+const username = value ?? "Guest";
+
+بيتعامل فقط مع:
+
+null
+undefined
+⭐ Real Example
+
+لو:
+
+const quantity = 0;
+
+فـ:
+
+quantity || 1
+
+→ 1 ❌
+
+لكن:
+
+quantity ?? 1
+
+→ 0 ✅
+
+🔥 Q99 — What is Optional Chaining?
+user?.profile?.image
+
+معناها:
+
+حاول توصل للـ property، ولو اللي قبل ?. null/undefined رجع undefined بدل ما ترمي error.
+
+مهم جدًا مع API data:
+
+product?.category?.name
+🔥 Q100 — What's the preferred way to update data without mutation?
+
+مثلاً:
+
+const product = {
+  id: 1,
+  title: "Phone",
+  price: 10000
+};
+
+بدل:
+
+product.price = 12000;
+
+نقدر:
+
+const updatedProduct = {
+  ...product,
+  price: 12000
+};
+🎯 Interview Answer
+
+When immutability is important, I create a new object or array instead of mutating the existing data.
+
+🔥 وده مهم جدًا لما تدخل React.
+
+🏆 Round 4 — Final Memorization Sheet
+JSON
+→ text-based data format
+
+JSON.stringify()
+→ JS Value → JSON String
+
+JSON.parse()
+→ JSON String → JS Value
+
+toJSON()
+→ controls how an object is serialized
+
+replacer
+→ stringify filtering/transformation
+
+reviver
+→ parse transformation/filtering
+
+localStorage
+→ persistent key-value browser storage
+
+localStorage values
+→ strings
+
+set object
+→ JSON.stringify()
+
+get object
+→ JSON.parse()
+
+getItem(missing key)
+→ null
+
+response.json()
+→ reads + parses Fetch response body
+
+JSON.parse()
+→ parses a JSON string
+
+Date
+→ mutable
+
+Date.now()
+→ timestamp number
+
+getTime()
+→ timestamp
+
+toISOString()
+→ ISO string
+
+map
+→ transform
+
+filter
+→ select
+
+reduce
+→ one final result
+
+Set
+→ unique values
+
+Map
+→ key-value relationships
+
+Object
+→ structured data
+
+Spread
+→ expand / shallow copy
+
+Rest
+→ collect
+
+Iterable
+→ works with for...of
+
+Object
+→ not iterable by default
+
+sort
+→ mutates
+
+[...arr].sort()
+→ non-mutating sorting
+
+|| 
+→ falsy fallback
+
+??
+→ null/undefined fallback
+
+?.
+→ safe property access
+🔥 أهم 15 سؤال قبل الـ DOM
+
+لو هتراجع بسرعة قبل Interview، دول أهمهم:
+
+map vs filter vs reduce
+reduce + accumulator + initial value
+Object vs Map
+Set واستخدامه في إزالة duplicates
+Spread vs Rest
+Shallow Copy
+Destructuring
+Iterable vs Iterator
+new Date() vs Date.now()
+getTime() vs toISOString()
+JSON.stringify() vs JSON.parse()
+response.json() vs JSON.parse()
+localStorage + JSON
+sort() mutation
+|| vs ?? + Optional Chaining
+🏁 كده إيه الوضع؟
+
+أنت دلوقتي غطيت بشكل فعلي قبل الـ DOM:
+
+Fundamentals → Objects → Arrays → Array Methods → Iterables → Map/Set → WeakMap/WeakSet → Destructuring → Date → JSON → Practical Data Transformation → Interview Bank
+
+والـ 4 Rounds خلصوا ✅
+
+لكن قبل ما أقول لك "جاهز DOM" بشكل نهائي، الأفضل نعمل Final Interview Simulation: أسألك أسئلة عشوائية من كل الـ 4 Rounds من غير ما أقول لك الموضوع، وإنت تجاوب كأنك في Interview. وبعدها أديك JS Interview Readiness Verdict ونشوف بالضبط أي نقطة محتاجة تقوية.

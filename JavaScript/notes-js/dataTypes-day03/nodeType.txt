@@ -1,0 +1,122 @@
+nodeType
+
+يعرفك نوع الـ Node.
+
+nodeName
+
+يعرفك اسم الـ Node، وينفع مع كل أنواع الـ Nodes.
+
+tagName
+
+يعرفك اسم الـ HTML tag، وبالتالي خاص بالـ Elements.
+
+Every Element is a Node, but not every Node is an Element.
+
+------------4️⃣ innerHTML — محتوى الـ Element------------
+<div id="box">
+  <h2>Hello</h2>
+  <p>Welcome</p>
+</div>
+const box = document.querySelector("#box");
+console.log(box.innerHTML);
+
+الناتج هيكون تقريبًا:
+<h2>Hello</h2>
+<p>Welcome</p>
+
+box.innerHTML = "<h2>Hello Yousef</h2>";
+
+الـ DOM هيبقى:
+<div id="box">
+  <h2>Hello Yousef</h2>
+</div>
+
+يعني assignment لـ innerHTML بيغير المحتوى الداخلي للعنصر.
+
+دي من أهم نقاط الصفحة:
+box.innerHTML += "<p>Hello</p>";
+
+1. اقرأ الـ HTML القديم
+        ↓
+2. ضيف عليه الـ HTML الجديد
+        ↓
+3. امسح المحتوى القديم
+        ↓
+4. اكتب الـ HTML كله من جديد
+
+ودي مش احسن طريقه هنبقي نتعلم الاحسن بعد كده
+
+---------------------5️⃣ outerHTML-----------------------
+لو innerHTML هو:
+"هات اللي جوه العنصر"
+
+فـ outerHTML هو:
+"هات العنصر نفسه + كل اللي جواه."
+
+innerHTML
+→ سيب العلبة وغيّر اللي جواها
+
+outerHTML
+→ بدّل العلبة نفسها
+
+<div id="box">
+  Hello
+</div>
+box.outerHTML = "<p>Bye</p>";
+
+DOM
+ │
+ └── <p>Bye</p>
+
+box
+ ↓
+<ـdiv> Hello </div>
+
+يعني box بقى بيشير لـ عنصر قديم اتشال من الصفحة.
+
+------------7️⃣ textContent 🔥🔥---------------
+ بتجيب النص الموجود داخل العنصر بدون الـ HTML tags.
+مثلاً:
+
+<div id="news">
+  <h1>Headline!</h1>
+  <p>Martians attack people!</p>
+</div>
+console.log(news.textContent);
+
+هتاخد النص:
+
+Headline!
+Martians attack people!
+
+-------------------innerHTML vs textContent-------------
+innerHTML
+box.innerHTML = "<b>Hello</b>";
+
+المتصفح يفهم:
+<b>Hello</b>
+فتظهر:	Hello
+
+textContent
+box.textContent = "<b>Hello</b>";
+المتصفح يعتبر كل حاجة Text.
+فتظهر حرفيًا: 		<b>Hello</b>
+
+-----------9️⃣ More Properties--------------
+كل نوع Element , ممكن يكون عنده properties خاصة بيه
+
+<input>
+<input
+  type="text"
+  id="username"
+  value="Yousef"
+>
+
+ممكن:
+username.type;
+username.id;
+username.value;
+فتاخد:
+"text"
+"username"
+"Yousef"

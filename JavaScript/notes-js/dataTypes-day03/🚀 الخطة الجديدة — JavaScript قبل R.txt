@@ -1,0 +1,370 @@
+🚀 الخطة الجديدة — JavaScript قبل React
+المرحلة 1 — JavaScript Core
+
+دي خلصناها بالفعل:
+
+✅ Day 8 — Fundamentals
+✅ Day 9 — Objects
+✅ Day 10 — Methods of Primitives + Numbers + Strings
+✅ Day 11 — Arrays
+✅ Day 12 — Array Methods
+✅ Day 13 — Iterables
+✅ Day 14 — Map & Set
+✅ Day 15 — WeakMap/WeakSet + Object.keys/values/entries
+✅ Day 16 — Destructuring
+✅ Day 17 — Date & Time
+✅ Day 18 — JSON + toJSON
+المرحلة 2 — DOM كاملة 🔥
+
+بدل ما نقفل Document عند أول 4 صفحات، هناخد كل الـ 11 Topics الموجودة في JavaScript.info.
+
+Day 19 — DOM Basics
+Browser environment
+DOM tree
+Walking the DOM
+
+
+
+Day 20 — Searching Elements
+getElementById
+querySelector
+querySelectorAll
+matches
+closest
+getElementsBy*
+Live collections
+contains
+
+
+
+Day 21 — Node Properties
+nodeType
+nodeName
+tagName
+innerHTML
+outerHTML
+nodeValue
+textContent
+hidden
+
+🔥 هنا لازم نفهم الفرق بينهم عمليًا، خصوصًا innerHTML vs textContent.
+
+Day 22 — Attributes & Properties
+HTML attributes
+DOM properties
+getAttribute
+setAttribute
+hasAttribute
+removeAttribute
+Property ↔ Attribute relationship
+Boolean attributes
+Custom attributes / data-*
+
+🔥 Topic مهم جدًا.
+
+Day 23 — Modifying the Document
+Creating elements
+createElement
+append
+prepend
+before
+after
+replaceWith
+remove
+cloneNode
+Document fragments
+Old methods وفهمها
+
+🔥🔥 ده من أهم Topics الـ DOM.
+
+Day 24 — Styles & Classes
+className
+classList
+add
+remove
+toggle
+contains
+style
+style.cssText
+getComputedStyle
+
+🔥🔥 مهم جدًا في الشغل.
+
+Day 25 — Element Size & Scrolling
+offsetWidth/Height
+clientWidth/Height
+scrollWidth/Height
+scrollTop/scrollLeft
+فهم الـ box model والـ dimensions
+Day 26 — Window Size & Scrolling
+window.innerWidth
+innerHeight
+documentElement.clientWidth
+scrollX
+scrollY
+scrollTo
+scrollBy
+scrolling عمليًا
+Day 27 — Coordinates
+getBoundingClientRect
+Viewport coordinates
+Document coordinates
+positioning calculations
+الاستخدامات العملية: tooltip / popup / dropdown
+
+🟡 هنفهمه كويس، لكن مش هنضيّع وقت في تفاصيل قليلة الاستخدام.
+
+المرحلة 3 — Events 🔥🔥
+
+وهنا React هيستفيد جدًا من الأساس ده.
+
+Day 28 — Events
+Event basics
+addEventListener
+event object
+common events
+mouse events
+keyboard events
+browser events
+
+Day 29 — Event Delegation
+Bubbling
+Capturing
+target
+currentTarget
+Event delegation
+stopPropagation
+preventDefault
+
+🔥🔥🔥 من أهم أيام JavaScript للـ Front-End.
+
+Day 30 — Forms
+Form controls
+input
+change
+submit
+focus
+blur
+Reading values
+Validation
+Preventing default form submission
+Day 31 — Advanced Form Handling
+Different input types
+checkbox / radio / select
+FormData
+Input handling patterns
+Practical form project
+المرحلة 4 — Async JavaScript 🔥🔥🔥
+
+دي لازم تكون قوية جدًا قبل React.
+
+Day 32 — Promises
+Promise concept
+states
+then
+catch
+finally
+chaining
+errors
+Day 33 — Promise APIs
+Promise.all
+Promise.allSettled
+Promise.race
+Promise.any
+Day 34 — Async/Await
+async
+await
+error handling
+try/catch
+async flow
+Day 35 — Fetch
+fetch
+Request / Response
+response.json()
+HTTP basics
+status codes
+handling errors
+GET / POST
+Day 36 — APIs + Practical Project
+
+هنعمل API-based mini project ونطبق:
+
+fetch
+→ response
+→ JSON
+→ async/await
+→ loading
+→ error
+→ render data
+
+🔥 ده هيكون جسر ممتاز لـ React.
+
+المرحلة 5 — JavaScript Architecture 🔥
+Day 37 — Modules
+export
+import
+default/named exports
+module scope
+practical organization
+Day 38 — Scope & Closures
+Lexical Environment
+Scope
+Nested functions
+Closures
+Practical use cases
+
+🔥🔥 مهم جدًا للـ interviews وللفهم الحقيقي.
+
+Day 39 — Prototypes
+Prototype
+Prototype chain
+__proto__
+Object.create
+inheritance model
+Day 40 — Classes
+class
+constructor
+methods
+inheritance
+extends
+super
+new
+this
+المرحلة 6 — JavaScript Mastery 🔥🔥🔥
+
+هنا مش هنضيف معلومات عشوائية؛ هنثبت اللي اتعلمناه.
+
+Day 41 — JavaScript Review
+
+مراجعة شاملة:
+
+Data Types
+↓
+Objects
+↓
+Arrays
+↓
+Functions
+↓
+this
+↓
+DOM
+↓
+Events
+↓
+Forms
+↓
+Promises
+↓
+Async/Await
+↓
+Fetch
+↓
+Modules
+↓
+Closures
+↓
+Prototypes
+↓
+Classes
+Day 42 — Practical JavaScript Project
+
+مش مجرد تمارين صغيرة.
+
+هنعمل Project فيه:
+
+DOM
+Events
+Forms
+Validation
+API
+Async/Await
+Loading state
+Error handling
+LocalStorage/JSON
+Modules
+UI manipulation
+
+وبعده نعمل Code Review ونشوف:
+
+أنت بتكتب ليه بالطريقة دي؟
+هل فيه Best Practice أحسن؟
+هل الكود قابل للتوسع؟
+هل فيه bugs؟
+هل فيه code smells؟
+🟢 وبعد كده React
+
+يعني بدل ما ندخل React بعد Day 30/32 بشكل مستعجل، هنبدأ React بعد Day 42 تقريبًا.
+
+وده في رأيي أفضل بكتير ليك.
+
+لأن لما تشوف:
+
+{users.map(user => ...)}
+
+مش هتقول:
+
+هو map دي بتعمل إيه؟
+
+أنت أصلًا هتكون فاهمها.
+
+ولما تشوف:
+
+const [users, setUsers] = useState([]);
+
+هتكون فاهم:
+
+arrays
+objects
+destructuring
+functions
+closures
+async
+APIs
+
+ولما تشوف:
+
+useEffect(() => {
+    fetchUsers();
+}, []);
+
+هتكون فاهم أصلًا:
+
+Promises
+async/await
+fetch
+event loop بشكل عملي
+API handling
+
+ولما تشوف:
+
+onClick={handleClick}
+
+هتكون فاهم Events وFunctions وCallbacks.
+
+وده بالضبط الهدف من إننا نطوّل JavaScript شوية.
+
+🎯 والـ Front-End Roadmap الكبيرة تفضل زي ما هي
+HTML              ✅
+   ↓
+CSS               ✅
+   ↓
+JavaScript        🔥 نحن هنا
+   ↓
+React             ⏭️
+   ↓
+Next.js           ⏭️
+   ↓
+Large Project     ⏭️
+   ↓
+Job Preparation   ⏭️
+
+والـ 60 يوم الأصلية مش هتبقى قيد علينا.
+
+لو احتجنا 42 يوم JavaScript بدل 32، عادي جدًا. لأن الهدف النهائي هو:
+
+تدخل React وأنت قوي في JavaScript، مش تدخل React بسرعة وتفضل كل شوية ترجع تصلح أساسيات JavaScript.
+
+وده كمان متوافق مع تفضيلك إننا ما نقفلش Topic قبل ما ناخد المهم + العملي + الأخطاء + الـ Best Practice + التريكات + الفهم قبل الانتقال.
+
+إذن من دلوقتي الخطة الرسمية المعدلة: نكمل Node properties → Attributes → Modifying → Styles → Element size → Window → Coordinates، وبعدها Events وباقي JavaScript، ومش هنستعجل React.

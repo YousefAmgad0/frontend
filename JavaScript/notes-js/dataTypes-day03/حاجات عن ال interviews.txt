@@ -1,0 +1,176 @@
+🔥 وهنعمل حاجة أهم
+
+هنقسم الـ Interview Questions حسب الـ Importance مش حسب ترتيب JavaScript.info.
+
+يعني لو أنت قلتلي:
+
+"معايا ساعتين بس قبل Interview"
+
+هقولك:
+
+ذاكر دول فقط:
+
+1. var / let / const
+2. Scope
+3. Hoisting
+4. == / ===
+5. null / undefined
+6. Truthy / Falsy
+7. map / filter / reduce
+8. forEach / map
+9. find / some / every
+10. slice / splice
+11. sort
+12. Object reference
+13. Spread / Rest
+14. Destructuring
+15. this
+16. Closure
+17. DOM
+18. Events
+19. Bubbling
+20. Event Delegation
+21. preventDefault
+22. Promise
+23. async/await
+24. try/catch
+25. Fetch
+26. JSON
+27. API
+28. localStorage
+29. Event Loop
+30. Modules
+
+وده هيبقى عندك كأنه Emergency Revision List.
+
+
+*************************
+🔥 Level 1 — Must Know
+
+دي الأسئلة اللي لو داخل Junior Front-End Interview، مينفعش تكون مش عارفها.
+
+هنركز على حاجات زي:
+
+var vs let vs const
+Data Types
+null vs undefined
+== vs ===
+Truthy / Falsy
+|| vs ??
+Optional Chaining
+Scope
+Hoisting
+Functions
+Arrow Functions
+this
+Callback
+Array methods
+map / filter / reduce
+find / some / every
+forEach vs map
+slice vs splice
+sort
+Objects
+Object references
+Shallow copy
+Spread / Rest
+Destructuring
+Object.keys / values / entries
+Map / Set
+DOM
+Events
+Event Bubbling
+Event Delegation
+preventDefault
+Forms
+Promises
+async/await
+try/catch
+Fetch
+JSON
+API
+localStorage
+Modules
+Closures
+
+ودي أهم مجموعة بالنسبة لك.
+
+🟡 Level 2 — Very Common
+
+أسئلة بتظهر كتير، لكن مش بنفس أهمية اللي فوق:
+
+call / apply / bind
+Closure بتفاصيل أعمق
+Prototype
+Prototype Chain
+Classes
+Constructor
+new
+Event Capturing
+Debouncing
+Throttling
+setTimeout
+Event Loop
+Microtasks / Macrotasks
+Promise chaining
+Promise.all
+Promise.allSettled
+Error handling
+Date
+WeakMap / WeakSet
+Iterators / Iterables
+⚪ Level 3 — لو الوقت يسمح
+
+نفهمهم، لكن مش هنضيع وقتنا عليهم دلوقتي:
+
+Generators
+Async Iterators
+Property Descriptors
+Proxy
+Reflect
+Decorators
+Metaprogramming
+تفاصيل داخلية عميقة في JavaScript
+*****************************
+في الـ Interview تقول بإيه؟
+
+مش لازم English تقيلة.
+
+تقدر تقول بالعربي:
+
+الـ Closure بتحصل لما function داخلية تفضل قادرة توصل للمتغيرات بتاعة الـ outer function حتى بعد ما الـ outer function خلصت.
+
+وده كفاية جدًا كبداية.
+
+
+//////////////////////////////
+3. لما نخلص JavaScript كلها
+ساعتها نعمل JavaScript Interview Master Bank مرة واحدة.
+
+وهنجمع فيه:
+
+🔥 أشهر أسئلة الـ Interviews فعلًا
+🔥 أسئلة Coding الشائعة
+🟡 الأسئلة المهمة لكن أقل تكرارًا
+⚠️ الـ Tricky Questions
+أسئلة Junior Front-End
+أسئلة مرتبطة بالـ DOM والـ Browser والـ Async
+وكل حاجة أخدناها من أول JavaScript لحد آخر Topic مهم.
+
+4. وطريقة الشرح هتفضل زي ما اتفقنا:
+
+السؤال بالإنجليزي
+↓
+معناه بالعربي
+↓
+الفكرة ببساطة
+↓
+الإجابة اللي تفهمها وتقدر تقولها
+↓
+مثال لو محتاج
+↓
+إيه اللي يتحفظ وإيه اللي مش محتاج حفظ
+
+ومش هنعمل English تقيل؛ الهدف إنك تفهم وتعرف تجاوب، مش تحفظ كلام مش فاهمه.
+
+إذن دلوقتي 👇

@@ -1,0 +1,144 @@
+Optional Chaining ?.
+********************
+تخيل عندك:
+const user = {
+  name: "Yousef"
+};
+وعايز:
+console.log(user.address.street);
+المشكلة إن:
+user.address
+مش موجودة، وبالتالي قيمتها:
+undefined
+وبعدين JavaScript بتحاول تعمل:
+undefined.street
+وده يعمل:
+TypeError
+لأنك بتحاول تجيب property من undefined
+
+بدل كل ده:
+user.address &&
+user.address.street
+تقدر تعمل:
+user?.address?.street
+لو user أو address مش موجودة، النتيجة:
+undefined
+من غير Error.
+
+احفظ القاعدة دي:
+value?.property
+معناها:
+لو value موجودة → هات value.property.
+لو value تساوي null أو undefined → رجّع undefined بدل ما تعمل Error
+*************************************************************
+7. أهم Best Practice ⚠️
+متستخدمش ?. في كل حتة وخلاص.
+JavaScript.info بتأكد على النقطة دي.
+مثلاً لو منطق البرنامج بيقول إن:
+user
+لازم تكون موجودة، لكن address اختيارية:
+الأفضل:
+user.address?.street
+مش:
+user?.address?.street
+ليه؟
+لأن لو user نفسها اختفت بسبب Bug، أنت عايز JavaScript تطلعلك Error عشان تعرف إن عندك مشكلة.
+لو استخدمت:
+user?.address?.street
+ممكن الـ Bug يتخبى وتاخد undefined وتفتكر إن كل حاجة تمام.
+دي قاعدة شغل مهمة:
+استخدم ?. لما غياب القيمة متوقع ومقبول، مش عشان تخفي الأخطاء.
+
+*****************************************************
+الـ variable نفسه لازم يكون declared
+شوف:
+user?.name
+لو user أصلًا مش متعرّف:
+console.log(user?.name);
+هتأخذ:
+ReferenceError
+?. مش بتحميك من variable غير موجود أصلًا.
+***************************************************
+11. الفرق بين ?. و ?.()
+Property:
+user?.name
+يعني:
+هل user موجود؟ لو آه هات name.
+Method:
+user.admin?.()
+يعني:
+هل admin موجودة كـ Function ؟ لو آه شغّلها.
+*******************************************************
+?.[] — Optional Bracket Access
+إحنا اتعلمنا قبل كده:
+user[key]
+لما الـ key يكون Dynamic.
+نقدر نستخدم Optional chaining:
+user?.[key]
+مثال:
+const key = "firstName";
+const user1 = {
+  firstName: "John"
+};
+const user2 = null;
+console.log(user1?.[key]); // John
+console.log(user2?.[key]); // undefined
+وده مفيد جدًا لما عندك:
+const key = "name";
+ومش متأكد إن الـ object موجود.
+********************************************************
+13. delete مع ?.
+تقدر تستخدمها مع delete:
+delete user?.name;
+معناها:
+لو user موجود، احذف name.
+لو user مش موجود، مش هيحصل Error بسبب الوصول للـ property.
+*******************************************************
+14. ❌ مينفعش تستخدمها في Assignment
+دي نقطة مهمة جدًا:
+user?.name = "John";
+❌ Error.
+لأن ?. معمولة للـ safe reading / calling / deleting، مش للـ writing.
+بمعنى إنك مينفعش تقول:
+undefined = "John";
+وده تقريبًا اللي بيحصل لو user مش موجود.
+********************************************************
+🧠 الثلاث صور الأساسية
+دي أهم حاجة في الـ Topic:
+obj?.prop
+Safe property access
+obj?.[prop]
+Safe dynamic property access
+obj.method?.()
+Safe method call
+وده بالظبط ملخص JavaScript.info الرسمي للـ ?.
+********************************************************
+?. يحمي من null / undefined
+
+user?.name
+→ safe property access
+
+user?.profile?.name
+→ safe nested access
+
+user.method?.()
+→ safe method call
+
+user?.[key]
+→ safe dynamic property access
+
+?. لا يحمي variable غير declared
+→ ReferenceError
+
+?. لا تستخدمها في assignment
+→ ❌ user?.name = "Yousef"
+
+استخدم ?. فقط لما عدم وجود القيمة يكون مقبولًا
+
+
+
+
+
+
+
+

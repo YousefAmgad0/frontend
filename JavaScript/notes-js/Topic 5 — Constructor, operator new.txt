@@ -1,0 +1,179 @@
+Topic 5 — Constructor, operator "new
+*******************************
+1. ليه محتاجين Constructor؟
+
+إحنا عارفين نعمل Object عادي:
+
+const user = {
+  name: "Yousef",
+  isAdmin: false
+};
+
+طيب لو عندي 100 User؟
+
+ممكن أعمل:
+
+const user1 = {
+  name: "Yousef",
+  isAdmin: false
+};
+
+const user2 = {
+  name: "Ahmed",
+  isAdmin: false
+};
+
+const user3 = {
+  name: "Ali",
+  isAdmin: false
+};
+
+وده طبعًا تكرار.
+
+هنا بييجي دور Constructor Function.
+
+Constructor = Function مخصصة لإنشاء Objects متشابهة بطريقة reusable.
+
+وده هو الهدف الأساسي اللي JavaScript.info بتذكره للـ constructors
+****************************
+ليه Constructor مفيد؟
+Constructor Function
+شكلها:
+function User(name) {
+  this.name = name;
+  this.isAdmin = false;
+}
+لاحظ حاجة مهمة:
+بنكتب اسم الـ Constructor بحرف Capital
+
+بدل ما تكرر:
+
+const user1 = {};
+const user2 = {};
+const user3 = {};
+
+تعمل:
+
+const user1 = new User("Yousef");
+const user2 = new User("Ahmed");
+const user3 = new User("Ali");
+وده بيسمى:
+
+Reusable Object Creation
+
+وده بالضبط الاستخدام الأساسي للـ Constructor Functions.
+*************************************************
+6. Constructor ممكن ياخد Parameters
+
+زي أي Function:
+
+function User(name, age) {
+  this.name = name;
+  this.age = age;
+}
+
+وبعدين:
+
+const user1 = new User("Yousef", 22);
+const user2 = new User("Ahmed", 25);
+
+كل Object بياخد بياناته الخاصة.
+
+console.log(user1.name); // Yousef
+console.log(user2.name); // Ahmed
+****************************************************
+7. Constructor ممكن يحتوي Methods
+
+مش بس properties.
+
+ممكن:
+
+function User(name) {
+  this.name = name;
+
+  this.sayHi = function () {
+    console.log("My name is " + this.name);
+  };
+}
+
+const user = new User("Yousef");
+
+user.sayHi();
+
+النتيجة:
+
+My name is Yousef
+**********************************************
+11. return داخل Constructor
+
+دي من الـ tricks المهمة.
+
+عادةً:
+
+function User(name) {
+  this.name = name;
+}
+
+مش محتاج:
+
+return this;
+
+لأن new بيرجع this تلقائيًا.
+
+لكن لو كتبت:
+
+function User() {
+  this.name = "Yousef";
+
+  return {
+    name: "Ahmed"
+  };
+}
+
+const user = new User();
+
+console.log(user.name);
+
+النتيجة:
+
+Ahmed
+
+ليه؟
+
+لأن:
+
+لو Constructor عمل return لـ Object → الـ Object ده هو اللي بيترد بدل this.
+
+لكن لو رجع primitive:
+
+function User() {
+  this.name = "Yousef";
+  return 123;
+}
+
+الـ 123 بيتجاهل، وnew بيرجع this.
+المصدر يذكر القاعدة دي صراحة.
+احفظها:
+return Object   → Object هو اللي يرجع
+return primitive → يتم تجاهله
+no return       → this يرجع
+ودي معلومة Interview كويسة، لكن مش حاجة تستخدمها في شغلك يوميًا.
+*******************************************************
+ده كده الطريقه الرئيسيه لعمل Contructor
+function Product(name, price) {
+  this.name = name;
+  this.price = price;
+}
+
+تقدر تعمل:
+
+const product1 = new Product("Laptop", 30000);
+const product2 = new Product("Phone", 15000);
+const product3 = new Product("Headphones", 3000);
+
+كل واحد Object مستقل:
+
+product1 → Product Object
+product2 → Product Object
+product3 → Product Object
+***********************************************************

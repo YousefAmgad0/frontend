@@ -1,0 +1,325 @@
+DOM
+***
+ window هو الـ global object في Browser
+
+window >> يمثل بيئة المتصفح / نافذة الصفحة.
+مثلا
+window.innerWidth
+window.innerHeight
+window.scrollY
+
+document
+يمثل صفحة الـ HTML نفسها.
+مثلاً:
+document.title
+document.body
+document.head
+
+فكر فيها كده:
+
+Browser Window
+      ↓
+    window
+      ↓
+   document
+      ↓
+   HTML Page
+🧠 تشبيه بسيط
+
+اعتبر:
+window = البيت كله 🏠
+document = محتويات البيت
+
+
+-------------------	---------------------	----------------------------
+🧠 لو عايز تحفظ 5 جمل بس
+
+احفظ المعنى ده:
+
+JavaScript هي اللغة.
+
+Browser هو البيئة اللي بتشغل JavaScript على الويب.
+
+Browser بيوفر APIs لـ JavaScript عشان تتعامل مع حاجات زي الصفحة والتخزين والشبكة.
+
+document بيمثل صفحة الـ HTML.
+
+DOM هو الهيكل اللي الـ Browser
+			 بيبني فيه عناصر الصفحة عشان
+			 JavaScript تقدر تتعامل معاها.
+ الـ DOM هو الـ Object Model / Tree اللي بيمثل الصفحة.
+
+لو الخمس جمل دول بقوا واضحين، أنت فهمت الأساس اللي محتاجينه فعلًا.
+
+****************************************2. DOM Tree 🌳************************************************
+لأن عناصر الـ HTML بيكون بينها علاقات:
+
+Parent
+Child
+Sibling
+
+مثلاً عندنا:
+
+<html>
+  <body>
+    <h1>Hello</h1>
+    <p>Welcome</p>
+  </body>
+</html>
+
+الـ Browser يحول ده لهيكل شجري:
+
+Document
+   │
+   └── html
+        │
+        └── body
+             ├── h1
+             │    └── "Hello"
+             │
+             └── p
+                  └── "Welcome"
+
+
+--------------------------------------------1. يعني إيه Node؟--------------------------------------------
+
+كل جزء في الـ DOM Tree اسمه Node.
+
+يعني:
+
+Document  → Node
+html      → Node
+body      → Node
+h1        → Node
+p         → Node
+"Hello"   → Node
+
+لكن مش كل الـ Nodes من نفس النوع.
+وده مهم جدًا.
+
+--------------------------------------------2. أهم أنواع الـ Nodes --------------------------------------------
+
+في البداية ركز على 3:
+
+1)Document Node
+ده يمثل المستند نفسه:
+Document
+وده اللي عندك في JavaScript كـ:
+document
+
+2)Element Node
+أي HTML element:
+<body>
+<h1>
+<p>
+<div>
+<button>
+كل واحد منهم Element Node.
+
+3)Text Node
+النص اللي جوه الـ element يعتبر Node برضه.
+
+<h1>Hello</h1>
+"Hello" هنا Text Node.
+
+------------------------------------------3. Parent / Child / Sibling--------------------------------------
+<body>
+  <h1>Hello</h1>
+  <p>Welcome</p>
+</body>
+
+
+الـ DOM:
+body
+├── h1
+│    └── "Hello"
+│
+└── p
+     └── "Welcome"
+body Parent لـ h1
+
+h1 و p Siblings     >>>>>	لأن الاتنين ليهم نفس الـ Parent:
+
+-----------------------------------4. ليه الكلام ده مهم في Front-End؟--------------------------------------
+لأن لما تيجي تتعامل مع الـ DOM بعد كده
+ هتحتاج تتحرك جوه الشجرة.
+
+ممكن تبدأ من عنصر وتروح:
+Parent
+Child
+Sibling
+وده اسمه:
+DOM Navigation
+
+
+--------------------------------------5. نقطة مهمة جدًا: HTML مش هو DOM--------------------------------------
+
+دي من أهم الحاجات اللي عايزك تفرق بينهم.
+
+HTML
+
+هو الكود اللي كتبته:
+
+<body>
+  <h1>Hello</h1>
+</body>
+
+DOM
+هو التمثيل اللي الـ Browser بناه من الـ HTML:
+
+Document
+   ↓
+html
+   ↓
+body
+   ↓
+h1
+   ↓
+"Hello"
+
+يعني:
+
+HTML
+ ↓ Browser
+DOM Tree
+
+| Concept  | معناه                             |
+| -------- | --------------------------------- |
+| DOM      | تمثيل الصفحة كـ Tree/Object Model |
+| Node     | أي جزء موجود في الـ DOM Tree      |
+| Document | يمثل الـ Document نفسه            |
+| Element  | HTML element زي `div`, `h1`, `p`  |
+| Text     | النص الموجود داخل Element         |
+
+HTML ≠ DOM
+الـ HTML هو source/code.
+
+الـ DOM هو representation منظم للصفحة 
+يقدر JavaScript يتعامل معاه.
+
+***************************************************************************************************
+3. Walking the DOM 🚶‍♂️
+إنك تبدأ من Node معينة
+في الـ DOM
+وتتحرك منها للـ Parent أو Children أو Siblings.
+
+-------------------------------------------1. document.documentElement---------------------------------
+document.documentElement
+دي بتجيب الـ <html> element:
+2. document.body
+دي بتجيب <body>:
+
+document.body.style.background = "black";
+
+3. document.head
+
+بتجيب:
+<head>...</head>
+
+فالثلاثة دول مهمين تحفظهم:
+
+document.documentElement // <html>
+document.head            // <head>
+document.body            // <body>
+
+------------------------------------4. children---------------------------------------------------------
+دلوقتي نبدأ نمشي من Element للـ Children.
+<body>
+  <div></div>
+  <p></p>
+</body>
+
+document.body.children
+النتيجة عبارة عن HTMLCollection تحتوي على
+الـ Elements الموجودة كأبناء مباشرين.
+
+5. firstElementChild
+document.body.firstElementChild
+هترجع:			<div></div>
+
+6. lastElementChild
+document.body.lastElementChild
+هترجع:			<p></p>
+
+-------------------------------------7. parentElement----------------------------------------------------
+دلوقتي نمشي بالعكس.
+
+احنا واقفين عند ال div 
+وعايز اوصل للاب
+div.parentElement
+النتيجه يطلع :			body
+
+------------------------------------8. Siblings--------------------------------------------------------
+من div نقدر نروح للعنصر اللي بعده:
+div.nextElementSibling
+النتيجة:		<p></p>
+
+ولو عايز اللي قبله:
+p.previousElementSibling
+
+النتيجة:		<div></div>
+
+⚠️ هنا بقى في Trick مهم جدًا
+
+فيه فرق بين:
+
+children 	و	childNodes
+
+<div>
+  <h1>Hello</h1>
+  <p>Welcome</p>
+</div>
+div.children >>>>>>		h1 , p
+
+div.childNodes >>>>>>>>>
+ممكن تحتوي على:
+Text Node  ← whitespace
+h1
+Text Node  ← whitespace
+p
+Text Node  ← whitespace
+
+⚠️ Trick تاني: firstChild vs firstElementChild
+
+element.firstChild
+ممكن يرجع Text Node.
+
+لكن:
+
+element.firstElementChild
+يرجع أول Element.
+
+<div>
+  <h1>Hello</h1>
+</div>
+
+
+والـ Element navigation:
+
+parentElement
+children
+firstElementChild
+lastElementChild
+nextElementSibling
+previousElementSibling
+
+والـ Node navigation:
+
+parentNode
+childNodes
+firstChild
+lastChild
+nextSibling
+previousSibling
+
+--------------------------------------				-----------------------------------------
+
+لو عندك Collection:
+
+const children = document.body.children;
+
+استخدم:
+
+for (const child of children) {
+  console.log(child);
+}

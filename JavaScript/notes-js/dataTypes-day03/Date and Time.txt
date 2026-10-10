@@ -1,0 +1,251 @@
+Date and Time
+************
+في JavaScript عندنا object اسمه:
+
+Date
+
+بيمثل لحظة معينة في الزمن.
+
+const now = new Date();
+
+console.log(now);
+
+هيطلعلك التاريخ والوقت الحاليين.
+
+2️⃣ Creating a Date
+
+فيه أكتر من طريقة لإنشاء Date.
+دي أهم واحدة.
+Current date/time
+const now = new Date();
+
+باستخدام Timestamp
+const date = new Date(0);
+
+هنا بنستخدم Unix Timestamp.
+
+والـ 0 معناها بداية الـ Unix time:
+
+
+--------------------------3️⃣ Timestamp — مهم جدًا 🔥------------------------------------------
+const timestamp = Date.now();
+
+console.log(timestamp);
+
+--------------------------------Date.now() vs new Date()-----------------------
+Date.now();     ⬅️ يرجع رقم Timestamp
+new Date();	⬅️ يرجع Date object
+
+مثال:
+
+const timestamp = Date.now();
+const date = new Date();
+
+console.log(timestamp);
+console.log(date);
+🔥 دي مهمة في الـ Front-End
+
+لو محتاج تقارن/تحسب أوقات → الـ timestamp مريح جدًا.
+
+لو محتاج تعرض التاريخ للمستخدم → غالبًا هتشتغل بـ Date ثم تعمل formatting
+
+
+الشغل بيجي كده اهو 
+const order = {
+  id: 101,
+  total: 2500,
+  createdAt: 1780000000000,
+};
+انا بحول عن طريق كده
+const date = new Date(order.createdAt);
+console.log(date);
+
+Date.now()
+🔥 رقم → Logic / Comparison / Calculations
+
+new Date()
+🔥 Object → Date manipulation / Formatting
+
+3. new Date(year, month, date, hours, minutes, seconds, ms)
+
+ممكن تحدد التاريخ بنفسك:
+⚠️ خلي بالك جدًا من month.
+الشهور في JavaScript تبدأ من 0:
+
+🧠 ليه الـ Month بيبدأ من 0؟
+دي من الحاجات اللي لازم تحفظها، مش لازم تدور لها على فلسفة 😂
+
+---------------------5️⃣ Getting Date Components 🔥🔥------------------------------------------
+دلوقتي وصلنا لجزء مهم للشغل:
+ إزاي أطلع جزء معين من الـ Date.
+
+
+date.getFullYear();    //2026
+date.getMonth(); 	//8 الشهر
+date.getDate();		//دي بتجيب رقم اليوم في الشهر:
+getDay()		//بتجيب رقم يوم الأسبوع:
+والأيام:
+0 → Sunday
+1 → Monday
+2 → Tuesday
+3 → Wednesday
+4 → Thursday
+5 → Friday
+6 → Saturday
+
+🧠 الفرق المهم جدًا
+getFullYear()
+→ السنة
+
+getMonth()
+→ الشهر (0 - 11)
+
+getDate()
+→ اليوم في الشهر (1 - 31)
+
+getDay()
+→ اليوم في الأسبوع (0 - 6)
+
+
+----------------------------------------6️⃣ Setting Date Components--------------------------------
+تخيل عندك موعد:
+
+const appointment = new Date(2026, 8, 29);
+
+وعايز تأجله 5 أيام:
+
+appointment.setDate(appointment.getDate() + 5);
+
+أهم الـ methods:
+date.setFullYear(year);
+date.setMonth(month);
+date.setDate(date);
+date.setHours(hours);
+date.setMinutes(minutes);
+date.setSeconds(seconds);
+date.setMilliseconds(ms);
+
+-------------------------------7️⃣ Date → Timestamp --------------------------------------
+مثال واقعي
+
+عايز تعرف request أخد كام ثانية:
+
+const start = Date.now();
+
+// API request...
+
+const end = Date.now();
+
+const duration = end - start;
+
+console.log(duration);
+
+لو الناتج:
+
+2500
+
+يبقى:
+
+2500 ms = 2.5 seconds
+
+وده ممكن يفيدك في performance/debugging.
+
+------------------------------8️⃣ Date Arithmetic — حساب الفرق بين التواريخ 🔥----------------------------------
+const date1 = new Date("2026-09-01");
+const date2 = new Date("2026-09-10");
+
+const difference = date2 - date1;
+
+console.log(difference);
+
+الناتج هيكون عدد الـ milliseconds بين التاريخين.
+
+ولو عايزين نحوله لأيام:
+
+const days = difference / (1000 * 60 * 60 * 24);
+
+console.log(days); // 9
+
+مثال من الشغل 🛒
+
+عندك Order:
+
+const orderDate = new Date("2026-09-01");
+const today = new Date("2026-09-10");
+
+وعايز تعرف:
+
+الطلب بقاله كام يوم؟
+
+const difference = today - orderDate;
+
+const days = difference / (1000 * 60 * 60 * 24);
+
+console.log(days); // 9
+
+----------------------------------1️⃣1️⃣ Date Formatting---------------------------------------------
+------------------------------------toLocaleDateString() 🔥🔥----------------------
+لو هدفك تعرض التاريخ للمستخدم:
+const date = new Date();
+
+console.log(date.toLocaleDateString());
+9/29/2026
+
+| Method                 | الاستخدام                   |
+| ---------------------- | --------------------------- |
+| `toISOString()`        | 🔥 API / Backend / Standard |
+| `toLocaleDateString()` | 🔥 عرض التاريخ للمستخدم     |
+| `toLocaleString()`     | 🔥 عرض التاريخ + الوقت      |
+| `getDate()`            | استخراج رقم اليوم           |
+
+
+------------------------------------------**************************************************
+🔥 أهم حاجة للشغل
+
+مش عايزك تحفظ الـ methods دي كقائمة وخلاص.
+
+عايزك تفكر بالـ use case:
+
+"عايز أعرف السنة؟"
+date.getFullYear()
+"عايز أزود 7 أيام؟"
+date.setDate(date.getDate() + 7)
+"عايز أقارن تاريخين؟"
+date1 > date2
+"عايز أعرف الفرق؟"
+date2 - date1
+"عايز Timestamp؟"
+Date.now()
+"عندي Timestamp وعايز Date؟"
+new Date(timestamp)
+"عايز أبعت التاريخ للـ API؟"
+date.toISOString()
+"عايز أعرضه للمستخدم؟"
+date.toLocaleDateString()
+
+--------------------------------الملخص بكل بساطه بين Date , TimeStamp----------------------------------
+كلهم بيعبرو عن الوقت لكن بشكل مختلف
+
+const date = new Date("2026-09-29T15:00:00Z");  ..>Tue Sep 29 2026 18:00:00 GMT+0300 (Eastern European Summer Time)
+
+const timestamp = date.getTime();
+console.log(timestamp)      ..> 1790694000000
+
+فعشان كده بنستخدم ال timeStamp , في المقارنات
+if (Date.now() > expiresAt) {
+  console.log("Expired");
+}
+
+
+Date = شكل/كائن أتعامل بيه مع التاريخ.
+Timestamp = رقم أستخدمه بسهولة في المقارنة والحساب.
+
+---------EXample
+تعمل تاريخ محدد: 20 فبراير 2012، الساعة 3:12 صباحًا،
+
+const date = new Date(2012,1,20,3,12);
+console.log(date);
+
+-------------------------------------------------------------------
+getDay()  // يوم الأسبوع
+getDate() // يوم الشهر

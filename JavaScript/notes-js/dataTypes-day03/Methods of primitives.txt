@@ -1,0 +1,83 @@
+Methods of primitives 
+*******************
+طيب يعني إيه Wrapper؟ 🧠
+
+ببساطة جدًا:
+
+Wrapper = Object مؤقت JavaScript بتعمله حوالين الـ primitive عشان تقدر تستخدم عليه methods.
+
+مثلاً:
+
+const age = 22;
+
+age.toString();
+
+إنت ممكن تسأل:
+
+استنى، age دي Number وهي primitive،
+ إزاي عندها method اسمها toString()؟ 🤔
+
+هنا JavaScript بتعمل حاجة شبه كده مؤقتًا:
+
+new Number(22).toString();
+
+فاهي بقي بتتصرف ك Object
+وتعمل عليها ال method 
+بالرغم انها primitive
+
+******************
+const num = 1.23456;
+
+console.log(num.toFixed(2));
+
+الناتج:
+
+"1.23"
+
+خد بالك هنا 👀:
+
+typeof num.toFixed(2); // "string"
+
+رغم إن num أصلًا:
+************************
+7️⃣ null و undefined — الاستثناء
+
+دي آخر نقطة أساسية.
+
+إحنا قلنا إن معظم الـ primitives تقدر تستخدم methods عليها.
+
+لكن:
+
+null
+undefined
+
+استثناء.
+
+مثلاً:
+
+const value = null;
+
+value.toString();
+
+❌ هيطلع Error.
+
+ونفس:
+
+const value = undefined;
+
+value.toString();
+
+❌ Error.
+
+لأن null و undefined مفيش لهم Wrapper Objects بالشكل اللي اتشرح فوق.
+**********************
+const value = null;
+
+console.log(value.toString());
+
+لأن null مينفعش تستخدم عليه method أصلًا.
+
+يعني:
+
+null.toString();      // ❌ Error
+undefined.toString(); // ❌ Error

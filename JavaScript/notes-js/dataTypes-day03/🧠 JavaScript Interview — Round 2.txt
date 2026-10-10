@@ -1,0 +1,641 @@
+🧠 JavaScript Interview — Round 2
+reduce() → Objects → Map → Set → WeakMap / WeakSet
+🔥 Part 1 — reduce()
+Q21 — What is reduce() used for?
+🎯 Interview Answer
+
+reduce() is used to process an array and build a single final result. The result can be a number, string, object, array, Map, or any other value.
+
+مثال:
+
+const numbers = [10, 20, 30];
+
+const total = numbers.reduce((sum, number) => {
+  return sum + number;
+}, 0);
+
+الناتج:
+
+60
+🇪🇬 بالمصري
+
+أهم Mental Model:
+
+Array
+  ↓
+reduce()
+  ↓
+One final result
+
+والـ result مش لازم يكون Number.
+
+ممكن:
+
+Number
+Object
+Array
+String
+Map
+Set
+🔥 Interview Tip
+
+ما تقولش:
+
+reduce() is used to calculate the sum.
+
+دي إجابة ناقصة.
+
+الأصح:
+
+build a single final result
+
+والـ sum مجرد واحد من استخداماته.
+
+Q22 — What are accumulator, currentValue, and initialValue?
+🎯 Interview Answer
+
+The accumulator stores the result accumulated so far, currentValue is the current array element, and initialValue defines the initial value of the accumulator.
+
+مثال:
+
+const numbers = [10, 20, 30];
+
+const total = numbers.reduce((accumulator, currentValue) => {
+  return accumulator + currentValue;
+}, 0);
+
+هنا:
+
+accumulator  → النتيجة اللي اتجمعت
+currentValue → العنصر الحالي
+0            → initialValue
+Mental Model
+initialValue = 0
+
+0 + 10 → 10
+10 + 20 → 30
+30 + 30 → 60
+🔥 Q23 — Why is initialValue important?
+🎯 Interview Answer
+
+initialValue makes the accumulator predictable and also prevents an error when reducing an empty array.
+
+مثال:
+
+const numbers = [];
+
+numbers.reduce((total, number) => {
+  return total + number;
+});
+
+❌ هتعمل Error.
+
+لكن:
+
+numbers.reduce((total, number) => {
+  return total + number;
+}, 0);
+
+✅ النتيجة:
+
+0
+⭐ Best Practice
+
+في أغلب الحالات العملية، استخدم initialValue بشكل واضح.
+
+خصوصًا لما يكون الـ result:
+
+Number → 0
+Array  → []
+Object → {}
+Map    → new Map()
+Set    → new Set()
+🔥 Q24 — Can reduce() return an Object?
+
+أيوه.
+
+وده من أهم استخداماته.
+
+مثال:
+
+const users = [
+  { id: 1, name: "Yousef" },
+  { id: 2, name: "Ahmed" }
+];
+
+const usersById = users.reduce((result, user) => {
+  result[user.id] = user;
+  return result;
+}, {});
+
+الناتج:
+
+{
+  1: { id: 1, name: "Yousef" },
+  2: { id: 2, name: "Ahmed" }
+}
+🎯 Interview Answer
+
+Yes. reduce() can build objects, which is useful for indexing, grouping, counting, and transforming data.
+
+🔥 Q25 — How can you find the most expensive product using reduce()?
+const products = [
+  { title: "Phone", price: 10000 },
+  { title: "Laptop", price: 30000 },
+  { title: "Mouse", price: 1000 }
+];
+Solution
+const mostExpensive = products.reduce((highest, product) => {
+  if (product.price > highest.price) {
+    return product;
+  }
+
+  return highest;
+});
+🇪🇬 الفكرة
+
+الـ accumulator هنا مش Number.
+
+الـ accumulator هو:
+
+Product Object
+
+كل مرة بنقارن:
+
+current product
+      vs
+highest product
+
+ونرجع الأفضل.
+
+🔥 دي نقطة مهمة جدًا
+
+reduce() accumulator ممكن يكون أي Data Type.
+
+🔥 Q26 — How can you group data using reduce()?
+
+مثال:
+
+const products = [
+  { title: "Laptop", category: "Electronics" },
+  { title: "Mouse", category: "Electronics" },
+  { title: "Chair", category: "Furniture" }
+];
+
+نريد:
+
+{
+  Electronics: [...],
+  Furniture: [...]
+}
+Solution
+const groupedProducts = products.reduce((result, product) => {
+  if (!result[product.category]) {
+    result[product.category] = [];
+  }
+
+  result[product.category].push(product);
+
+  return result;
+}, {});
+🎯 Interview Answer
+
+reduce() can be used to group array elements into an object or Map based on a specific property.
+
+🔥 دي من أشهر استخدامات reduce() في data processing.
+
+Q27 — When should you use map() instead of reduce()?
+🎯 Interview Answer
+
+I use map() when I simply want to transform every element into another value. I use reduce() when I need to build a single result or perform a more complex aggregation.
+
+مثال:
+
+عايز أسماء المنتجات:
+
+const titles = products.map(product => product.title);
+
+⭐ هنا map() أفضل.
+
+مش محتاج:
+
+products.reduce(...)
+قاعدة ذهبية:
+map
+→ Transform every element
+
+filter
+→ Select elements
+
+reduce
+→ Build one final result
+🔥 Part 2 — Objects
+Q28 — How do you get Object keys, values, and entries?
+🎯 Interview Answer
+
+We can use Object.keys(), Object.values(), and Object.entries().
+
+Object.keys(user);
+Object.values(user);
+Object.entries(user);
+Q29 — What's the difference between them?
+
+Given:
+
+const user = {
+  name: "Yousef",
+  age: 23
+};
+Object.keys()
+["name", "age"]
+Object.values()
+["Yousef", 23]
+Object.entries()
+[
+  ["name", "Yousef"],
+  ["age", 23]
+]
+🎯 Interview Answer
+
+Object.keys() returns an array of property names, Object.values() returns an array of property values, and Object.entries() returns an array of key-value pairs.
+
+🔥 Important
+
+الثلاثة بيرجعوا Arrays.
+
+🔥 Q30 — Why can we use for...of with Object.entries()?
+
+لأن:
+
+Object.entries(user)
+
+بتحول الـ Object إلى Array:
+
+[
+  ["name", "Yousef"],
+  ["age", 23]
+]
+
+والـ Array Iterable.
+
+لذلك:
+
+for (const [key, value] of Object.entries(user)) {
+  console.log(key, value);
+}
+
+يشتغل.
+
+لكن:
+
+for (const value of user) {}
+
+❌ لأن الـ Plain Object نفسه مش Iterable.
+
+🎯 Interview Answer
+
+Plain objects are not iterable by default, but Object.entries() returns an array, and arrays are iterable.
+
+🔥 Q31 — Object vs Map
+🎯 Interview Answer
+
+An Object is commonly used to represent structured data, while a Map is designed specifically for key-value relationships and supports keys of any type.
+
+Object:
+const user = {
+  name: "Yousef",
+  age: 23
+};
+Map:
+const users = new Map();
+
+users.set(1, "Yousef");
+users.set(2, "Ahmed");
+Map has:
+set()
+get()
+has()
+delete()
+clear()
+size
+⭐ When Map is useful
+
+لما يكون عندك:
+
+Key → Value relationship
+
+خصوصًا لو الـ key مش String.
+
+🔥 Q32 — Can a Map use an Object as a key?
+
+Yes.
+
+const user = {
+  name: "Yousef"
+};
+
+const map = new Map();
+
+map.set(user, "Frontend Developer");
+Why?
+
+لأن Map يسمح باستخدام أي Data Type كـ key.
+
+والـ Object key بيعتمد على reference identity.
+
+يعني:
+
+const user1 = {};
+const user2 = {};
+
+map.set(user1, "A");
+
+map.get(user1); // "A"
+map.get(user2); // undefined
+
+رغم إن:
+
+user1
+user2
+
+شكلهم متشابه، لكن هما Objects مختلفين.
+
+🔥 Q33 — What happens when you use the same Map key twice?
+const map = new Map();
+
+map.set("id", 1);
+map.set("id", 2);
+
+هيبقى عندك:
+
+size = 1
+
+والقيمة:
+
+map.get("id"); // 2
+🎯 Interview Answer
+
+A Map cannot have duplicate keys. Setting an existing key updates its value.
+
+🔥 Part 3 — Set
+Q34 — What is Set used for?
+🎯 Interview Answer
+
+A Set is a collection of unique values. It's commonly used when we need to remove duplicates or check whether a value exists.
+
+مثال:
+
+const numbers = new Set([1, 2, 2, 3, 3]);
+
+الناتج:
+
+1
+2
+3
+🔥 Q35 — How do you remove duplicates from an Array?
+const numbers = [1, 2, 2, 3, 3];
+Best approach:
+const uniqueNumbers = [...new Set(numbers)];
+نفكها:
+numbers
+   ↓
+new Set(numbers)
+   ↓
+Unique values
+   ↓
+[...]
+   ↓
+Array
+🎯 Interview Answer
+
+I can convert the array into a Set to remove duplicates, then use the spread operator to convert it back into an array.
+
+🔥 دي إجابة عملية جدًا.
+
+⚠️ Q36 — Does Set remove duplicate Objects?
+
+هنا لازم نفرق.
+
+const users = [
+  { id: 1 },
+  { id: 1 }
+];
+
+const unique = [...new Set(users)];
+
+هل هيشيل واحد؟
+
+❌ لا.
+
+لأن:
+
+{ id: 1 }
+
+و:
+
+{ id: 1 }
+
+هما Object references مختلفين.
+
+🧠
+Primitive duplicate
+→ Set removes it
+
+Object duplicate
+→ depends on reference
+
+مثال:
+
+const user = { id: 1 };
+
+const arr = [user, user];
+
+[...new Set(arr)];
+
+هنا فعلًا هيشيل التكرار؛ لأن الاتنين نفس الـ reference.
+
+🟡 Part 4 — WeakMap
+Q37 — What is WeakMap?
+🎯 Interview Answer
+
+WeakMap is a key-value collection where keys must be objects, and it holds weak references to those keys.
+
+المهم بالنسبة لك:
+
+WeakMap
+→ key must be Object
+→ no size
+→ no iteration
+→ set/get/has/delete
+Q38 — Why can't we do this?
+const weakMap = new WeakMap();
+
+weakMap.set("user", "Yousef");
+
+❌ Error.
+
+لأن:
+
+"user"
+
+String.
+
+والـ WeakMap keys لازم تكون Objects.
+
+صح:
+
+const user = {};
+
+weakMap.set(user, "Yousef");
+🟡 Q39 — Why doesn't WeakMap have size or iteration?
+🎯 Interview Answer
+
+WeakMap doesn't expose iteration or size because its keys are held weakly and can be garbage-collected when there are no other strong references to them.
+
+🇪🇬 بالمصري
+
+دي النقطة اللي لازم تفهمها بس، مش محتاج تدخل في تفاصيل الـ Garbage Collector.
+
+الفكرة:
+
+Object no longer needed
+        ↓
+can be garbage collected
+        ↓
+WeakMap doesn't keep it alive
+
+عشان كده مينفعش تعتمد على:
+
+weakMap.size
+
+أو:
+
+weakMap.keys()
+🟡 Q40 — WeakSet
+🎯 Interview Answer
+
+WeakSet is similar to Set, but it only stores objects and doesn't support iteration or size.
+
+مثال:
+
+const weakSet = new WeakSet();
+
+const user = {};
+
+weakSet.add(user);
+
+weakSet.has(user); // true
+
+لكن:
+
+weakSet.add("Yousef");
+
+❌ Error.
+
+لأن WeakSet يقبل Objects فقط.
+
+🏆 Map vs Set vs WeakMap vs WeakSet
+
+دي من أهم الخلاصة:
+
+Structure	Stores	Keys/Values	Iterable	size
+Map	Key → Value	Any key type	✅	✅
+Set	Unique values	Any value type	✅	✅
+WeakMap	Key → Value	Object keys only	❌	❌
+WeakSet	Unique objects	Objects only	❌	❌
+🧠 احفظها بالشكل ده:
+Map
+→ Key / Value
+→ Any key
+→ Iterable
+
+Set
+→ Unique Values
+→ Iterable
+
+WeakMap
+→ Key / Value
+→ Object keys only
+→ Not iterable
+
+WeakSet
+→ Unique Objects
+→ Not iterable
+🎯 Round 2 — Quick Memorization Sheet
+
+لو الـ Interview قرب، ركز على دول:
+
+reduce()
+→ builds one final result
+
+accumulator
+→ accumulated result
+
+initialValue
+→ starting value
+
+map
+→ transform
+
+filter
+→ select
+
+reduce
+→ aggregate / build result
+
+Object.keys()
+→ keys Array
+
+Object.values()
+→ values Array
+
+Object.entries()
+→ [key, value] Array
+
+Object
+→ structured data
+
+Map
+→ key-value relationship
+
+Map keys
+→ any type
+
+Set
+→ unique values
+
+[...new Set(arr)]
+→ remove duplicates
+
+WeakMap
+→ object keys only
+
+WeakSet
+→ objects only
+
+WeakMap / WeakSet
+→ no size
+→ no iteration
+⭐ أهم 5 Interview Answers من Round 2
+
+لو عايز تحفظ الأولويات:
+
+1. reduce()
+
+reduce() processes an array and builds a single final result.
+
+2. map() vs reduce()
+
+map() transforms every element, while reduce() builds one final result.
+
+3. Object vs Map
+
+Objects are commonly used for structured data, while Map is designed for key-value relationships and supports keys of any type.
+
+4. Set
+
+Set stores unique values and is commonly used to remove duplicates.
+
+5. Map vs WeakMap
+
+Map supports keys of any type and is iterable, while WeakMap only accepts object keys and doesn't support iteration or size.

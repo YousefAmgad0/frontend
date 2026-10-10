@@ -1,0 +1,160 @@
+map and set
+-----------
+Map Methodes
+| Method            | بتعمل إيه؟        |
+| ----------------- | ----------------- |
+| `set(key, value)` | إضافة / تعديل     |
+| `get(key)`        | تجيب value        |
+| `has(key)`        | هل الـ key موجود؟ |
+| `delete(key)`     | تحذف عنصر         |
+| `clear()`         | تمسح الكل         |
+| `size`            | عدد العناصر       |
+
+
+1-انشاء ال Map
+
+const userMap = new Map();
+
+userMap.set("name", "Yousef");
+userMap.set("age", 23);
+userMap.set("isDeveloper", true);
+
+console.log(userMap.get("name")); // "Yousef"
+console.log(userMap.get("age")); // 23
+console.log(userMap.size); // 3
+
+بيسمح بالـ Chaining:
+const map = new Map();
+map.set("name", "Yousef")
+   .set("age", 23)
+   .set("role", "Frontend Developer");
+
+2. Looping over Map
+for (const item of userMap) {
+  console.log(item);
+}
+---
+for (const [key, value] of userMap) {
+  console.log(key, value);
+}
+---
+map.keys()
+
+بتديك Iterator للمفاتيح فقط.
+
+for (const key of userMap.keys()) {
+  console.log(key);
+}
+-----
+map.values()
+
+بتديك Iterator للقيم فقط.
+
+for (const value of userMap.values()) {
+  console.log(value);
+}
+-----
+
+5. تحويل Map إلى Array
+const entriesArray = [...userMap];
+console.log(entriesArray);
+
+ده مفيد لما تحتاج تستخدم Array Methods على البيانات
+-----------------------------Set-------------------------
+الـ Set هي مجموعة من القيم الفريدة؛ القيمة نفسها لا تتكرر داخلها.
+
+ Set Methods
+
+نفس فكرة Map تقريبًا:
+
+set.add(value);
+set.has(value);
+set.delete(value);
+set.clear();
+set.size;
+
+
+const skills = new Set();
+
+skills.add("HTML");
+skills.add("CSS");
+skills.add("JavaScript");
+skills.add("HTML");
+
+console.log(skills.size); // 3
+
+has(value) — فحص وجود قيمة
+console.log(skills.has("CSS")); // true
+console.log(skills.has("React")); // false
+
+delete(value) — حذف قيمة
+skills.delete("CSS");
+console.log(skills.has("CSS")); // false
+
+clear() — مسح كل القيم
+
+skills.clear();
+console.log(skills.size); // 0
+
+
+*) loop on set
+---------------
+skills.forEach((skill) => {
+  console.log(skill);
+});
+
+const numbers = new Set([10, 20, 30]);
+
+console.log([...numbers.keys()]);
+console.log([...numbers.values()]);
+console.log([...numbers.entries()]);
+
+الناتج:
+[10, 20, 30]
+[10, 20, 30]
+[
+  [10, 10],
+  [20, 20],
+  [30, 30]
+]
+
+*****************************************************************
+3. Map vs Object 🔥🔥
+
+الاتنين ممكن يعملوا:
+
+Key → Value
+
+لكن:
+
+Object
+const user = {
+  name: "Yousef",
+  age: 23
+};
+
+ممتاز لما البيانات بتمثل entity / object.
+
+مثلاً:
+
+const product = {
+  id: 1,
+  title: "Phone",
+  price: 15000
+};
+Map
+
+ممتاز لما أنت مهتم أساسًا بعلاقة:
+
+Key → Value
+
+مثلاً:
+
+const prices = new Map();
+
+prices.set("phone", 15000);
+prices.set("laptop", 30000);
+🧠 قاعدة عملية
+
+Object = بيانات عن حاجة
+Map = علاقة بين مفتاح وقيمة

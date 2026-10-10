@@ -1,0 +1,93 @@
+Symbol
+******
+*************************************************************
+يكفي حاليًا تفهم:
+
+const id = Symbol("id");
+const user = {
+  [id]: 123
+};
+console.log(user[id]); // 123
+وتعرف إن:
+Symbol("id") !== Symbol("id")
+******************************
+تخيله كده 👇
+
+أنت عندك Object:
+
+const user = {
+  name: "Yousef",
+  age: 22
+};
+
+الـ keys العادية بتكون أسماء واضحة:
+
+"name"
+"age"
+
+دلوقتي تخيل إن مكتبتين مختلفتين بيشتغلوا على نفس الـ user.
+
+المكتبة الأولى عايزة تضيف حاجة اسمها id:
+
+user.id = 100;
+
+والمكتبة الثانية برضه عايزة تعمل property اسمها id:
+
+user.id = 200;
+
+💥 حصل تعارض. الثانية غيّرت قيمة الأولى.
+
+هنا بيظهر Symbol
+
+Symbol فكرته ببساطة:
+
+"هاتلي مفتاح مستحيل يتلخبط مع مفتاح تاني."
+
+const id1 = Symbol("id");
+const id2 = Symbol("id");
+
+رغم إن الاتنين مكتوب عليهم "id":
+
+console.log(id1 === id2); // false
+
+لأن كل واحد مفتاح Unique مختلف.
+
+فممكن تعمل:
+
+const user = {
+  name: "Yousef",
+  [id1]: 100,
+  [id2]: 200
+};
+
+دلوقتي الـ Object عنده:
+
+name  → "Yousef"
+
+Symbol(id1) → 100
+
+Symbol(id2) → 200
+
+ومفيش أي تعارض بينهم.
+*************************************
+وفي نقطة مهمة من المصدر: الـ Symbol properties بتكون غير ظاهرة في for...in و Object.keys()، لكن مش معناها إنها private.
+
+مثال:
+
+const id = Symbol("id");
+
+const user = {
+  name: "Yousef",
+  [id]: 123
+};
+
+console.log(Object.keys(user));
+// ["name"]
+
+لكن نقدر نجيب الـ Symbol keys:
+
+console.log(Object.getOwnPropertySymbols(user));
+// [Symbol(id)]
+الـ Best Practice: استخدم String keys في الـ Objects العادية
+استخدم Symbol لما يكون عندك سبب فعلي لعمل key فريد خصوصًا مع libraries أو APIs.
+****************************************

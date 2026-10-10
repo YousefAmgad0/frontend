@@ -1,0 +1,140 @@
+**************Iterables*********************
+الصورة اللي عايزك تثبتها
+لما تشوف:
+for (const item of something)
+اسأل نفسك:
+هل something Iterable؟
+لو آه → for...of يقدر يمشي عليه.
+--------------------------------------------
+مثال من الحياة 👇
+تخيل عندك طابور ناس:
+👨 → 👩 → 👦 → 👧
+الطابور نفسه = Iterable
+الشخص اللي بيقولك مين اللي بعده = Iterator
+ولما تسأله:
+مين اللي بعده؟
+دي =
+next()
+فيقول:
+👨 ولسه فيه ناس.
+
+{
+  value: "Ahmed",
+  done: false
+}
+وبعد آخر شخص:
+مفيش حد تاني.
+
+{
+  done: true
+}
+
+-----------------
+🎯 الخلاصة اللي عايزك تخرج بيها
+
+لو سألتك في Interview:
+
+What is an Iterable?
+
+تقدر تقول:
+
+An iterable is an object that can be iterated over using for...of.
+
+ولو سألك:
+
+What is an Iterator?
+
+تقول:
+
+An iterator is an object that provides values one by one through its next() method.
+
+ولو سألك:
+
+What does done: true mean?
+
+تقول:
+
+The iteration is finished.
+***************************************************************
+🧠 Iterables — Final Mental Model
+🔥 1. Iterable
+
+حاجة JavaScript تقدر تمشي عليها باستخدام for...of.
+
+أمثلة:
+
+Array
+String
+Map
+Set
+🔥 2. for...of
+for (const item of something) {
+  // ...
+}
+
+الشرط الأساسي:
+
+something → Iterable
+🟡 3. Iterator
+
+هو اللي بيدي القيم واحدة واحدة عن طريق:
+
+next()
+
+والنتيجة شكلها:
+
+{
+  value: ...,
+  done: false
+}
+
+ولما يخلص:
+
+{
+  done: true
+}
+🟡 4. Symbol.iterator
+
+دي الآلية اللي من خلالها الـ Iterable بيوفر الـ Iterator.
+
+مش مطلوب منك كتابة Custom Iterator في شغلك اليومي.
+
+🔥 5. Array-like
+
+حاجة شكلها شبيه بالـ Array من ناحية:
+
+indexes + length
+
+لكنها مش Array حقيقية.
+
+Array.isArray(obj); // false
+🔥 6. Array.from()
+
+تحول:
+
+Iterable / Array-like
+        ↓
+     Array
+
+مثال:
+
+const cards = Array.from(
+  document.querySelectorAll(".card")
+);
+⚡ أهم Trick
+
+لو لقيت حاجة:
+
+something.map(...)
+
+ومطلعلك:
+
+something.map is not a function
+
+ومتأكد إن something شبه Array، اسأل نفسك:
+
+هل دي Array فعلًا؟ ولا Array-like / Iterable؟
+
+ممكن تحتاج:
+
+const arr = Array.from(something);

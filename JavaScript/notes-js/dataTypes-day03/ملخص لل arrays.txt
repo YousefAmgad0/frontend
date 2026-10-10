@@ -1,0 +1,228 @@
+ملخص لل arrays
+/**********/
+🧠 Arrays — Final Review
+1. إنشاء Array
+
+الأفضل في الشغل:
+
+const users = ["Yousef", "Ahmed", "Ali"];
+
+مش:
+
+const users = new Array("Yousef", "Ahmed", "Ali");
+
+والوصول بالـ index يبدأ من 0:
+
+users[0] // "Yousef"
+2. أهم العمليات الأساسية
+العملية	الاستخدام	بتعمل Mutation؟
+push()	إضافة في الآخر	✅
+pop()	حذف من الآخر	✅
+unshift()	إضافة في البداية	✅
+shift()	حذف من البداية	✅
+
+مثال:
+
+const arr = ["A", "B"];
+
+arr.push("C");    // ["A", "B", "C"]
+arr.pop();        // ["A", "B"]
+arr.unshift("X"); // ["X", "A", "B"]
+arr.shift();      // ["A", "B"]
+⚠️ مهم جدًا
+
+push() و unshift() بيرجعوا length:
+
+const x = arr.push("C");
+
+x = الطول الجديد.
+
+بينما:
+
+const x = arr.pop();
+
+x = العنصر المحذوف.
+
+3. length
+const arr = [10, 20, 30];
+
+arr.length; // 3
+
+ممكن تقصر الـ Array:
+
+arr.length = 2;
+
+فتصبح:
+
+[10, 20]
+
+لكن زيادة length ممكن تعمل empty slots.
+
+4. at()
+
+للوصول لآخر عنصر:
+
+arr.at(-1);
+
+وده أفضل وأوضح من الطرق القديمة لما تحتاج negative indexing.
+
+arr[-1]; // undefined
+5. Arrays = Objects
+typeof [] // "object"
+
+عشان تتأكد إنها Array:
+
+Array.isArray(value);
+
+دي الطريقة الـ preferred.
+
+6. Arrays Reference Types
+const a = [1, 2, 3];
+const b = a;
+
+b.push(4);
+
+console.log(a);
+// [1, 2, 3, 4]
+
+لأن a و b نفس الـ reference.
+
+ولو عايز shallow copy:
+
+const b = [...a];
+
+وده هنتوسع فيه جدًا بعدين، خصوصًا مع React.
+
+7. Queue & Stack
+Queue — FIFO
+
+First In → First Out
+
+queue.push(item);
+queue.shift();
+Stack — LIFO
+
+Last In → First Out
+
+stack.push(item);
+stack.pop();
+8. Loops مع Arrays
+
+لو محتاج القيم:
+
+for (const item of items) {
+  console.log(item);
+}
+
+الأفضل غالبًا من for...in مع Arrays.
+
+for...in مناسب أكثر للـ Objects.
+
+9. Multidimensional Arrays
+const matrix = [
+  [1, 2, 3],
+  [4, 5, 6]
+];
+
+matrix[1][2]; // 6
+
+النمط:
+
+array[row][column]
+10. Comparing Arrays
+
+دي مهمة جدًا:
+
+[1, 2] === [1, 2];
+// false
+
+لكن:
+
+const a = [1, 2];
+const b = a;
+
+a === b;
+// true
+
+لأن المقارنة للـ Objects/Arrays بتكون على الـ reference.
+
+11. toString()
+const arr = [1, 2, 3];
+
+arr.toString();
+// "1,2,3"
+
+لكن في الشغل لو محتاج تتحكم في الـ separator، الأفضل لاحقًا:
+
+arr.join(" - ");
+🔥 أهم حاجات للشغل
+
+لو هرتبلك الأولويات من ناحية استخدام Front-End اليومي:
+
+لازم تكون قوي جدًا فيها
+Array creation
+Index
+length
+push
+pop
+shift
+unshift
+for...of
+Reference behavior
+Copying
+Array.isArray()
+at()
+مهمة جدًا بعدين
+map
+filter
+find
+findIndex
+some
+every
+reduce
+sort
+includes
+slice
+splice
+
+ودي تحديدًا هتستخدمها بكثافة جدًا مع React والـ API data.
+
+أقل أولوية حاليًا
+تفاصيل toString()
+بعض سلوكيات الـ empty slots
+تفاصيل خوارزمية maximal subarray
+
+لكن لازم نفهمها لأنها جزء من المصدر، وده سبب إننا ما بنعديش عليها.
+
+⚠️ أهم Common Mistakes
+1. نسيان إن الـ Array Reference
+const b = a;
+
+دي مش Copy.
+
+2. استخدام for...in للـ Array
+
+ممكن يشتغل، لكن في الشغل لما تحتاج values:
+
+for (const item of arr)
+
+أوضح وأفضل.
+
+3. نسيان إن pop() بيرجع العنصر
+const removed = arr.pop();
+
+removed هو العنصر المحذوف، مش الـ Array.
+
+4. نسيان إن push() بيرجع length
+const result = arr.push("X");
+
+result = الـ length الجديد.
+
+5. الخلط بين:
+arr.at(-1)
+
+و:
+
+arr[-1]
+
+الأولى تجيب آخر عنصر، الثانية لا.

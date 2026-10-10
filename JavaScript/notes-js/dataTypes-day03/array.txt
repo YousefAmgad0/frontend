@@ -1,0 +1,96 @@
+array
+********
+ هل الـ Array لازم تخزن نوع بيانات واحد؟
+
+لأ. تقدر تخزن أنواع مختلفة، حتى Objects وFunctions:
+
+const arr = [
+  "Apple",
+  { name: "John" },
+  true,
+  function () {
+    console.log("Hello");
+  }
+];
+
+console.log(arr[1].name); // John
+arr[3]();                 // Hello
+***************************************************************************
+----------Array Methods------------
+push() اضافه من الاخر , pop()  حذف من الاخر, unshift() اضافه من البدايه, shift() حذف من البدايه
+const fruits = ["Apple", "Orange"];
+fruits.push("Mango");
+const removed = fruits.pop();
+fruits.unshift("Apple");
+
+// removed = "Mango"
+// fruits = ["Apple", "Orange"]
+
+Array.isArray(fruits); // true   عشان تعرف النوع
+
+
+مهمه اوي وركز في ال return
+
+| Method      | بتعمل إيه؟      | Return             |
+| ----------- | --------------- | ------------------ |
+| `push()`    | تضيف في النهاية | **length الجديد**  |
+| `unshift()` | تضيف في البداية | **length الجديد**  |
+| `pop()`     | تحذف من النهاية | **العنصر المحذوف** |
+| `shift()`   | تحذف من البداية | **العنصر المحذوف** |
+
+****************************************.
+----------------------6. Loop على Array---------------------
+
+الطريقة التقليدية
+for (let i = 0; i < arr.length; i++) {
+  console.log(arr[i]);
+}
+الطريقة الحديثة والأوضح لما تحتاج العناصر فقط
+for (const item of arr) {
+  console.log(item);
+}
+
+مثال:
+const products = ["Phone", "Laptop", "Mouse"];
+for (const product of products) {
+  console.log(product);
+}
+الناتج:
+Phone
+Laptop
+Mouse
+*************************************
+for in بيشتغل مع ال  Objects
+**************************************
+وده بيدخلنا في مفهوم اسمه Sparse Array
+ يعني Array فيها indexes مفقودة / empty slots.
+بيحصل لما تزود ال length بتاع ال  Array
+const arr = ["A", "B"];
+arr.length = 5;
+console.log(arr);
+
+3. هل بنستخدم تغيير length في الشغل؟
+تقنيًا ممكن، لكن مش ده الأسلوب المعتاد لحذف العناصر.
+مثلاً لو عايز تخلي Array فيها أول 3 عناصر:
+لكن في كود Production
+ لو الهدف مجرد الحصول على Array جديدة بأول 3 عناصر، غالبًا هتستخدم:
+const firstThree = arr.slice(0, 3);
+********************************************
+------------------7️⃣ Multidimensional Arrays--------------------
+matrix[row][column]
+let matrix = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9]
+];
+console.log(matrix[0][1]); // 2
+console.log(matrix[2][0]); // 7
+console.log(matrix[1][2]); // 6
+****************************************************************
+----------------تحويل ال  Array to String -------------------------
+لو هدفك تحويل Array إلى String بتنسيق معين، غالبًا هتستخدم:
+arr.join(", ")
+
+التقليدي
+const fruits = ["Apple", "Orange", "Plum"];
+console.log(fruits.toString());

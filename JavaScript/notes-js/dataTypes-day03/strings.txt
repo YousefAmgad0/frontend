@@ -1,0 +1,155 @@
+strings 
+*********
+Strings are immutable
+
+الوصول لآخر Character
+
+عندك طريقتين:
+
+const name = "Yousef";
+
+console.log(name[name.length - 1]); // f
+
+أو الطريقة الأحدث والأسهل:
+
+console.log(name.at(-1)); // f
+
+والـ at() تقدر تستخدمها مع أرقام سالبة:
+
+name.at(-1); // f
+name.at(-2); // e
+name.at(-3); // s
+***********************
+const text = "Hello Yousef";
+
+text.indexOf("Y");       // 6 ✅
+text.indexOf("o");       // 4 ✅
+text.indexOf("Ali");     // -1 ✅
+text.lastIndexOf("o");   // 4 ✅
+
+indexOf(substr, pos)
+تقدر تحدد البحث يبدأ من أي index:
+const text = "Widget with id";
+console.log(text.indexOf("id"));    // 1
+console.log(text.indexOf("id", 2)); // 12
+
+*******************************
+includes()
+
+لو مش محتاج تعرف الـ index، ومحتاج بس تعرف هل النص موجود ولا لأ:
+const text = "Hello Yousef";
+console.log(text.includes("Yousef")); // true
+console.log(text.includes("Ali"));    // false
+
+بتُرجع:
+
+true  → موجود
+false → مش موجود
+
+وتقدر تحدد منين يبدأ البحث:
+text.includes("Yousef", 7);
+يعني: ابدأ البحث من index 7.
+**********************************
+startsWith() و endsWith()
+
+const url = "https://example.com";
+if (url.startsWith("https://")) {
+  console.log("Secure connection");
+}
+أو عندك اسم ملف:
+const fileName = "profile.jpg";
+if (fileName.endsWith(".jpg")) {
+  console.log("This is a JPG image");
+}
+
+وفي الـ Front-End هتقابل الفكرة دي كتير في التعامل مع:
+*******************************
+
+هل موجود؟	includes()
+فين موجود؟	indexOf()
+آخر مكان موجود؟	lastIndexOf()
+
+startsWith() و endsWith() دول برضه بيجاوبوا على سؤال هل النص يبدأ أو ينتهي بحاجة معينة؟
+
+text.includes("abc")      // هل موجود؟
+text.startsWith("abc")    // هل بيبدأ بـ abc؟
+text.endsWith("abc")      // هل بينتهي بـ abc؟
+كلهم بيرجعوا Boolean: true أو false.
+*************************************************
+Getting a substring
+--------------------------------
+str.slice(start, end)
+start → يبدأ من هنا.
+end → يقف قبل الـ index ده.
+
+const text = "Hello Yousef";
+console.log(text.slice(0, 5));
+
+💼 استخدام عملي
+مثلاً عندك Email وعايز تجيب الـ username:
+const email = "yousef@gmail.com";
+const username = email.slice(0, email.indexOf("@"));
+console.log(username); // yousef
+
+----------substring-----------
+const text = "JavaScript";
+text.substring(4, 10);  // "Script" ✅
+text.substring(-3, 4);  // "Java"   ✅	مش بتقبل سالب وبتحوله ل صفر
+************************************
+-----------10. localeCompare()-----------------
+const a = "apple";
+const b = "banana";
+console.log(a.localeCompare(b));
+النتيجة بتكون رقم:
+رقم سالب → a تأتي قبل b
+0 → متساويين في المقارنة
+رقم موجب → a تأتي بعد b
+"apple".localeCompare("banana"); // negative
+"banana".localeCompare("apple"); // positive
+"apple".localeCompare("apple");  // 0
+
+
+💼 أهم استخدام عملي: Sorting
+لو عندك أسماء:
+const names = ["Yousef", "Ahmed", "Mohamed"];
+names.sort((a, b) => a.localeCompare(b));
+console.log(names);
+النتيجة:
+["Ahmed", "Mohamed", "Yousef"]
+
+*******************************
+كل character في JavaScript له Unicode code بيمثله.
+console.log("A".codePointAt(0));     >>>>>> 65
+console.log(String.fromCodePoint(65)); >>>>>>> A
+
+Character → codePointAt()
+Code      → String.fromCodePoint()
+**********************************
+-----------12. String.raw() — Raw Strings-------------
+console.log(`Hello\nWorld`);
+الناتج:
+Hello
+World
+لكن مع String.raw():
+console.log(String.raw`Hello\nWorld`);
+الناتج:
+Hello\nWorld
+***********************************
+💼 Work Cheat Sheet
+| لو عايز تعمل           | استخدم                   |
+| ---------------------- | ------------------------ |
+| طول النص               | `.length`                |
+| أول character          | `[0]`                    |
+| آخر character          | `.at(-1)` ⭐              |
+| Uppercase              | `.toUpperCase()`         |
+| Lowercase              | `.toLowerCase()`         |
+| هل موجود؟              | `.includes()` ⭐          |
+| مكانه؟                 | `.indexOf()`             |
+| آخر مكان؟              | `.lastIndexOf()`         |
+| يبدأ بـ؟               | `.startsWith()`          |
+| ينتهي بـ؟              | `.endsWith()`            |
+| استخراج جزء            | `.slice()` ⭐             |
+| مقارنة عادية           | `===`                    |
+| ترتيب نصوص             | `.localeCompare()`       |
+| تحويل character → code | `.codePointAt()`         |
+| code → character       | `String.fromCodePoint()` |

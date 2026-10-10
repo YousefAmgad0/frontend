@@ -1,0 +1,621 @@
+🔥 Part 1 — Destructuring
+Q41 — What is Destructuring?
+🎯 Interview Answer
+
+Destructuring is a JavaScript syntax that allows us to extract values from arrays or properties from objects and assign them to variables.
+
+🇪🇬 بالمصري
+
+بدل ما تعمل:
+
+const name = user.name;
+const age = user.age;
+
+تقدر:
+
+const { name, age } = user;
+🧠 Mental Model
+Object
+   ↓
+Destructuring
+   ↓
+Variables
+Q42 — Array Destructuring vs Object Destructuring
+🎯 Interview Answer
+
+Array destructuring is based on position, while object destructuring is based on property names.
+
+Array:
+const numbers = [10, 20, 30];
+
+const [first, second] = numbers;
+first  → 10
+second → 20
+
+الموضوع هنا حسب index/position.
+
+Object:
+const user = {
+  name: "Yousef",
+  age: 23
+};
+
+const { name, age } = user;
+
+هنا حسب property name.
+
+🔥 احفظ:
+Array
+→ Position
+
+Object
+→ Property name
+Q43 — How can you rename a destructured property?
+
+عندنا:
+
+const user = {
+  name: "Yousef",
+  years: 23
+};
+
+ممكن تعمل:
+
+const { years: age } = user;
+🎯 Interview Answer
+
+In object destructuring, I can rename a property using the property: variableName syntax.
+
+هنا:
+
+years → property
+age   → variable
+
+يعني:
+
+console.log(age); // 23
+
+ومفيش variable اسمه years اتعمل.
+
+Q44 — How do default values work in destructuring?
+const user = {
+  name: "Yousef"
+};
+
+const { name, age = 18 } = user;
+
+الناتج:
+
+name → Yousef
+age  → 18
+🎯 Interview Answer
+
+Destructuring supports default values, which are used when the extracted value is undefined.
+
+⚠️ Trap
+
+الـ default مش بيشتغل مع null.
+
+const { age = 18 } = { age: null };
+
+الناتج:
+
+null
+
+لأن القيمة موجودة، لكنها null.
+
+🔥 Q45 — Can we destructure function parameters?
+
+Yes.
+
+function showUser({ name, age }) {
+  console.log(name, age);
+}
+
+وتستدعي:
+
+showUser({
+  name: "Yousef",
+  age: 23
+});
+🎯 Interview Answer
+
+Yes. Parameter destructuring allows us to directly extract the properties we need from an object passed to a function.
+
+🔥 Front-End relevance
+
+مهم جدًا في React:
+
+function UserCard({ name, age }) {
+  return ...
+}
+
+هتقابله كتير جدًا.
+
+🔥 Q46 — What does Array Rest do?
+const numbers = [10, 20, 30, 40];
+
+const [first, second, ...rest] = numbers;
+
+الناتج:
+
+first  → 10
+second → 20
+rest   → [30, 40]
+🎯 Interview Answer
+
+The rest syntax collects the remaining elements into a new array.
+
+⚠️ Trap
+
+Rest لازم يكون آخر عنصر:
+
+const [first, ...rest, last] = numbers;
+
+❌ Invalid.
+
+🔥 Part 2 — Spread vs Rest
+Q47 — What's the difference between Spread and Rest?
+🎯 Interview Answer
+
+Spread expands an iterable or object into individual elements or properties, while Rest collects multiple elements or properties into a single variable.
+
+Spread:
+const numbers = [1, 2, 3];
+
+const copy = [...numbers];
+
+هنا بنفك الـ Array.
+
+Rest:
+const [first, ...rest] = numbers;
+
+هنا بنجمع الباقي.
+
+🧠 أسهل طريقة:
+Spread
+→ Expand
+
+Rest
+→ Collect
+🔥 Q48 — Does object spread create a copy?
+const user = {
+  name: "Yousef",
+  age: 23
+};
+
+const copy = { ...user };
+
+أيوه، بيعمل Shallow Copy.
+
+🎯 Interview Answer
+
+Object spread creates a shallow copy of the object.
+
+وده معناه إن:
+
+copy !== user
+
+لكن لو فيه nested object:
+
+const user = {
+  name: "Yousef",
+  address: {
+    city: "Cairo"
+  }
+};
+
+فالـ:
+
+const copy = { ...user };
+
+الـ address نفسه لسه نفس الـ reference.
+
+⚠️ مهم
+
+Spread مش Deep Clone.
+
+🔥 Q49 — Why is Spread useful in Front-End?
+
+مثال:
+
+const updatedProduct = {
+  ...product,
+  price: 25000
+};
+🎯 Interview Answer
+
+Spread is useful for creating new objects or arrays without mutating the original data.
+
+وده مهم جدًا في:
+
+React State
+Redux
+API data transformation
+immutable updates
+⭐ Best Practice
+
+بدل:
+
+product.price = 25000;
+
+لو عايز تحافظ على الـ original:
+
+const updatedProduct = {
+  ...product,
+  price: 25000
+};
+🔥 Q50 — What is Rest in function parameters?
+function sum(...numbers) {
+  console.log(numbers);
+}
+
+لو:
+
+sum(10, 20, 30);
+
+فالـ numbers:
+
+[10, 20, 30]
+🎯 Interview Answer
+
+Rest parameters collect multiple function arguments into an array.
+
+⚠️ Trap
+
+Rest parameter لازم يكون آخر parameter:
+
+function test(a, ...rest) {}
+
+✅
+
+لكن:
+
+function test(...rest, a) {}
+
+❌
+
+🟡 Part 3 — Iterables
+Q51 — What is an Iterable?
+🎯 Interview Answer
+
+An iterable is an object that can be iterated over using mechanisms such as for...of. It provides a Symbol.iterator method.
+
+🇪🇬 بالمصري
+
+يعني حاجة JavaScript تعرف تمشي عليها عنصر عنصر.
+
+مثال:
+
+for (const value of [10, 20, 30]) {
+  console.log(value);
+}
+
+Array = Iterable.
+
+Q52 — Which of these are Iterable?
+Array
+String
+Object
+Map
+Set
+الإجابة:
+Array   ✅
+String  ✅
+Object  ❌
+Map     ✅
+Set     ✅
+🔥 احفظها
+Array  → Iterable
+String → Iterable
+Map    → Iterable
+Set    → Iterable
+
+Plain Object → Not Iterable by default
+Q53 — Why can we use for...of with Strings?
+for (const char of "Yousef") {
+  console.log(char);
+}
+🎯 Interview Answer
+
+Strings are iterable in JavaScript, so for...of can iterate over their characters.
+
+وده من أسباب إن:
+
+[..."Yousef"]
+
+تشتغل.
+
+Q54 — Why can't we use for...of directly on a plain Object?
+const user = {
+  name: "Yousef",
+  age: 23
+};
+
+for (const value of user) {}
+
+❌ Error.
+
+🎯 Interview Answer
+
+Plain objects are not iterable by default.
+
+لكن ممكن نحولها:
+
+Object.entries(user)
+
+أو:
+
+Object.keys(user)
+
+أو:
+
+Object.values(user)
+
+لأنهم بيرجعوا Arrays.
+
+🟡 Q55 — What is Symbol.iterator?
+🎯 Interview Answer
+
+Symbol.iterator is the mechanism that defines how an object produces an iterator, allowing it to be used with for...of and other iteration features.
+
+Mental Model
+Iterable
+   ↓
+Symbol.iterator
+   ↓
+Iterator
+   ↓
+next()
+   ↓
+{ value, done }
+⚠️ Important
+
+مش مطلوب منك دلوقتي تكتب Custom Iterator.
+
+المهم تفهم:
+
+Symbol.iterator هو اللي بيخلي object Iterable.
+
+🟡 Q56 — What is an Iterator?
+🎯 Interview Answer
+
+An iterator is an object that provides a next() method, which returns an object containing value and done.
+
+مثال شكلي:
+
+{
+  value: 10,
+  done: false
+}
+
+وفي النهاية:
+
+{
+  value: undefined,
+  done: true
+}
+🧠 الفرق:
+Iterable
+→ can be iterated
+
+Iterator
+→ performs the iteration using next()
+
+دي نقطة Interview حلوة، لكن مش لازم تتعمق فيها دلوقتي.
+
+🔥 Part 4 — Date
+Q57 — What's the difference between new Date() and Date.now()?
+🎯 Interview Answer
+
+new Date() returns a Date object, while Date.now() returns the current timestamp in milliseconds.
+
+new Date();
+// Date Object
+Date.now();
+// Number
+🧠
+new Date()
+→ Date Object
+
+Date.now()
+→ Number
+🔥 Q58 — What is a Timestamp?
+🎯 Interview Answer
+
+A timestamp is a number representing the number of milliseconds since January 1, 1970 UTC.
+
+مثال:
+
+Date.now();
+
+يرجع Number كبير.
+
+استخداماته:
+Date comparison
+Calculations
+Duration
+Sorting dates
+Timers
+🔥 Q59 — What's the difference between getTime() and toISOString()?
+🎯 Interview Answer
+
+getTime() returns the date as a timestamp in milliseconds, while toISOString() returns the date as an ISO-formatted string.
+
+date.getTime();
+// Number
+date.toISOString();
+// String
+⭐ API Rule
+getTime()
+→ calculations/comparison
+
+toISOString()
+→ API/data exchange
+🔥 Q60 — How do you parse an API date?
+
+لو الـ API رجع:
+
+const createdAt = "2026-09-28T12:00:00.000Z";
+
+تعمل:
+
+const date = new Date(createdAt);
+🎯 Interview Answer
+
+When an API returns a date as a string, I can create a JavaScript Date object using new Date() to perform date calculations or comparisons.
+
+مثال:
+
+const newestProduct = products.reduce((newest, product) => {
+  return new Date(product.createdAt) >
+    new Date(newest.createdAt)
+    ? product
+    : newest;
+});
+
+🔥 ده بالضبط اللي عملناه في الـ Comprehensive Challenge.
+
+🔥 Q61 — Are Date objects mutable?
+
+Yes.
+
+const date = new Date("2026-09-20");
+
+date.setDate(25);
+
+الـ Date نفسه اتغير.
+
+🎯 Interview Answer
+
+JavaScript Date objects are mutable. Methods like setDate() modify the existing Date object.
+
+🔥 Q62 — What happens here?
+const date1 = new Date("2026-09-20");
+const date2 = date1;
+
+date2.setDate(25);
+
+date1 هتتغير كمان.
+
+ليه؟
+
+لأن:
+
+date1 ─────┐
+           ↓
+       Same Object
+           ↑
+date2 ─────┘
+⭐ Copy
+const date2 = new Date(date1);
+
+كده عندك Object جديد.
+
+🔥 Q63 — How do you compare two Dates?
+
+ممكن:
+
+date1.getTime() > date2.getTime()
+
+أو JavaScript تسمح بالمقارنة المباشرة:
+
+date1 > date2
+
+لأن الـ Date بيتحول لقيمة رقمية عند المقارنة.
+
+⭐ Preferred
+
+في كود واضح:
+
+date1.getTime() > date2.getTime()
+
+أو لو الـ context واضح جدًا:
+
+date1 > date2
+
+الاتنين valid.
+
+🏆 Round 3 — Quick Memorization Sheet
+Destructuring
+→ extract values/properties
+
+Array destructuring
+→ position
+
+Object destructuring
+→ property name
+
+Default value
+→ applies when value === undefined
+
+Rest
+→ collect
+
+Spread
+→ expand
+
+Object spread
+→ shallow copy
+
+Spread in Front-End
+→ immutable updates
+
+Iterable
+→ can be used with for...of
+
+Array
+→ Iterable
+
+String
+→ Iterable
+
+Map
+→ Iterable
+
+Set
+→ Iterable
+
+Plain Object
+→ not Iterable by default
+
+Symbol.iterator
+→ mechanism behind iteration
+
+Iterator
+→ has next()
+
+new Date()
+→ Date Object
+
+Date.now()
+→ timestamp Number
+
+getTime()
+→ timestamp
+
+toISOString()
+→ ISO String
+
+Date
+→ mutable
+
+new Date(oldDate)
+→ copy Date
+
+API date string
+→ new Date(dateString)
+⭐ أهم Interview Questions في Round 3
+
+لو وقتك ضيق، ركز جدًا على:
+
+Array vs Object Destructuring
+Spread vs Rest
+Shallow Copy
+Why Spread is useful in React
+Iterable vs Iterator
+Why Object isn't iterable
+new Date() vs Date.now()
+getTime() vs toISOString()
+Date mutability
+How to compare API dates

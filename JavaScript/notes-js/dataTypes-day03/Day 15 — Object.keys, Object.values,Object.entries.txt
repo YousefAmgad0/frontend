@@ -1,0 +1,83 @@
+Day 15 — Object.keys, Object.values, Object.entries
+دي من الحاجات اللي عايزك تبقى مرتاح جدًا معاها كـ Front-End Developer.
+
+🔥 نقطة مهمة جدًا		:>	التلاتة بيرجعوا Array.
+مثلاً:
+
+Object.keys(user).map(...)
+
+ممكن.
+
+و:
+
+Object.values(user).filter(...)
+
+ممكن.
+
+و:
+
+Object.entries(user).map(...)
+
+
+
+1. Object.keys() 🔥
+
+عندك Object:
+
+const user = {
+  name: "Yousef",
+  age: 23,
+  role: "Frontend Developer"
+};
+
+لو عايز أسماء الـ properties فقط:
+Object.keys(user);
+
+3. Object.values() 🔥
+
+نفس الفكرة، لكن بدل الـ keys، هات القيم:
+Object.values(user);
+
+Object.values(user).forEach((value) => {
+  console.log(value);
+});
+
+4. Object.entries() 🔥🔥
+ودي أهم واحدة فيهم إنك تفهم شكلها.
+
+Object.entries(user);
+الناتج:
+
+[
+  ["name", "Yousef"],
+  ["age", 23],
+  ["role", "Frontend Developer"]
+]
+
+يعني كل property بقت:
+
+[key, value]
+مثلاً:
+["name", "Yousef"]
+
+
+*********************************************
+7. مثال React مهم
+
+تخيل عندك:
+
+const user = {
+  name: "Yousef",
+  email: "yousef@example.com",
+  age: 23
+};
+
+وعايز تعمل UI ديناميكي بدل ما تكتب:
+
+<p>Name: {user.name}</p>
+<p>Email: {user.email}</p>
+<p>Age: {user.age}</p>
+
+ممكن تستخدم:
+
+Object.entries(user)

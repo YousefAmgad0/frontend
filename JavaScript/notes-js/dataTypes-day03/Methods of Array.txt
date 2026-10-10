@@ -1,0 +1,480 @@
+Methods of Array
+****************
+2️⃣ splice()
+تعتبر من أهم Array methods؛ لأنها تقدر تعمل:
+Delete
+Insert
+Replace
+والأهم:
+بتعدل الـ original Array.
+
+Syntax:
+
+arr.splice(start, deleteCount, item1, item2, ...);
+
+خلينا نفكها:
+
+start
+↓
+منين أبدأ؟
+
+deleteCount
+↓
+أحذف كام عنصر؟
+
+item1, item2...
+↓
+أضيف إيه مكانهم؟
+
+
+بتشتغل مكان ال Delete  (1)
+let arr = ["I", "study", "JavaScript"];
+arr.splice(1, 1);
+نبدأ من:
+index 1
+و نحذف:
+1 element
+فتصبح:
+["I", "JavaScript"]
+
+
+B) Delete multiple elements
+let arr = ["I", "study", "JavaScript", "right", "now"];
+arr.splice(0, 3);
+معناها:
+ابدأ من index 0
+احذف 3 عناصر
+فيتبقى:
+["right", "now"]
+
+
+C) Replace
+وده من أقوى استخدامات splice():
+let arr = ["I", "study", "JavaScript", "right", "now"];
+arr.splice(0, 3, "Let's", "dance");
+اقرأها:
+0 → ابدأ من index 0
+3 → احذف 3 عناصر
+"Let's", "dance" → حطهم مكانهم
+
+فتصبح:
+["Let's", "dance", "right", "now"]
+
+
+D) splice() بترجع العناصر المحذوفة
+دي مهمة جدًا.
+let arr = ["I", "study", "JavaScript", "right", "now"];
+let removed = arr.splice(0, 2);
+arr أصبحت:
+["JavaScript", "right", "now"]
+لكن:
+removed
+تساوي:
+["I", "study"]
+
+E) Insert فقط بدون Delete
+دي نقطة مهمة جدًا:
+let arr = ["I", "study", "JavaScript"];
+arr.splice(2, 0, "complex", "language");
+هنا:
+2 → ابدأ من index 2
+0 → متحذفش حاجة
+complex, language → أضفهم
+الناتج:
+["I", "study", "complex", "language", "JavaScript"]
+*******************************************************
+3️⃣ slice()
+بتاخد جزء من الـ Array وترجعه في Array جديدة، من غير ما تعدّل الـ Array الأصلية.
+تخيل عندك:
+const arr = ["A", "B", "C", "D", "E"];
+وعايز تاخد "B" و"C" بس.
+تقدر تعمل:
+const result = arr.slice(1, 3);
+console.log(result); // ["B", "C"]
+console.log(arr);    // ["A", "B", "C", "D", "E"]
+لاحظ إن الـ arr الأصلية زي ما هي.
+1. الـ Syntax
+arr.slice(start, end);
+start: الـ index اللي هتبدأ منه.
+end: الـ index اللي هتقف قبله، مش بتشمله.
+
+2. لو كتبت slice(start) بس
+لو ما كتبتش end 
+هتجيب من البداية لحد آخر الـ Array.
+const arr = ["A", "B", "C", "D", "E"];
+console.log(arr.slice(2));
+الناتج:
+["C", "D", "E"]
+
+
+-----------مهم ----------------
+3. لو ما كتبتش أي arguments
+const arr = ["A", "B", "C"];
+const copy = arr.slice();
+console.log(copy); // ["A", "B", "C"]
+دي طريقة لعمل Shallow Copy للـ Array.
+وده مفيد لو عايز Array جديدة بدل ما تعمل reference لنفس الـ Array.
+
+**********************************************
+4️⃣ concat()
+بنستخدمها عشان ندمج Array مع Array تانية
+أو نضيف عناصر ونرجع Array جديدة من غير ما نعدّل الأصلية.
+
+دمج Array مع Array (1)
+const arr1 = [1, 2];
+const arr2 = [3, 4];
+const result = arr1.concat(arr2);
+console.log(result);
+الناتج:
+[1, 2, 3, 4]
+
+إضافة قيم عادية  (2)
+const arr = [1, 2];
+const result = arr.concat(3, 4);
+console.log(result); // [1, 2, 3, 4]
+
+تقدر تدمج أكتر من Array وقيم عادية:
+const arr1 = [1, 2];
+const arr2 = [3, 4];
+const result = arr1.concat(arr2, 5, 6);
+console.log(result); // [1, 2, 3, 4, 5, 6]
+
+3. خلي بالك من الـ Nested Arrays ⚠️
+const arr = [1, 2];
+const result = arr.concat([3, 4], 5);
+console.log(result);
+الناتج:
+[1, 2, 3, 4, 5]
+الـ Array اللي بتبعتها كـ argument بتتفرد لمستوى واحد.
+لكن لو عندك Array متداخلة أصلًا:
+const arr = [[1, 2], [3, 4]];
+const result = arr.concat([5, 6]);
+console.log(result);
+الناتج:
+[[1, 2], [3, 4], 5, 6]
+لاحظ إن العناصر المتداخلة الموجودة في arr فضلت متداخلة.
+
+4. نقطة مهمة: concat() مش Deep Copy
+const user = { name: "Yousef" };
+const arr1 = [user];
+const arr2 = arr1.concat();
+console.log(arr1 === arr2);       // false
+console.log(arr1[0] === arr2[0]); // true
+في الشغل: استخدم concat()
+لو عايز تدمج Arrays بدون تعديل الأصلية
+وممكن تستخدم Spread كبديل شائع:
+****************************************************
+---------------forEach------------------------------
+const fruits = ["Apple", "Orange", "Mango"];
+fruits.forEach(function (fruit) {
+  console.log(fruit);
+});
+
+2. استخدام Arrow Function
+وده الشكل المختصر الشائع في الشغل:
+const fruits = ["Apple", "Orange", "Mango"];
+fruits.forEach((fruit) => {
+  console.log(fruit);
+});
+
+3. الـ Parameters
+arr.forEach((item, index, array) => {
+  // code
+});
+
+const fruits = ["Apple", "Orange", "Mango"];
+fruits.forEach((fruit, index) => {
+  console.log(`${index}: ${fruit}`);
+});
+الناتج:
+0: Apple
+1: Orange
+2: Mango
+*****************************************
+-----------------searching in array------------------
+1. indexOf()
+بتدور على قيمة داخل الـ Array.
+onst fruits = ["Apple", "Orange", "Mango"];
+console.log(fruits.indexOf("Orange")); >>>>>>>>> 1, لو مش موجود -1
+
+arr.indexOf(item, from);
+item → الحاجة اللي بتدور عليها.
+from → تبدأ البحث من أي index.
+from اختياري، والافتراضي يبدأ من 0.
+const numbers = [10, 20, 30, 20, 40];
+console.log(numbers.indexOf(20));    // 1
+console.log(numbers.indexOf(20, 2)); // 3
+
+2. lastIndexOf()
+بدل ما يدور من الشمال لليمين، بيدور من اليمين للشمال
+const fruits = ["Apple", "Orange", "Apple"];
+console.log(fruits.indexOf("Apple"));     // 0
+console.log(fruits.lastIndexOf("Apple")); // 2
+يعني:
+indexOf()      → أول occurrence
+lastIndexOf()  → آخر occurrence
+
+3. includes()
+دي مختلفة شوية.
+لو أنت مش مهتم بالـ index
+وكل اللي عايزه تعرف:
+هل العنصر موجود ولا لأ؟
+
+const fruits = ["Apple", "Orange", "Mango"];
+
+console.log(fruits.includes("Orange")); // true
+console.log(fruits.includes("Banana")); // false
+بترجع:
+true
+أو:
+false
+
+⭐ نقطة مهمة مع NaN
+في حالة خاصة:
+const arr = [NaN];
+console.log(arr.indexOf(NaN));  // -1
+console.log(arr.includes(NaN)); // true
+
+--------find() و findIndex()----------------
+دلوقتي عندنا مشكلة مختلفة:
+أحيانًا مش بندور على قيمة محددة، لكن بندور على عنصر يحقق شرط.
+مثلاً:
+const users = [
+  { id: 1, name: "Ali" },
+  { id: 2, name: "Yousef" },
+  { id: 3, name: "Omar" }
+];
+لو عايزين نجيب الـ user
+للي id بتاعه 2
+نقدر نستخدم find()
+const user = users.find((user) => user.id === 2);
+console.log(user);
+
+const numbers = [5, 12, 8, 20];
+const result = numbers.find((num) => num > 10);
+console.log(result); >>>>>>>>>> 12 , لو ملقتش يبقي undefined
+
+findIndex()
+نفس فكرة find()
+لكن بدل ما ترجع العنصر نفسه
+بترجع index بتاعه.
+
+const numbers = [5, 12, 8, 20];
+const index = numbers.findIndex((num) => num > 10);
+console.log(index); >>>> 1 , لو ملقتش هيرجع -1
+
+findLast() و findLastIndex()
+الفرق بيبدا من الاخر بدل الاول
+-----------------------------------------مهمه اوي اوي --------------------------------------------
+-----------------------------------------1. What is filter()؟--------------------------------
+بتستخدمها لما يكون عندك Array
+عايز تطلع Array جديدة
+فيها العناصر اللي بتحقق شرط معين
+ببساطه ......... 
+"هاتلي كل العناصر اللي تحقق الشرط ده."
+
+const numbers = [10, 25, 8, 30, 15];
+const result = numbers.filter((num) => num > 20);
+console.log(result);
+الناتج:	[25, 30]
+
+لاحظ الفرق مع find():
+find()   → أول عنصر يحقق الشرط
+filter() → كل العناصر اللي تحقق الشرط
+وده فرق مهم جدًا.
+وكمان لو مش بيحقق الشرط في اختلاف بينهم
+const numbers = [5, 10, 15];
+numbers.find((num) => num > 20); // undefined
+numbers.filter((num) => num > 20); // []
+
+Callback
+Function بتتبعت
+كـ argument
+ل
+لـ Function تانية
+والـ Function التانية بتستدعيها.
+
+ده الي بيحصل جوا ال filter()
+ال callback 
+بتاعها لازم يبقي true
+
+الـ callback تفحص كل واحد:
+Ali     → 17 >= 18 → false ❌
+Yousef  → 22 >= 18 → true  ✅
+Omar    → 15 >= 18 → false ❌
+Ahmed   → 25 >= 18 → true  ✅
+فتطلع:
+[
+  { name: "Yousef", age: 22 },
+  { name: "Ahmed", age: 25 }
+]
+----------------------------- مهمه جدا جدا ----------------------------------
+-----------------------------1. What is map()؟------------------------------
+بتستخدمها لما يكون عندك Array
+وعايز تعمل تحويل لكل عنصر يعني مثلا تضربه و تقسمه وهكذا
+وتطلع Array جديدة بالنتائج.
+const numbers = [1, 2, 3, 4];
+const result = numbers.map((num) => num * 2);
+console.log(result);
+الناتج	[2, 4, 6, 8]
+اللي حصل:
+1 → 1 × 2 → 2
+2 → 2 × 2 → 4
+3 → 3 × 2 → 6
+4 → 4 × 2 → 8
+
+map() vs filter()
+
+filter → بترجع Array ,  بتحقق الشروط الي انت محددها وممكن العدد يبقي اقل من الاصليه
+map    → أحوّل Array , بتنفذ الي العمليات الي هتعملها والعدد بيفضل هو هو
+
+---------------------2. map() مع Objects----------------------------------
+const users = [
+  { name: "Ali", age: 20 },
+  { name: "Yousef", age: 22 },
+  { name: "Omar", age: 25 }
+];
+عايز أطلع الأسماء فقط:
+const names = users.map((user) => user.name);
+console.log(names);
+الناتج:		["Ali", "Yousef", "Omar"]
+
+3. map() لا تغيّر الـ Original Array (معلومه)
+
+------------------ مهمه اوي اوي اوي اوي -------------------------------------
+------------------map() vs forEach()--------------------------------------
+const numbers = [1, 2, 3];
+numbers.forEach(num => {
+  console.log(num * 2);
+});
+ده مجرد تنفيذ مش بيطلع array 
+
+لكن:
+const doubled = numbers.map(num => num * 2);
+ده بيطلع Array جديدة.
+
+-----------------------------1. يعني إيه sort()؟-------------------------------
+بتستخدمها لما تكون عايز ترتب عناصر الـ Array.
+const fruits = ["Banana", "Apple", "Orange"];
+fruits.sort();
+console.log(fruits);
+الناتج:
+["Apple", "Banana", "Orange"]
+
+2. المشكلة: sort() افتراضيًا بترتب كـ Strings
+const numbers = [1, 2, 15];
+numbers.sort();
+console.log(numbers);
+ممكن تتوقع:	[1, 2, 15]
+لكن الناتج:		[1, 15, 2]
+
+3. الحل: Comparison Function
+علشان نقول لـ sort():
+"أنا عايزك ترتب الأرقام كأرقام"
+بنمررلها function بتقارن بين عنصرين
+
+numbers.sort((a, b) => a - b);
+const numbers = [1, 2, 15];
+numbers.sort((a, b) => a - b);
+console.log(numbers);
+الناتج:	[1, 2, 15]
+
+
+*)نقطة مهمة جدًا: sort() بتغير الـ Original Array
+const numbers = [3, 1, 2];
+const result = numbers.sort((a, b) => a - b);
+console.log(numbers);
+console.log(result);
+الناتج:
+[1, 2, 3]
+[1, 2, 3]
+
+---------------------Notes -------------------
+map()    → new Array
+filter() → new Array
+slice()  → new Array
+sort()   → modifies original
+
+------------------------------------------ reverse() ----------------------
+بتعدل الـ Original Array
+تعكس ترتيب عناصر الـ Array.
+const numbers = [1, 2, 3, 4];
+numbers.reverse();
+console.log(numbers);
+
+---------------------------------split()-----------------------------------
+بتستخدمها لتحويل String → Array.
+const str = "Hello, World!";
+const arr = str.split(", ");
+console.log(arr);
+
+const str = "A-B-C";
+console.log(str.split("-"));
+الناتج:
+["A", "B", "C"]
+
+------------------------------------join() --------------------------------
+Array → String
+const arr = ["A", "B", "C"];
+const result = arr.join("-");
+الناتج:	"A-B-C"
+
+---------------------------------------reduce()-----------------------------
+تجمع/تختصر كل عناصر الـ Array في قيمة واحدة
+const numbers = [5, 10, 15];
+const result1 = numbers.reduce((sum, num) => sum + num, 0);
+console.log(result1); >>>>>>>>> 30
+
+arr.reduce((accumulator, currentValue) => {
+  return newAccumulator;
+}, initialValue);
+
+مش لازم ترجع Number.
+ممكن ترجع:
+
+Number
+String
+Object
+Array
+أي value
+
+مثلاً ممكن نستخدمها لحساب مجموع الأسعار:
+
+const products = [
+  { name: "Laptop", price: 30000 },
+  { name: "Phone", price: 15000 },
+  { name: "Mouse", price: 500 }
+];
+
+const total = products.reduce(
+  (sum, product) => sum + product.price,
+  0
+);
+الناتج:	45500
+
+map() vs filter() vs reduce() 🔥
+map()
+→ كل عنصر يتحول
+→ Array جديدة
+
+filter()
+→ نختار عناصر معينة
+→ Array جديدة
+
+reduce()
+→ نختصر كل العناصر
+→ قيمة واحدة غالبًا
+----------------------------reduceRight()--------------------------
+const numbers = [1, 2, 3, 4];
+const result = numbers.reduceRight(
+  (acc, current) => acc - current,
+  0
+);
+0 - 4 = -4
+-4 - 3 = -7
+-7 - 2 = -9
+-9 - 1 = -10
+**************************************************************************
+
+
+

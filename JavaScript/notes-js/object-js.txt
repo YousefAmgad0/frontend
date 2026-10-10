@@ -1,0 +1,556 @@
+****************************object*********************
+Property فيها مسافات
+هنا لازم Brackets:
+const user = {
+  "first name": "Yousef"
+};
+مينفعش:
+user.first name
+لكن:
+console.log(user["first name"]);
+
+*************************************************
+لو الـ key والـ variable نفس الاسم:
+
+const name = "Yousef";
+const age = 22;
+
+const user = {
+  name,
+  age
+};
+
+JavaScript بتفهمها كأنك كتبت:
+
+const user = {
+  name: name,
+  age: age
+};
+*********************************************
+أنت عدلت محتوى الـ Object. مع انه واخد const
+يعني:
+const user = {
+  name: "Yousef"
+};
+
+user.name = "Ahmed"; // ✅
+
+لكن:
+user = {
+  name: "Ahmed"
+}; // ❌
+
+const يمنع reassignment، لكنه لا يجعل الـ Object immutable.
+*******************************************************
+15. Objects ممكن تحتوي Functions
+ودي هتبقى بوابة مهمة جدًا للـ Methods و this.
+const user = {
+  name: "Yousef",
+
+  sayHi: function () {
+    console.log("Hi");
+  }
+};
+
+ولما Function تكون stored داخل Object property، بنسميها Method.
+***********************************************************
+*********************** for...in 🔥***********************
+لو عايز تلف على كل properties بتاعة Object:
+const user = {
+  name: "Yousef",
+  age: 22,
+  job: "Front-End Developer"
+};
+
+for (const key in user) {
+  console.log(key);
+}
+
+Output:
+name
+age
+job
+
+لكن لو عايز القيمة:
+for (const key in user) {
+  console.log(user[key]);
+}
+
+ولو عايز الاتنين:
+
+for (const key in user) {
+  console.log(key, user[key]);
+}
+
+user[key] , دي استخدامات ال Bracket Notaion , مع propertyName ال Dynamic 
+*********************************************************
+const user = {
+  name: "Yousef",
+  age: 22,
+  skills: {
+    frontend: "React"
+  }
+};
+الخلاصه اقدر اا access لل obj عن طريق
+user.name  >>>>>>>>> Yousef
+user['age'] >>>>>>> 22 
+كمان
+تضيف:
+user.country = "Egypt";
+تعدل:
+user.age = 23;
+تحذف:
+delete user.country;
+وتلف
+for (const key in user) {
+  console.log(key, user[key]);
+}
+*********************************************************
+الفرق المهم جدًا
+const key = "name";
+const user = {
+  key: "Yousef"
+};
+ده يعمل property اسمها حرفيًا:
+key
+
+لكن:
+const user = {
+  [key]: "Yousef"
+};
+ده يعمل property اسمها:
+name
+🧠 قاعدة تحفظها:
+key → استخدم القيمة المكتوبة حرفيًا key
+[key] → استخدم قيمة المتغير key
+***************************************************
+***********************************************
+const user2 = user1;       		(Refrences✅)
+تستخدمه إمتى؟
+لما مش محتاج نسخة جديدة أصلًا.
+const currentUser = user;
+أنت بس بتدي نفس البيانات اسم متغير تاني.
+
+const user2 = { ...user1 }; // 		(Shallow Copy ✅)
+"عايز نسخة، بس المستوى الأول كفاية" , 
+ينشئ Object جديد
+لكن الـ nested Objects/Arrays
+تظل References مشتركة
+
+الـ user2 جديد، لكن address لسه مشترك.
+user2.name = "Ahmed";
+الـ original مش هيتغير:
+console.log(user.name); // Yousef
+مثال مهم جدًا في React
+لو عندك state:
+const user = {
+  name: "Yousef",
+  age: 22
+};
+وعايز تغير age بدون ما تعدل الـ original مباشرة:
+const updatedUser = {
+  ...user,
+  age: 23
+};
+ده من أكتر الـ patterns اللي هتقابلك.
+Spread copies the first level, but nested Objects/Arrays remain references *
+
+
+const user2 = structuredClone(user1);  	(//Deep Copy✅)
+"عايز نسخة مستقلة بالكامل"
+عملنا Object جديد + nested Objects جديدة
+فلو عدلت b.address.city، a مش هيتأثر.
+
+Object.assign(destination, source);	(//Object.assign✅) cloning استنساخ
+خد properties من source وحطها في destination
+const user = {
+  name: "Yousef"
+};
+const permissions = {
+  canEdit: true,
+  canDelete: false
+};
+Object.assign(user, permissions);
+النتيجة:
+{
+  name: "Yousef",
+  canEdit: true,
+  canDelete: false
+}
+
+ممكن تعمل نفس فكرة الـ cloning بـ: spread   				✅ وده الي هنشتغل بيه
+const clone = {
+  ...user
+};
+************************************************
+هنا لما بعمل كده مش باخد نسخه دنا بخلي الاتنين اوبجيكت يشاورو 
+علي نفس ال Refrence
+
+const user1 = {
+  name: "Yousef"
+};
+const user2 = user1;
+user2.name = "Ahmed";
+console.log(user1.name); >>> ahmed لان لاتنين هيشاور علي ال refrence
+
+const a = {};
+const b = a;
+console.log(a === b); ................> True
+Objects are equal only if they refer to the same Object.
+
+****************************************************
+إزاي أعمل Copy حقيقي؟
+
+Shallow Copy >>>>>>>: Spread Syntax
+
+const user1 = {
+  name: "Yousef",
+  age: 22
+};
+const user2 = { ...user1 }; ...................>Spread Syntax
+*******************************************************
+إزاي أعمل Deep Copy؟
+const user2 = structuredClone(user1);
+************************************************************
+					Passing Objects to Functions
+const user = {
+  name: "Yousef"
+};
+function changeName(obj) {
+  obj.name = "Ahmed";
+}
+changeName(user);
+console.log(user.name); // Ahmed
+
+لكن خلي بالك من نقطة دقيقة
+لو عملت:
+function changeUser(obj) {
+  obj = {
+    name: "Ahmed"
+  };
+}
+const user = {
+  name: "Yousef"
+};
+changeUser(user);
+console.log(user.name); // Yousef
+ليه؟
+لأنك هنا غيرت الـ local reference obj فقط:
+*******************************************************
+Garbage Collection (GC)
+هي آلية تلقائية في JavaScript مسؤولة عن إدارة الـ Memory وتنضيف الـ Objects اللي مبقاش ليها استخدام.
+
+let user = {
+  name: "Yousef"
+};
+الـ variable user عنده Reference للـ Object.
+إذن الـ Object:
+Reachable ✅
+لأن لسه نقدر نوصل له عن طريق user.
+
+لو
+
+user → null
+{ name: "Yousef" }   ❌
+مبقاش فيه أي Reference يوصل للـ Object.
+إذن أصبح:
+Unreachable
+وساعتها Garbage Collector يقدر يتخلص منه ويحرر الـ Memory
+
+طب لو فيه أكتر من Reference؟👇
+let user = {
+  name: "Yousef"
+};
+let admin = user;
+user ─────┐
+          ↓
+       Object
+          ↑
+admin ────┘
+
+لو عملنا:
+user = null;
+هيبقى:
+user → null
+admin ───→ Object
+هل الـ Object هيتمسح؟
+❌ لأ.
+ليه؟
+لأن admin لسه بيوصل له.
+إذن الـ Object مازال:
+Reachable ✅
+ولو عملنا:
+admin = null;
+مبقاش فيه طريق نوصل بيه للـ Object.
+إذن:
+Unreachable → Garbage Collector can remove it.
+
+Mark-and-Sweep 👇
+دلوقتي ندخل في إزاي Garbage Collector بيعمل الشغلانة دي؟
+Step 1 — Mark Roots
+الـ Garbage Collector يبدأ من الـ Roots.
+Step 2 — Follow References
+يمشي من الـ Roots ويتبع كل الـ References.
+Root
+ ↓
+Object A
+ ↓
+Object B
+ ↓
+Object C
+
+كل Object يقدر يوصل له:
+Mark ✅
+Step 3 — يكرر العملية
+يتابع الـ References الموجودة داخل الـ Objects لحد ما يخلص كل الـ reachable objects.
+Step 4 — Sweep
+أي Object مش معمول له Mark:
+Unmarked → Remove 🗑️
+ده سبب اسم:
+Mark-and-Sweep
+Mark → علّم الحاجات اللي لسه Reachable
+Sweep → شيل اللي متعلمش عليه
+*************************************
+هل إحنا بنعمل Garbage Collection بإيدنا؟  👇
+لا في js 
+
+Garbage Collection:
+Automatic
+والـ JavaScript engine هو اللي بيديره.
+
+لخلاصة اللي عايزك تثبتها
+احفظ الـ mental model ده:
+Object
+  ↓
+هل لسه ممكن نوصل له من Root؟
+  ↓
+ YES → Reachable → Keep
+  ↓
+ NO  → Unreachable → Garbage Collector may remove it 
+
+Garbage Collection بيعتمد على Reachability من الـ Roots،
+مش مجرد وجود References بين الـ Objects.
+يعني مفيش root , يبقي هيتسمحو من الميموري عن طريق GC
+****************************************************
+🟢 الـ Best Practice
+لو بتكتب Method داخل Object literal:
+استخدم Method Shorthand.
+const user = {
+  login() {},
+  logout() {},
+  sayHi() {}
+};
+******************************************************
+***********************	This🟢	**********************
+this
+
+بتشير إلى الـ Object اللي قبل الـ dot.
+يعني:
+
+user.sayHi();
+يبقى:
+this === user
+إذن:
+this.name
+نفس:
+user.name
+فالكود:
+console.log(this.name);
+بيجيب:
+Yousef
+
+احفظها بالطريقة دي
+لما تشوف:
+something.doSomething();
+اسأل نفسك:
+مين اللي قبل الـ .   ؟
+الإجابة:
+something
+إذن:
+this === something
+مثال:
+user.sayHi();
+this === user
+
+********	ليه نستخدم this بدل اسم الـ Object؟ 		********
+ممكن تعمل:
+const user = {
+  name: "Yousef",
+  sayHi() {
+    console.log(user.name);
+  }
+};
+وهتشتغل.
+لكن مش Best Practice.
+الأفضل:
+const user = {
+  name: "Yousef",
+  sayHi() {
+    console.log(this.name);
+  }
+};
+
+*************************
+let user = {
+  name: "Yousef",
+  sayHi() {
+    console.log(user.name);
+  }
+};
+let admin = user;
+user = null;
+admin.sayHi();
+هيلطع Error
+لكن لو عملنا
+let user = {
+  name: "Yousef",
+  sayHi() {
+    console.log(this.name);
+  }
+};
+let admin = user;
+user = null;
+admin.sayHi();
+هيطبع Yousef
+************************************
+🟢*********************	أهم نقطة في this	*******************🟢
+بلاش تقول:
+"this بتشير للـ Object اللي الـ Function جواه."
+❌ التعبير ده ممكن يوقعك.
+الأصح:
+this بتتحدد وقت استدعاء الـ Function
+ حسب الـ Object اللي قبل الـ dot.
+مثال:
+user.sayHi();
+this === user
+لكن لو نفس الـ Function اتنقلت:
+admin.sayHi();
+this === admin
+وده اسمه:
+Runtime evaluated this
+*********************** Arrow Functions و this ⚠️****************
+دي نقطة مهمة جدًا.
+الـ Arrow Function مختلفة.
+الـ Arrow Function ليس لديها this خاص بها.
+متعملش:
+const user = {
+  name: "Yousef",
+
+  sayHi: () => {
+    console.log(this.name);
+  }
+};
+وتتوقع:
+Yousef
+❌ لأ.
+فلو محتاج Method تعتمد على this، استخدم:
+const user = {
+  name: "Yousef",
+  sayHi() {
+    console.log(this.name);
+  }
+};
+***طيب ليه الـ function العادية اللي بره Object عندها this = undefined***
+"use strict";
+function sayHi() {
+  console.log(this);
+}
+sayHi();
+فالـ JavaScript بتخلي:
+this === undefined
+وده مش معناه إن الـ function "ملهاش this".
+لأ.
+الـ function عندها this
+لكن قيمته هنا undefined
+لأن طريقة الاستدعاء مفيهاش object.
+
+****this في الـ regular function 
+معناها أقرب لـ:
+"مين اللي استدعى الـ function
+ بالطريقة دي؟"
+
+********************
+أهم 3 قواعد من Topic 4 لحد هنا 🔥
+1️⃣ obj.method()
+   ↓
+   regular function
+   ↓
+   this = obj
+2️⃣ function()
+   ↓
+   regular function + strict mode
+   ↓
+   this = undefined
+3️⃣ arrow function
+   ↓
+   no own this
+   ↓
+   inherits this from outer scope
+
+const user = {
+  name: "Yousef",
+  sayHi() {
+    const arrow = () => {
+      console.log(this.name);
+    };
+    arrow();
+  }
+};
+user.sayHi();
+
+الـ arrow بتقول:
+أنا مليش this
+هاتولي this من sayHi
+
+عندنا هنا Function داخل Function:
+
+user
+ │
+ └── sayHi()          ← Function خارجية
+       │
+       └── arrow()    ← Arrow Function داخلها
+
+sayHi
+  │
+  │ this = user
+  ↓
+arrow
+  │
+  │ مفيش this خاصة بيها
+  ↓
+تستخدم this بتاعة sayHi
+  │
+  ↓
+user
+
+كده دي خلاصه This
+بتاعه ال Arrow Functions 
+يبقي هي ملهاش This , هي بتورثها من ال Regular Function sayHi()
+function outer() {
+    const inner = () => {
+        // inner هنا
+    };
+}
+هنا:
+outer = surrounding function
+inner = arrow function
+فالـ inner تاخد this من outer.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

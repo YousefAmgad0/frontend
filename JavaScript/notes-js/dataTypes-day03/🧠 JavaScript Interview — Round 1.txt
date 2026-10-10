@@ -1,0 +1,628 @@
+🧠 JavaScript Interview — Round 1
+Data Types → Strings → Numbers → Arrays
+Q1 — What are the primitive data types in JavaScript?
+🎯 Interview Answer
+
+JavaScript has seven primitive data types: String, Number, BigInt, Boolean, Undefined, Null, and Symbol.
+
+🇪🇬 بالمصري
+
+الـ Primitive Data Types هي قيم بسيطة مش Objects:
+
+String
+Number
+BigInt
+Boolean
+Undefined
+Null
+Symbol
+
+مثال:
+
+const name = "Yousef";       // String
+const age = 23;              // Number
+const isAdmin = false;       // Boolean
+const x = undefined;         // Undefined
+const user = null;           // Null
+const id = Symbol("id");     // Symbol
+const big = 123n;            // BigInt
+🔥 Important
+
+احفظ السبعة دول كويس جدًا؛ سؤال مباشر ومشهور.
+
+Q2 — What is the difference between null and undefined?
+🎯 Interview Answer
+
+undefined usually means that a value has not been assigned, while null is an intentional value that represents the absence of an object or value.
+
+🇪🇬 بالمصري
+
+ببساطة:
+
+let x;
+console.log(x); // undefined
+
+يعني مفيش قيمة اتحددت أصلًا.
+
+أما:
+
+let user = null;
+
+أنا بنفسي بقول:
+
+مفيش User حاليًا.
+
+يعني:
+
+undefined → القيمة مش موجودة / مش اتحددت
+null      → أنا متعمد أقول مفيش قيمة
+🔥 Best Practice
+
+لو عايز تمثل "مفيش قيمة" بشكل مقصود، null واضحة جدًا.
+
+Q3 — What is typeof null?
+🎯 Interview Answer
+
+typeof null returns "object". This is a historical behavior in JavaScript and is considered a legacy quirk.
+
+typeof null;      // "object"
+typeof undefined; // "undefined"
+🇪🇬 بالمصري
+
+دي من أشهر JavaScript traps.
+
+null المفروض تمثل عدم وجود Object، لكن:
+
+typeof null
+
+بترجع:
+
+"object"
+
+وده مش معناه إن null Object فعلًا.
+
+دي حاجة تاريخية في JavaScript.
+
+⚠️ Interview Trap
+
+لو سألك:
+
+Is null an object?
+
+قول:
+
+No. null is a primitive value, although typeof null returns "object" because of a historical JavaScript quirk.
+
+🔥 دي إجابة قوية جدًا.
+
+Q4 — What is Type Coercion?
+🎯 Interview Answer
+
+Type coercion is the automatic or implicit conversion of a value from one data type to another.
+
+مثال:
+
+"10" + 5
+
+الناتج:
+
+"105"
+
+لأن JavaScript حولت 5 إلى String.
+
+لكن:
+
+"10" - 5
+
+الناتج:
+
+5
+
+لأن - بيجبر القيم تكون Numbers.
+
+🇪🇬 بالمصري
+
+JavaScript أحيانًا بتحاول تحول الـ type لوحدها عشان العملية تشتغل.
+
+🔥 Best Practice
+
+في الشغل، متعتمدش على coercion الضمنية بشكل عشوائي.
+لو محتاج تحويل واضح، اعمله بنفسك:
+
+Number(value)
+String(value)
+Boolean(value)
+Q5 — == vs ===
+🎯 Interview Answer
+
+== compares values after performing type coercion, while === compares both value and type without type coercion.
+
+مثال:
+
+5 == "5"   // true
+5 === "5"  // false
+⭐ Which do you prefer?
+
+I prefer === because it avoids unexpected type coercion and makes comparisons more predictable.
+
+🇪🇬 بالمصري
+==  → ممكن يحول Type
+=== → مفيش Type Conversion
+🔥 Best Practice
+
+في كود الـ Front-End العادي:
+
+=== 
+!== 
+
+هما الـ preferred choice.
+
+Q6 — What are Truthy and Falsy values?
+🎯 Interview Answer
+
+A truthy value behaves like true in a boolean context, while a falsy value behaves like false.
+
+أهم الـ falsy values:
+
+false
+0
+-0
+0n
+""
+null
+undefined
+NaN
+
+مثال:
+
+if ("Yousef") {
+  console.log("Runs");
+}
+
+لأن String غير فاضي = Truthy.
+
+لكن:
+
+if ("") {
+  console.log("Won't run");
+}
+
+لأن Empty String = Falsy.
+
+🔥 مهم جدًا
+
+في الـ Front-End هتستخدم الـ concept ده باستمرار:
+
+if (user) {}
+if (products.length) {}
+if (!value) {}
+Q7 — || vs ??
+🎯 Interview Answer
+
+The || operator returns the right-hand value when the left-hand value is falsy, while ?? only falls back when the left-hand value is null or undefined.
+
+مثال:
+
+const count = 0;
+
+console.log(count || 10); // 10
+console.log(count ?? 10); // 0
+ليه؟
+
+لأن:
+
+0
+
+Falsy.
+
+لكنها مش null ولا undefined.
+
+⭐ Best Practice
+
+لو أنت عايز default فقط لما القيمة مش موجودة فعلًا:
+
+value ?? defaultValue
+
+غالبًا دي أدق.
+
+Q8 — What is Optional Chaining?
+🎯 Interview Answer
+
+Optional chaining ?. allows us to safely access nested properties without throwing an error if an intermediate value is null or undefined.
+
+مثال:
+
+const name = user?.profile?.name;
+
+بدل:
+
+user.profile.name
+
+لو profile مش موجود، الكود الأول مش هيعمل Error.
+
+🇪🇬 بالمصري
+
+بتقول لـ JavaScript:
+
+"لو الحاجة دي موجودة كمل، لو مش موجودة رجع undefined بدل ما تكسر الكود."
+
+🔥 Front-End Use
+
+مهمة جدًا مع API data:
+
+product?.category?.name
+Q9 — Are Strings mutable or immutable?
+🎯 Interview Answer
+
+Strings are immutable in JavaScript, which means their contents cannot be changed directly after creation.
+
+مثال:
+
+let name = "Yousef";
+
+name[0] = "A";
+
+console.log(name);
+
+هتفضل:
+
+Yousef
+
+لو عايز تغيرها:
+
+name = "Ahmed";
+
+أنت عملت String جديدة.
+
+🧠 Mental Model
+String
+   ↓
+Immutable
+   ↓
+Can't modify characters directly
+Q10 — slice() vs substring() vs substr()
+🎯 Interview Answer
+
+slice() extracts part of a string and supports negative indexes. substring() treats negative indexes as zero. substr() is deprecated and should generally not be used in modern JavaScript.
+
+مثال:
+
+const text = "JavaScript";
+
+text.slice(0, 4);      // "Java"
+text.substring(0, 4);  // "Java"
+⭐ Preferred
+
+استخدم:
+
+slice()
+
+خصوصًا لأنه بيدعم negative indexes.
+
+⚠️ Important
+
+substr():
+
+⚪ Legacy / Deprecated
+
+مش محتاج تستخدمه في كود جديد.
+
+Q11 — parseInt() vs Number()
+
+مثال:
+
+parseInt("100px")
+
+الناتج:
+
+100
+
+بينما:
+
+Number("100px")
+
+الناتج:
+
+NaN
+🎯 Interview Answer
+
+parseInt() parses an integer from the beginning of a string, while Number() tries to convert the entire value into a number.
+
+⭐ Best Practice
+
+لو الـ API رجع:
+
+"30000"
+
+استخدم:
+
+Number(price)
+
+لأنك عايز تتأكد إن القيمة كلها رقم.
+
+Q12 — What does Number() return?
+Number("10")       // 10
+Number("")         // 0
+Number("hello")    // NaN
+Number(null)       // 0
+Number(undefined)  // NaN
+🧠 Important
+
+خصوصًا:
+
+Number("")
+
+دي 0، مش NaN.
+
+Q13 — Math.floor() vs ceil() vs round()
+🎯 Interview Answer
+
+Math.floor() rounds down, Math.ceil() rounds up, and Math.round() rounds to the nearest integer.
+
+مثال:
+
+Math.floor(4.8); // 4
+Math.ceil(4.2);  // 5
+Math.round(4.6); // 5
+🧠 احفظها:
+floor → تحت
+ceil  → فوق
+round → الأقرب
+🔥 Q14 — slice() vs splice() in Arrays
+🎯 Interview Answer
+
+slice() returns a new array without modifying the original array, while splice() modifies the original array and can add or remove elements.
+
+مثال:
+
+const arr = [1, 2, 3, 4];
+
+const result = arr.slice(1, 3);
+
+arr لم تتغير.
+
+لكن:
+
+arr.splice(1, 2);
+
+الـ original Array اتغيرت.
+
+🔥 Important
+slice  → ❌ mutation
+splice → ✅ mutation
+
+دي من أهم Array interview questions.
+
+🔥 Q15 — map() vs forEach()
+🎯 Interview Answer
+
+map() transforms each element and returns a new array, while forEach() only executes a function for each element and returns undefined.
+
+مثال:
+
+const numbers = [1, 2, 3];
+
+const result = numbers.map(number => number * 2);
+
+الناتج:
+
+[2, 4, 6]
+
+أما:
+
+numbers.forEach(number => {
+  console.log(number);
+});
+
+هدفها side effects / execution، مش إنشاء Array جديدة.
+
+🔥 قاعدة مهمة
+map
+→ Transform
+→ returns Array
+
+forEach
+→ Execute
+→ returns undefined
+🔥 Q16 — When do you use filter()?
+🎯 Interview Answer
+
+I use filter() when I need to create a new array containing only the elements that satisfy a condition.
+
+مثال:
+
+const availableProducts = products.filter(
+  product => product.stock > 0
+);
+
+الـ original Array لا تتغير.
+
+🧠 Mental Model
+Array
+ ↓
+filter(condition)
+ ↓
+Only matching elements
+🔥 Q17 — find() vs findIndex() vs filter()
+🎯 Interview Answer
+
+find() returns the first matching element, findIndex() returns the index of the first matching element, and filter() returns all matching elements as a new array.
+
+مثال:
+
+products.find(product => product.id === 2);
+
+→ Product Object
+
+products.findIndex(product => product.id === 2);
+
+→ Index
+
+products.filter(product => product.category === "Electronics");
+
+→ Array of all matching products
+
+🔥 احفظها:
+find
+→ First Object
+
+findIndex
+→ First Index
+
+filter
+→ All Matches
+Q18 — some() vs every()
+🎯 Interview Answer
+
+some() checks whether at least one element satisfies a condition, while every() checks whether all elements satisfy the condition.
+
+مثال:
+
+products.some(product => product.stock === 0);
+
+يعني:
+
+هل فيه منتج واحد على الأقل stock بتاعه 0؟
+
+أما:
+
+products.every(product => product.stock > 0);
+
+يعني:
+
+هل كل المنتجات متاحة؟
+
+🧠
+some  → At least one
+every → All
+🔥 Q19 — Does sort() mutate the original Array?
+🎯 Interview Answer
+
+Yes. sort() mutates the original array.
+
+مثال:
+
+const sorted = [...products].sort(
+  (a, b) => b.price - a.price
+);
+
+استخدمنا:
+
+[...products]
+
+عشان نعمل shallow copy ونسيب الـ original زي ما هي.
+
+🔥 Front-End Best Practice
+
+خصوصًا في React:
+
+const sorted = [...products].sort(...)
+
+أفضل من:
+
+products.sort(...)
+
+لو أنت مش عايز mutate للـ state/data الأصلية.
+
+🔥 Q20 — Why doesn't [10, 2, 30].sort() sort numerically?
+
+لأن sort() افتراضيًا بيقارن العناصر كـ Strings.
+
+[10, 2, 30].sort();
+
+ممكن تتعامل كأنها:
+
+"10"
+"2"
+"30"
+
+والترتيب Lexicographical.
+
+⭐ الحل
+
+Ascending:
+
+numbers.sort((a, b) => a - b);
+
+Descending:
+
+numbers.sort((a, b) => b - a);
+🎯 Interview Answer
+
+By default, sort() converts elements to strings and sorts them lexicographically. For numeric sorting, we provide a compare function such as (a, b) => a - b.
+
+🏆 Round 1 — Memorization Sheet
+
+لو عايز تحفظ الخلاصة السريعة قبل Interview:
+
+Primitive Types
+→ String, Number, BigInt, Boolean, Undefined, Null, Symbol
+
+null
+→ intentional absence of value
+
+undefined
+→ value not assigned / missing
+
+typeof null
+→ "object" (historical quirk)
+
+==
+→ type coercion
+
+===
+→ strict comparison ⭐
+
+Falsy
+→ false, 0, -0, 0n, "", null, undefined, NaN
+
+||
+→ fallback for any falsy value
+
+??
+→ fallback only for null / undefined
+
+?.
+→ safe access to nested properties
+
+String
+→ immutable
+
+slice
+→ non-mutating
+
+splice
+→ mutating
+
+map
+→ transform → new Array
+
+forEach
+→ execute → undefined
+
+filter
+→ all matching elements
+
+find
+→ first matching element
+
+findIndex
+→ first matching index
+
+some
+→ at least one
+
+every
+→ all
+
+sort
+→ mutates original
+
+[...arr].sort()
+→ sort a copy
+
+sort()
+→ lexicographical by default
+
+reduce
+→ one final result

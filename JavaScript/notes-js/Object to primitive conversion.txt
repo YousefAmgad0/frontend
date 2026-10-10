@@ -1,0 +1,5 @@
+Object to primitive conversion
+*******************************
+خد منه الفكرة فقط:
+
+JavaScript أحيانًا تحتاج تحول Object إلى Primitive عشان تعمل عملية معينة، وبتستخدم Symbol.toPrimitive أو valueOf() / toString() للتحويل.

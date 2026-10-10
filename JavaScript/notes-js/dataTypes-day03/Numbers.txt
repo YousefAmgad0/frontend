@@ -1,0 +1,259 @@
+Numbers
+****************************************************
+دي أهم Formula تحفظها:
+Math.floor(Math.random() * (max - min + 1)) + min;
+
+والـ الأحسن في الشغل إنك بدل ما تكرر الـ formula كل مرة، تعمل function:
+
+function randomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+randomInt(20, 50);
+
+****************************************************
+****************************************************
+دي أهم🔥 3. Random Array Element
+
+دي من أكتر الحاجات اللي ممكن تستخدمها:
+
+const randomItem = arr[Math.floor(Math.random() * arr.length)];
+
+مثال:
+
+const colors = ["red", "blue", "green", "black"];
+
+const color = colors[Math.floor(Math.random() * colors.length)];
+
+****************************************************
+✅ الأحسن في الشغل
+
+بدل:
+
+const population = 1000000000;
+
+الأوضح:
+
+const population = 1_000_000_000;
+
+خصوصًا لما الرقم كبير.
+******************
+Scientific notation — e
+-----------------------
+
+1e3   // 1000
+1e2   // 100
+1e-2  // 0.01
+
+الفكرة الأساسية: الرقم بعد e بيحدد كام صفر / قوة 10.
+**************
+فالـ 3 اللي JavaScript بتدعم كتابتهم مباشرة:
+
+0x → Hexadecimal
+0b → Binary
+0o → Octal
+****************
+كده نثبتها:
+toString(2)  → Binary
+toString(8)  → Octal
+toString(10) → Decimal
+toString(16) → Hex
+
+والـ base هنا معناها: إنت عايز الرقم يتكتب بأي نظام عددي.
+
+وده عكس اللي عملناه قبل كده مع:
+
+Number("255")
+
+اللي بيحوّل String → Number.
+
+أما:
+
+num.toString(16)
+
+بيحوّل Number → String representation بالـ Base اللي تحدده.
+**************************************************
+const num = -3.6;
+
+Math.floor(num); // -4 ✅
+Math.ceil(num);  // -3 ✅
+Math.round(num); // -4 ❌
+Math.trunc(num); // -3 ✅
+****************************
+⚠️ الأفضل تستخدم Number.isNaN()
+
+بدل الـ global:
+
+isNaN(value)
+
+لأن isNaN() القديمة بتعمل Type Conversion قبل ما تحكم.
+
+مثال:
+
+isNaN("123"); // false
+
+لأنها بتحول "123" إلى 123.
+
+لكن:
+
+Number.isNaN("123"); // false
+
+وهنا مفيش تحويل؛ "123" أصلًا مش NaN.
+
+الأحسن في الكود الحديث لما تكون عايز تتحقق من NaN نفسها:
+
+Number.isNaN(value)
+
+شوف المثال ده 👇
+isNaN("hello");         // true
+Number.isNaN("hello");  // false
+ليه؟
+isNaN() القديمة بتعمل Type Conversion الأول:
+
+*************************************
+2️⃣ Number.isFinite()
+
+دي بتسألك:
+
+هل القيمة Number حقيقية ومحدودة وليست Infinity أو -Infinity أو NaN؟
+
+Number.isFinite(100);      // true
+Number.isFinite(3.14);     // true
+Number.isFinite(Infinity); // false
+Number.isFinite(NaN);      // false
+
+******************************
+والـ radix في parseInt()
+
+الأفضل لما تستخدم parseInt إنك تحدد الـ base صراحة:
+
+parseInt("1010", 2); // 10
+
+وفي الحالة العادية:
+
+parseInt("123", 10); // 123
+
+Best practice:
+
+parseInt(value, 10);
+
+بدل الاعتماد على إن JavaScript تستنتج الـ base.
+
+parseInt("25.75");    // 25 ✅
+parseFloat("25.75");  // 25.75 ✅
+Number("25.75");      // 25.75 ✅
+parseInt("25px");     // 25 ✅
+Number("25px");       // NaN ✅
+******************************************
+⚠️ Imprecise Calculations — مشكلة الدقة في الأرقام
+دي من أهم أجزاء Numbers للشغل، خصوصًا لو هتتعامل مع:
+
+أسعار 💰
+Cart / Checkout
+Discounts
+Percentages
+Statistics
+أي calculations فيها decimals
+
+JavaScript بيستخدم Number بصيغة IEEE-754 64-bit floating point
+وبعض الكسور العشرية لا يمكن تمثيلها بدقة كاملة في Binary
+
+*************************
+console.log(0.1 + 0.2); ......................> 0.30000000000000004
+
+💼 ليه الموضوع مهم ليك كـ Front-End؟
+
+تخيل Shopping Cart:
+const price1 = 0.1;
+const price2 = 0.2;
+
+const total = price1 + price2;
+console.log(total);
+هتلاقي:
+0.30000000000000004
+أكيد مش عايزين نعرض للمستخدم
+$0.30000000000000004
+
+الحل الشائع للـ Display
+
+نستخدم toFixed():
+const total = Number((0.1 + 0.2).toFixed(2));
+او
+const total = +(0.1 + 0.2).toFixed(2);
+
+****************************
+💼 استخدام مهم جدًا مع Array
+
+خد بالك من الحتة دي، دي مفيدة في الشغل:
+
+const numbers = [10, 20, 5, 30];
+
+Math.max(...numbers); // 30
+Math.min(...numbers); // 5
+
+يعني:
+Math.max(...numbers);
+كأنك كتبت:
+Math.max(10, 20, 5, 30);
+🔥 دي طريقة شائعة جدًا.
+
+3️⃣ Math.pow()
+بتعمل Power:
+Math.pow(2, 10);
+// 1024
+لكن في JavaScript الحديث
+الأحسن غالبًا تستخدم **
+2**10  اهو كده
+
+الخلاصه :
+Math.max(10, 20, 5); // 20
+Math.min(10, 20, 5); // 5
+Math.max(...numbers); // أكبر عنصر في Array
+Math.min(...numbers); // أصغر عنصر في Array
+2 ** 3; // 8
+
+***************************
+Number.isSafeInteger(100);
+// true
+
+Number.isSafeInteger(9007199254740991);
+// true
+
+Number.isSafeInteger(9007199254740992);
+// false
+********************************
+بس أهم حاجات لازم تخرج بيها فعلًا مش إنك تحفظ كل function، لكن تعرف تستخدم:
+
+Math.floor()
+Math.ceil()
+Math.round()
+Math.trunc()
+
+Math.max(...array)
+Math.min(...array)
+
+Math.random()
+
+Number()
+Number.isNaN()
+Number.isFinite()
+
+parseInt()
+parseFloat()
+
+toFixed()
+
+وأهم 4 Patterns للشغل:
+
+// Random integer
+Math.floor(Math.random() * (max - min + 1)) + min;
+
+// Random array item
+array[Math.floor(Math.random() * array.length)];
+
+// Max / Min array
+Math.max(...array);
+Math.min(...array);
+
+// Round for display
+Number(value.toFixed(2));

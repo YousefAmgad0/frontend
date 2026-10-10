@@ -1,0 +1,473 @@
+				|JSON|
+				******
+Data Format   هو 
+بنستخدمه عشان نمثل البيانات في شكل مفهوم وقابل للإرسال والتخزين
+والـ Front-End والـ Backend يقدروا يتبادلوا البيانات بيه.
+
+تخيل عندك User في JavaScript:
+
+const user = {
+  name: "Yousef",
+  age: 23,
+  isAdmin: false
+};
+
+ده JavaScript Object.
+
+لو عايزين نحوله لصيغة JSON:
+
+{
+  "name": "Yousef",
+  "age": 23,
+  "isAdmin": false
+}
+لاحظ إن JSON شكله شبه الـ Object جدًا، لكن مش هو JavaScript Object.
+
+----------------------------------------2. ليه محتاجين JSON؟ 🔥🔥🔥-------------------------------
+دي أهم فكرة في اليوم كله.
+تخيل:
+Frontend
+   ↓
+عايز يبعت بيانات
+   ↓
+Backend
+
+الـ Frontend ممكن يكون JavaScript، لكن الـ Backend ممكن يكون:
+Python
+Java
+PHP
+Node.js
+C#
+...
+إحنا محتاجين لغة/Format مشترك للبيانات.
+وهنا يأتي JSON.
+
+--------------------------------------------3. JSON vs JavaScript Object------------------------------
+دي لازم تثبت جدًا.
+
+JavaScript Object
+const user = {
+  name: "Yousef",
+  age: 23
+};
+
+ده Object حقيقي في JavaScript.
+
+تقدر تعمل:
+
+console.log(user.name);   >>>> Yousef
+JSON
+{
+  "name": "Yousef",
+  "age": 23
+}
+
+ده JSON data representation.
+
+مش تروح تعمل:
+
+json.name
+
+وتعتبره Object.
+
+لازم الأول يكون عندك JavaScript Object.    >>>>>>> عن طريق ال stringfy
+
+-----------------------------------------4. JSON.stringify() 🔥🔥🔥-----------------------------------
+دي أول Method أساسية.
+JavaScript Value → JSON String
+JSON.stringify()
+
+Object
+  ↓
+JSON.stringify()
+  ↓
+String
+
+const user = {
+  name: "Yousef",
+  age: 23
+};
+
+const json = JSON.stringify(user);
+
+console.log(json);  >>>>  {"name":"Yousef","age":23}
+لكن خد بالك جدًا:
+console.log(typeof json);   >>>> string
+
+-----------------------------------7. Important JSON Rules 🔥 -------------------------------------
+Strings لازم Double Quotes
+{
+  "name": "Yousef"
+} 
+------------------------8. JSON مش بيدعم JavaScript-specific hings---------------------------------
+JavaScript.info بتوضح إن:
+
+Functions → يتم تجاهلها
+Symbol keys/values → يتم تجاهلها
+Properties بقيمة undefined → يتم تجاهلها
+
+يعني:
+
+const user = {
+  name: "Yousef",
+  age: undefined,
+  sayHi() {}
+};
+
+console.log(JSON.stringify(user));
+
+تقريبًا:
+
+{"name":"Yousef"}
+
+------------------------------------------9. Nested Objects-----------------------------------------
+JSON بيتعامل تلقائيًا مع الـ nested objects والـ arrays.
+
+----------------------------------------🔥 Front-End Example-----------------------------------------
+تخيل عندك Login:
+
+const userData = {
+  email: "yousef@example.com",
+  password: "123456"
+};
+لو محتاج تبعت data للـ Backend
+ هتتعامل مع JSON, في الـ request body.
+
+الفكرة:
+
+Form
+ ↓
+JavaScript Object
+ ↓
+JSON
+ ↓
+Backend API
+
+دي من الحاجات اللي لازم تكون فاهمها تمامًا كـ Front-End Developer.
+
+------------------------------------2. JSON.stringify() — Options-----------------------------
+JSON.stringify(value, replacer, spaces) 
+ممكن تستقبل اكتر من argument
+
+🟡 replacer		مش مهم اوي ف الشغل 
+ممكن يكون:
+Array
+Function
+أو null
+
+1. Replacer as Array
+مثلاً:
+const user = {
+  name: "Yousef",
+  age: 23,
+  role: "Frontend Developer"
+};
+لو عملنا:
+const json = JSON.stringify(user, ["name", "age"]);
+النتيجة:		{"name":"Yousef","age":23}
+يعني إحنا قلنا لـ JSON.stringify():
+خد بس name و age.
+
+2. Replacer as Function
+
+وده أقوى شوية.
+const user = {
+  name: "Yousef",
+  age: 23,
+  password: "123456"
+};
+ممكن نقول:
+
+const json = JSON.stringify(user, (key, value) => {
+  if (key === "password") {
+    return undefined;
+  }
+
+  return value;
+});
+
+النتيجة:		{"name":"Yousef","age":23}
+ليه؟
+
+لأن:
+
+return undefined;
+
+معناها:
+
+متدخلش الـ property دي في JSON.
+
+وده يوضحلك إن replacer
+بيديك تحكم في البيانات اللي هتتعمل لها serialization.
+
+🟡 أهميته في الشغل
+الفكرة مهمة، لكن استخدام replacer نفسه مش من الحاجات اللي لازم تحفظها.
+ممكن تحتاجه في حالات معينة، لكن مش كل يوم.
+
+
+3. spaces / Formatting 
+مسؤله عن  ازاي هتعرض ال json
+
+console.log(JSON.stringify(user, null, 2)); الـ 2 معناها indentation بمقدار مسافتين.
+---------------------------------------1. What is toJSON()?  ..>مش مهمه --------------------------------------
+هي method داخل object بتحدد:
+لما حد يعمل JSON.stringify() 
+القيمة اللي تتحول لـ JSON تكون إيه?
+يعني بدل ما JSON.stringify()
+تاخد الـ object كله بشكل مباشر
+لو لقت فيه toJSON()
+بتشغلها وتستخدم القيمة اللي رجعتها.
+
+---------------------------------2. Why do we use it ?  مش مهمه ---------------------------------------------
+لما يكون عندك object معقد
+محتاج تتحكم في إيه اللي يتحول للـ JSON
+
+
+-------------------------------------3. أهم مثال في المصدر: Date 🔥🔥🔥-------------------------------
+date.toISOString()
+الـ Date في JavaScript 
+عنده toJSON() جاهزه
+
+const meetup = {
+  title: "Conference",
+  date: new Date("2017-01-01")
+};
+console.log(JSON.stringify(meetup));
+
+الـ date مش هتطلع كـ Date Object.
+
+-----------------------------------7. أهم نقطة عملية مع APIs 🔥🔥🔥-------------------------------------
+const product = {
+  title: "Laptop",
+  createdAt: new Date()
+};
+
+لما تبعته للـ Backend:
+
+const body = JSON.stringify(product);
+الـ createdAt هيتحول إلى String.
+
+وبالتالي الـ Backend يستقبل حاجة بالشكل ده:
+
+{
+  "title": "Laptop",
+  "createdAt": "2026-10-03T..."
+}
+
+ولما البيانات ترجع للـ Front-End وتعمل:
+
+const data = JSON.parse(body);
+⚠️ createdAt مش هترجع Date Object تلقائيًا.
+
+هتبقى:
+typeof data.createdAt	// "string"
+
+🧠 احفظها في سطر واحد
+
+JSON.stringify() لو لقت toJSON() بتشغلها 
+ Date عنده toJSON() جاهزة بتحوله لـ ISO String.
+
+------------------------------------------JSON.parse()-----------------------------------------
+إحنا خدنا:
+
+JSON.stringify()
+
+ودي بتحول:
+
+JavaScript Value
+      ↓
+   JSON String
+
+دلوقتي العكس تمامًا:
+
+JSON.parse()
+
+بتحول:
+
+JSON String
+     ↓
+JavaScript Value
+
+🧠 Mental Model
+Object
+   ↓
+JSON.stringify()
+   ↓
+JSON String
+   ↓
+JSON.parse()
+   ↓
+Object
+
+وده أساس مهم جدًا في التعامل مع الـ APIs والـ data storage.
+
+--------------------------------------------2. Basic Example 🔥---------------------------------------
+عندنا JSON String:
+
+const json = '{"name":"Yousef","age":23}';
+
+لاحظ إن ده String، مش Object.
+
+لو عايزين نرجعه لـ JavaScript Object:
+
+const user = JSON.parse(json);
+وتقدر تتعامل معاه عادي:
+
+console.log(user.name);
+console.log(user.age);
+
+الناتج:
+Yousef
+23
+
+------------------------------------------3. stringify vs parse 🔥🔥🔥-------------------------------
+دي من أهم الحاجات اللي لازم تثبت.
+
+Method			From			To
+JSON.stringify()	JavaScript value	JSON String
+JSON.parse()		JSON String		JavaScript value
+
+لكن خلي بالك:
+parse مش لازم ترجع Object فقط
+ممكن ترجع Array أو primitive حسب الـ JSON
+المصدر يوضح إن JSON يدعم objects وarrays وstrings وnumbers وbooleans وnull
+
+مع ال Array
+JSON.parse("[1, 2, 3]");
+ترجع:
+[1, 2, 3]
+
+
+---------------------------------------6. Real Front-End Usage 🔥🔥🔥--------------------------------
+أهم مكان هتقابل فيه JSON هو APIs.
+
+لو عندك JSON String يدويًا:
+
+const json = '{"id":1,"title":"Laptop","price":30000}';
+
+const product = JSON.parse(json);
+----------
+
+7. مهم جدًا مع fetch
+في الـ Front-End غالبًا مش هتعمل:
+JSON.parse()
+
+يدويًا مع fetch.
+
+ليه؟
+
+لأن عندك:
+
+const response = await fetch("/api/products");
+
+const data = await response.json();
+
+------------------------------------8. JSON + localStorage 🔥------------------------------------------
+دي من أشهر الاستخدامات العملية لـ JSON.stringify() + JSON.parse().
+localStorage بيخزن Strings.
+
+فلو عندك:
+const user = {
+  name: "Yousef",
+  age: 23
+};
+
+مش هتعمل:
+localStorage.setItem("user", user);
+
+لأنك محتاج تحول الـ object لـ String.
+
+فاتعمل:
+
+localStorage.setItem("user", JSON.stringify(user));
+
+ولما تجي تقرأه:
+const data = localStorage.getItem("user");
+const user = JSON.parse(data);
+---------------------------------------------------مهم----------------------------------------------
+إذن:
+response.json()
+✅ مناسبة مع fetch Response.
+
+JSON.parse(jsonString)
+✅ مناسبة لما يكون عندك JSON String بالفعل.
+
+❌ مش كده:
+const response = await fetch("/api/products");
+JSON.parse(response); // ❌
+
+لأن response مش String.
+ ------------------------------------------------------------------------------------------
+JSON يستخدم double quotes وليس single quotes.
+
+وكمان JSON لا يدعم comments أو new Date()
+ داخل الـ JSON نفسه.
+
+
+--------------------------------------------reviver ---------------------------------------
+🔥 Real Front-End Usage
+
+أشهر حاجة محتاج تفهمها:
+
+API Date
+
+Backend:
+
+{
+  "createdAt": "2026-10-03T15:00:00.000Z"
+}
+
+بدون reviver:
+
+const data = JSON.parse(json);
+
+console.log(typeof data.createdAt);
+// string
+
+مع reviver:
+
+const data = JSON.parse(json, (key, value) => {
+  if (key === "createdAt") {
+    return new Date(value);
+  }
+
+  return value;
+});
+
+دلوقتي:
+
+data.createdAt instanceof Date
+// true
+
+وبالتالي:
+
+data.createdAt.getFullYear();
+
+يشتغل عادي. 🔥
+
+🧠 كده reviver اتقفلت عندك ✅
+
+أنت فاهم الحالات الثلاثة الأساسية:
+
+return value
+   ↓
+خلي القيمة زي ما هي
+
+return newValue
+   ↓
+غيّر القيمة
+
+return undefined
+   ↓
+احذف الـ property
+
+
+********
+🔥 لازم تعرف:
+Circular Reference ..>> دي problem , وتعريفها تحت
+       ↓
+Object refers back to itself
+       ↓
+JSON.stringify()
+       ↓
+Error
