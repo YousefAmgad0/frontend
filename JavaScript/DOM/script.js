@@ -184,3 +184,53 @@ for (const li of items) {
     li.firstChild.nodeValue += ` (${count})`;
   }
 }
+
+const heading1 = document.querySelector("#heading");
+const parg = document.createElement("p");
+parg.textContent = "yarab waf2ni";
+heading1.append(parg);
+
+document.body.style.backgroundColor = "red";
+
+setTimeout(() => {
+  document.body.style.removeProperty("background-color");
+}, 1500);
+
+function showNotification(options) {
+  const div = document.createElement("div");
+  div.classList.add("notification");
+  div.innerHTML = options.html;
+
+  if (options.className) {
+    div.classList.add(options.className);
+  }
+
+  div.style.position = "fixed";
+  div.style.top = `${options.top ?? 0}px`;
+  div.style.right = `${options.right ?? 0}px`;
+
+  document.body.append(div);
+
+  setTimeout(() => {
+    div.remove();
+  }, 1500);
+}
+
+showNotification({
+  top: 10,
+  right: 10,
+  html: "Hello JOOOOOO!",
+  className: "welcome",
+});
+
+// Element Size and Scrolling
+const box = document.querySelector("#box");
+
+console.log(box.offsetParent.id); // "main"
+console.log(box.offsetLeft);      // 180
+console.log(box.offsetTop);       // 100
+
+const example = document.querySelector("#example");
+
+console.log(example.offsetWidth);  // 390
+console.log(example.offsetHeight); // 290

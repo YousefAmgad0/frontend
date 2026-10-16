@@ -7,9 +7,19 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h1 style="font-size: 4rem; color: black; text-align: center">
+    <h1 id="heading" style="font-size: 4rem; color: black; text-align: center">
       بسم الصليب
     </h1>
+    <div id="example">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum
+      dolor sit amet, consectetur adipisicing elit.
+    </div>
+
+    <main id="main" style="position: relative">
+      <div id="box" style="position: absolute; left: 180px; top: 100px">
+        Hello
+      </div>
+    </main>
 
     <ul id="list"></ul>
 
@@ -86,7 +96,18 @@
     <div id="card">
       <p>Product</p>
     </div>
+    <button class="add-to-cart">Add to Cart</button>
 
+    <script>
+      const button = document.querySelector(".add-to-cart");
+
+      const rect = button.getBoundingClientRect();
+
+      console.log(rect.top,'top');
+      console.log(rect.left,'left');
+      console.log(rect.width);
+      console.log(rect.height);
+    </script>
     <script src="script.js"></script>
   </body>
 </html>
