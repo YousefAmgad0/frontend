@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>بسم الصليب</h1>
+    <form name="loginForm">
+      <input name="username" value="Yousef" />
+      <input name="email" value="yousef@example.com" />
+    </form>
+    <hr />
+    <form name="registerForm">
+      <input name="username" value="Yousef" />
+      <input name="email" value="test@mail.com" />
+    </form>
+    <hr />
+    <form name="profileForm">
+      <input name="username" value="Yousef" />
+
+      <select name="country">
+        <option value="eg">Egypt</option>
+        <option value="sa">Saudi Arabia</option>
+      </select>
+
+      <textarea name="bio">Front-End Developer</textarea>
+    </form>
+
+    <hr />
+
+    <select id="country">
+      <option value="eg">Egypt</option>
+      <option value="sa">Saudi Arabia</option>
+      <option value="ae">UAE</option>
+    </select>
+    <hr />
+    <select id="genres" multiple>
+      <option value="blues" selected>Blues</option>
+      <option value="rock" selected>Rock</option>
+      <option value="classic">Classic</option>
+    </select>
+    <hr />
+    <select id="genres2">
+      <option value="rock">Rock</option>
+      <option value="blues" selected>Blues</option>
+    </select>
+    <hr />
+    <input id="email2" type="text" />
+    <p id="error"></p>
+    <br />
+    <hr />
+    <input id="username2" />
+    <button id="edit">Start typing</button>
+    <br /><br />
+    <hr />
+    <div id="boxTest" tabindex="0">Hello</div>
+    <br /><br />
+    <hr />
+    <form id="formTest">
+      <input name="name" placeholder="Name" />
+      <input name="email" placeholder="Email" />
+    </form>
+    <br />
+    <hr />
+    <br />
+    <!-- Task 1 -->
+    <div tabindex="0" id="text3">Click me to edit!</div>
+    <br />
+    <hr />
+    <br />
+    <!-- Task 2 -->
+    <table id="bagua-table">
+      <tr>
+        <td>Yousef</td>
+        <td>Front-End</td>
+      </tr>
+      <tr>
+        <td>Ahmed</td>
+        <td>Designer</td>
+      </tr>
+    </table>
+    <hr />
+    <!-- Task 3 -->
+    <div id="field" tabindex="0">
+      <div id="mouse">🖱️</div>
+    </div>
+
+    <!-- Day 30 — Events: change, input, cut, copy, paste -->
+
+    <input id="name" type="text" />
+    <button>Submit</button>
+    <br />
+    <select id="country2">
+      <option value="">Choose a country</option>
+      <option value="eg">Egypt</option>
+      <option value="sa">Saudi Arabia</option></select
+    ><br />
+    <label for="username3">Your name:</label>
+    <input id="username3" type="text" />
+
+    <p>Hello, <span id="result"></span></p>
+    <br />
+    <input id="message4" value="Hello Yousef" /><br />
+    <hr />
+    <br />
+    <!-- Task 1 -->
+    <h1>Deposit Calculator</h1>
+
+    <label>
+      Initial deposit:
+      <input id="money" type="number" value="10000" />
+    </label>
+
+    <br /><br />
+
+    <label>
+      Interest per year (%):
+      <input id="interest" type="number" value="5" />
+    </label>
+
+    <br /><br />
+
+    <label>
+      Years:
+      <select id="years">
+        <option value="1">1 year</option>
+        <option value="2">2 years</option>
+        <option value="5">5 years</option>
+        <option value="10">10 years</option>
+      </select>
+    </label>
+
+    <p>
+      Deposit value:
+      <span id="result3"></span>
+    </p>
+
+    <div class="chart">
+      <div class="bar-container">
+        <div id="height-before" class="bar"></div>
+        <p>Before</p>
+      </div>
+
+      <div class="bar-container">
+        <div id="height-after" class="bar"></div>
+        <p>After</p>
+      </div>
+    </div>
+    <br />
+    <hr />
+    <br />
+    <form id="loginFormTest">
+      <label>
+        Email:
+        <input type="email" name="email" required />
+      </label>
+
+      <button type="submit">Login</button>
+    </form>
+    <!-- Task 1 -->
+
+    <div id="cover-div" hidden></div>
+
+    <form id="prompt-form" hidden>
+      <div id="prompt-message"></div>
+
+      <input id="prompt-input" type="text" />
+
+      <div>
+        <button type="submit">OK</button>
+        <button type="button" id="cancel">CANCEL</button>
+      </div>
+    </form>
+
+    <script src="script.js"></script>
+  </body>
+</html>

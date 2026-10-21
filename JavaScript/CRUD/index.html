@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Manager | CRUD</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="container header-content">
+        <h1>📦 Product Manager</h1>
+        <div class="product-count">
+          Total Products: <span id="products-count">0</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="container main-content">
+      <!-- Product Form -->
+      <section class="card">
+        <h2 class="section-title">➕ Add New Product</h2>
+
+        <form id="product-form">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="product-name">Product Name</label>
+              <input
+                type="text"
+                id="product-name"
+                placeholder="Enter product name"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="product-price">Price</label>
+              <input
+                type="number"
+                id="product-price"
+                placeholder="Enter price"
+                min="0"
+                step="any"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="product-tax">Tax (%)</label>
+              <input
+                type="number"
+                id="product-tax"
+                placeholder="Enter tax percentage"
+                min="0"
+                step="any"
+                value="0"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="product-discount">Discount (%)</label>
+              <input
+                type="number"
+                id="product-discount"
+                placeholder="Enter discount percentage"
+                min="0"
+                max="100"
+                step="any"
+                value="0"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="product-quantity">Quantity</label>
+              <input
+                type="number"
+                id="product-quantity"
+                placeholder="Enter quantity"
+                min="1"
+                step="1"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="product-category">Category</label>
+              <select id="product-category" required>
+                <option value="" disabled selected>Select category</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Accessories">Accessories</option>
+                <option value="Clothing">Clothing</option>
+                <option value="Home">Home</option>
+              </select>
+            </div>
+
+            <div class="form-group form-action">
+              <button type="submit" id="submit-btn" class="btn btn-success">
+                + Add Product
+              </button>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <!-- Products Table -->
+      <section class="card products-card">
+        <div class="products-toolbar">
+          <h2 class="section-title">☷ Products</h2>
+
+          <div class="toolbar-actions">
+            <input
+              type="search"
+              id="search-input"
+              placeholder="Search by name or category..."
+            />
+
+            <button
+              type="button"
+              id="delete-all-btn"
+              class="btn btn-outline-danger"
+            >
+              🗑 Delete All
+            </button>
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Product Name</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Tax</th>
+                <th>Discount</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+
+            <tbody id="products-table">
+              <!-- Your JavaScript will render products here -->
+            </tbody>
+          </table>
+
+          <p id="empty-message" class="empty-message">
+            No products found. Add your first product!
+          </p>
+        </div>
+      </section>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>
