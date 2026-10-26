@@ -247,6 +247,7 @@ loginFormTest.addEventListener("submit", (event) => {
   console.log("Form submitted!");
 });
 // Task
+/*
 const coverDiv = document.querySelector("#cover-div");
 const promptForm = document.querySelector("#prompt-form");
 const promptMessage = document.querySelector("#prompt-message");
@@ -281,3 +282,14 @@ function showPrompt(html, callback) {
 showPrompt("Enter something:", function (value) {
   alert(value);
 });
+*/
+//  FormData
+
+const form3 = document.querySelector("#login-form");
+const formData = new FormData(form3);
+console.log(formData.get("username"));
+
+const data5 = new FormData();
+
+data5.append("username", "Yousef");
+data5.append("skill", "React");
